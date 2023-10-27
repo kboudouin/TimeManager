@@ -27,7 +27,7 @@ jobs:
         username: ${{ secrets.AWS_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /home/ec2-user/TimeManager
+          cd /TimeManager
           git pull origin main
           docker-compose down
           docker-compose up -d
