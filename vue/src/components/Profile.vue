@@ -122,7 +122,7 @@ export default {
     console.log("list of users in process...");
     const email1 = this.email;
     const username1 = this.username;
-    axios.get(`http://localhost:4000/api/users`, {
+    axios.get(`http://23.23.70.200:5173/api/users`, {
         params: {
           email: email1,
           username: username1,
