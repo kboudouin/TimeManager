@@ -324,8 +324,7 @@ export default {
       const email1 = this.email;
       const username1 = this.username;
 
-      axios
-        .get(`http://23.23.70.200:4000/api/users`, {
+      axios.get(`http://23.23.70.200:4000/api/users`, {
           params: {
             email: email1,
             username: username1,
