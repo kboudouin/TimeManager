@@ -14,7 +14,7 @@ const id = route.split("/").slice(-1)[0];
 let interval;
 
 const fetchData = async () => {
-  const resp = await axios.get(`http://localhost:4000/api/clocks/${id}`);
+  const resp = await axios.get(`http://23.23.70.200:4000/api/clocks/${id}`);
   status.value = resp.data.clock.status;
   if (status.value) {
     sTime.value = resp.data.clock.time;
@@ -35,7 +35,7 @@ const startTimer = (startTime) => {
 };
 
 const clock = async () => {
-  await axios.post(`http://localhost:4000/api/clocks/${id}?status=true`);
+  await axios.post(`http://23.23.70.200:4000/api/clocks/${id}?status=true`);
   fetchData();
 };
 
@@ -45,8 +45,8 @@ const refresh = async () => {
   clearInterval(interval);
   timer.value = '00:00:00';
   eTime.value = new Date().toISOString();
-  await axios.post(`http://localhost:4000/api/clocks/${id}?status=false`);
-  await axios.post(`http://localhost:4000/api/workingtimes/${id}?start=${sTime.value}&end=${sTime.value}`);
+  await axios.post(`http://23.23.70.200:4000/api/clocks/${id}?status=false`);
+  await axios.post(`http://23.23.70.200:4000/api/workingtimes/${id}?start=${sTime.value}&end=${sTime.value}`);
   fetchData();
 };
 

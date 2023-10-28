@@ -18,7 +18,7 @@ const fetchData = async () => {
 
 const route = window.location.href;
 const id = route.split("/").slice(-1)[0];
-const resp = await axios.get(`http://localhost:4000/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`);
+const resp = await axios.get(`http://23.23.70.200:4000/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`);
   
   // Initialize containers for daily, weekly and Cumulative data
   const workByDay = {};

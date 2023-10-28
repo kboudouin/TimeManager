@@ -14,7 +14,7 @@ const editWorkingTime = async () => {
   try {
     await axios.put(
       // `http://localhost:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
-      `http://localhost:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
+      `http://23.23.70.200:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
     );
     window.location.reload();
   } catch (error) {
