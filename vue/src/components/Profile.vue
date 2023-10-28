@@ -122,7 +122,7 @@ export default {
     console.log("list of users in process...");
     const email1 = this.email;
     const username1 = this.username;
-    axios.get(`http://23.23.70.200:5173/api/users`, {
+    axios.get(`http://54.88.141.45:4000/api/users`, {
         params: {
           email: email1,
           username: username1,
@@ -150,7 +150,7 @@ export default {
     console.log("DELETION AND LOGOUT"+localStorage.getItem("userId") );
     const userId = +localStorage.getItem("userId");
 
-    axios.delete(`http://23.23.70.200:4000/api/users/`+localStorage.getItem("userId"))
+    axios.delete(`http://54.88.141.45:4000/api/users/`+localStorage.getItem("userId"))
     .then(response => {
       console.log("API response received: USER BEEN DELETED");
       console.log(response.data);
@@ -173,7 +173,7 @@ export default {
     this.newmail = this.$refs.emailInput.value;
     console.log("UPDATE MAIL FROM "+localStorage.getItem("userId")+" TO "+this.newmail);
     const userId = localStorage.getItem("userId");
-    axios.put("http://23.23.70.200:4000/api/users/"+userId+"?email="+this.newmail)
+    axios.put("http://54.88.141.45:4000/api/users/"+userId+"?email="+this.newmail)
     .then(response => {
       console.log("API response received: MAIL BEEN UPDATED");
       console.log(response.data);
@@ -187,7 +187,7 @@ export default {
     console.log("UPDATE ID FROM "+localStorage.getItem("userId")+" TO "+this.newid);
     const userId = localStorage.getItem("userId");
 
-    axios.put("http://23.23.70.200:4000/api/users/"+userId+"?id="+this.newid)
+    axios.put("http://54.88.141.45:4000/api/users/"+userId+"?id="+this.newid)
     .then(response => {
       console.log("API response received: USER ID BEEN UPDATED");
       console.log(response.data);
@@ -201,7 +201,7 @@ export default {
     console.log("UPDATE USERNAME FROM "+localStorage.getItem("userId")+" TO "+this.newusername );
     const userId = localStorage.getItem("userId");
 
-    axios.put("http://23.23.70.200:4000/api/users/"+userId+"?username="+this.newusername)
+    axios.put("http://54.88.141.45:4000/api/users/"+userId+"?username="+this.newusername)
     .then(response => {
       console.log("API response received: uUSERNAME BEEN UPDATED");
       console.log(response.data);

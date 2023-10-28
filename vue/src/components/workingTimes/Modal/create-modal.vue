@@ -12,7 +12,7 @@ let end = "";
 const createWorkingTime = async () => {
   try {
     await axios.post(
-      `http://23.23.70.200:4000/api/workingtimes/${localStorage.getItem(
+      `http://54.88.141.45:4000/api/workingtimes/${localStorage.getItem(
         "userId"
       )}?start=${start}&end=${end}`
     );

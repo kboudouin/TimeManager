@@ -319,13 +319,13 @@ export default {
     },
 
 
-    
+
     API() {
       console.log("list of users in process...");
       const email1 = this.email;
       const username1 = this.username;
 
-      axios.get(`http://23.23.70.200:4000/api/users`, {
+      axios.get(`http://54.88.141.45:4000/api/users`, {
           params: {
             email: email1,
             username: username1,
@@ -357,7 +357,7 @@ export default {
       console.log("Creating user for" + username);
       axios
         .post(
-          `http://23.23.70.200:4000/api/users?email=${email}&username=${username}`
+          `http://54.88.141.45:4000/api/users?email=${email}&username=${username}`
         )
         .then((response) => {
           const $toast = useToast();
@@ -376,7 +376,7 @@ export default {
       console.log("Button clicked");
       const userId = 10; //a ajout
       axios
-        .get(`http://23.23.70.200:4000/api/users/${userId}`)
+        .get(`http://54.88.141.45:4000/api/users/${userId}`)
         .then((response) => {
           console.log("API response received");
           console.log(response.data);
