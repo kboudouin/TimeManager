@@ -7,17 +7,18 @@ const createEvent = () => {
 </script>
 
 <template>
-  <section class="workingTimes">
+  <section class="workingTimes rounded-xl">
     <div class="workingTimes-header">
       <!-- BUTTON TO ADD A NEW WORKING TIME -->
       <button @click="createEvent">Ajouter un temps de travail</button>
     </div>
-    <div class="workingTimes-list">
+    <div class="workingTimes-list p-6">
       <!-- LIST OF WORKING TIMES -->
       <WorkingTimeVue
         v-for="item in store.workingTimes"
         :key="Math.random() + item.user"
-        :data="item" />
+        :data="item"
+      />
     </div>
   </section>
 </template>

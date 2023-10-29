@@ -34,7 +34,7 @@ const deleteModal = (data) => {
 
 <template>
   <div class="workingTime">
-    <div class="workingTime-1">
+    <div class="workingTime-1 p-6">
       <p>{{ data.id }}</p>
       <p>{{ heure(data.start) }}</p>
       <p>{{ heure(data.end) }}</p>

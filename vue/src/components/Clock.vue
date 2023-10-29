@@ -22,7 +22,6 @@ const fetchData = async () => {
   }
 };
 
-
 const startTimer = (startTime) => {
   clearInterval(interval);
   interval = setInterval(() => {
@@ -63,35 +62,36 @@ fetchData();
 </script>
 
 <template>
-  <div>
+  <div class="p-4">
     <h1
-      class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
+      class="font-extrabold text-transparent sm:text-2xl md:text-7xl bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 m-4"
     >
-      <span
-        class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
-        >The Clock</span
-      >
+      The Clock
     </h1>
-    <div class="w-full p-5 bg-white rounded-lg">
-      <div class="flex flex-col items-center pb-10">
-        <div class="w-full shadow bg-neutral-800 rounded-lg p-6 mb-10">
-          <h5 class="text-8xl font-bold text-gray-900 dark:text-white">
+    <div class="p-4 sm:p-5 bg-white rounded-lg w-full">
+      <div class="flex flex-col items-center pb-4 sm:pb-10">
+        <div
+          class="w-full bg-neutral-800 rounded-lg p-4 sm:p-6 mb-4 sm:mb-10 shadow"
+        >
+          <h5 class="text-4xl sm:text-6xl md:text-8xl font-bold text-white">
             {{ timer }}
           </h5>
         </div>
-        <div class="flex mt-4 space-x-3 md:mt-6">
+        <div class="flex mt-4 space-x-2 sm:space-x-3 md:mt-6">
           <a
             v-if="status"
             @click="refresh"
-            class="scale-150 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >Stop Shift</a
+            class="inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm font-medium bg-blue-700 text-white rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
           >
+            Stop Shift
+          </a>
           <a
             v-else
             @click="clock"
-            class="scale-150 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-            >Start Shift</a
+            class="inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200"
           >
+            Start Shift
+          </a>
         </div>
       </div>
     </div>
