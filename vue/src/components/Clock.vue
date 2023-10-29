@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
-import "vue-toast-notification/dist/theme-sugar.css";
 
 const status = ref(false);
 const sTime = ref(null);
@@ -14,11 +13,16 @@ const id = route.split("/").slice(-1)[0];
 let interval;
 
 const fetchData = async () => {
-  const resp = await axios.get(`http://44.207.191.254:4000/api/clocks/${id}`);
-  status.value = resp.data.clock.status;
-  if (status.value) {
+  const $toast = useToast();
+  try {
+    const resp = await axios.get(`http://44.207.191.254:4000/api/clocks/${id}`);
+    status.value = resp.data.clock.status;
     sTime.value = resp.data.clock.time;
-    startTimer(new Date(resp.data.clock.time));
+    if (status.value) {
+      startTimer(new Date(sTime.value));
+    }
+  } catch (error) {
+    $toast.error("An error has been encountered!");
   }
 };
 
@@ -34,30 +38,44 @@ const startTimer = (startTime) => {
   }, 1000);
 };
 
-//Start timer clock
 const clock = async () => {
-  await axios.post(`http://44.207.191.254:4000/api/clocks/${id}?status=true`);
-  fetchData();
+  const $toast = useToast();
+  status.value = true;
+  sTime.value = new Date().toISOString();
+  startTimer(new Date(sTime.value));
+
+  try {
+    await axios.post(`http://44.207.191.254:4000/api/clocks/${id}?status=true`);
+  } catch (error) {
+    $toast.error("An error has been encountered!");
+    status.value = false;
+    clearInterval(interval);
+  }
 };
 
-//End timer function
 const refresh = async () => {
   const $toast = useToast();
-  $toast.success("WorkingTime Successfully Created!");
+  status.value = false;
+  eTime.value = new Date().toISOString();
   clearInterval(interval);
   timer.value = "00:00:00";
-  eTime.value = new Date().toISOString();
+  $toast.success("WorkingTime Successfully Created!");
 
-  //Reset the users clock
-  await axios.post(`http://44.207.191.254:4000/api/clocks/${id}?status=false`);
-
-  //Create new workingtime
-  await axios.post(
+  const clockRequest = axios.post(
+    `http://44.207.191.254:4000/api/clocks/${id}?status=false`
+  );
+  const workingTimeRequest = axios.post(
     `http://44.207.191.254:4000/api/workingtimes/${id}?start=${sTime.value}&end=${eTime.value}`
   );
-  fetchData();
+
+  try {
+    await Promise.all([clockRequest, workingTimeRequest]);
+  } catch (error) {
+    $toast.error("An error has been encountered!");
+  }
 };
 
+// first fetch on page relaod
 fetchData();
 </script>
 
@@ -78,20 +96,20 @@ fetchData();
           </h5>
         </div>
         <div class="flex mt-4 space-x-2 sm:space-x-3 md:mt-6">
-          <a
+          <button
             v-if="status"
             @click="refresh"
-            class="inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm font-medium bg-blue-700 text-white rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+            class="btn font-extrabold inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300"
           >
             Stop Shift
-          </a>
-          <a
+          </button>
+          <button
             v-else
             @click="clock"
-            class="inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200"
+            class="btn inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm font-extrabold text-white bg-base-500 border border-gray-300 rounded-lg hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-200"
           >
             Start Shift
-          </a>
+          </button>
         </div>
       </div>
     </div>
