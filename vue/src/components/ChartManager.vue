@@ -113,7 +113,9 @@ const getWeekNumber = (date) => {
 
 <template>
   <!-- Date Filter + Stats -->
-  <div class="flex items-center p-4 bg-white rounded-lg scale-95 mb-6">
+  <div
+    class="flex items-center p-4 bg-white rounded-lg scale-95 mb-6 w-full sm:w-1/2"
+  >
     <span class="mr-4 text-black font-bold">Filter by Date:</span>
     <input
       type="date"
@@ -158,18 +160,22 @@ const getWeekNumber = (date) => {
     </div>
   </div>
 
-  <div v-else>
+  <div class="flex flex-wrap justify-around items-center" v-else>
     <div
       style="display: flex; justify-content: space-around; align-items: center"
     >
       <!-- Daily Chart -->
-      <div class="m-4 bg-white p-4 rounded-lg" v-if="dailyData" style="flex: 1">
+      <div
+        class="m-4 bg-white p-4 rounded-lg w-full sm:w-1/2"
+        v-if="dailyData"
+        style="flex: 1"
+      >
         <Bar id="Daily-Bar-Chart" :options="chartOptions" :data="dailyData" />
       </div>
 
       <!-- Weekly Chart -->
       <div
-        class="m-4 bg-white p-4 rounded-lg"
+        class="m-4 bg-white p-4 rounded-lg w-full sm:w-1/2"
         v-if="weeklyData"
         style="flex: 1"
       >
@@ -179,7 +185,7 @@ const getWeekNumber = (date) => {
 
     <!-- Cummulative Chart -->
     <div
-      class="m-4 bg-white p-4 rounded-lg"
+      class="m-4 bg-white p-4 rounded-lg w-full sm:w-1/2"
       v-if="cumulativeData"
       style="flex: 1"
     >
