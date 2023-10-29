@@ -17,20 +17,20 @@ const toggleSideNav = () => {
   <!-- MENU -->
   <div class="" v-if="isUserConnected">
     <button
-      class="md:hidden p-2"
+      class="p-2"
       @click="toggleSideNav"
       style="position: fixed; z-index: 100; top: 10px; left: 10px"
     >
       ☰
     </button>
     <div
-      class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800 md:block"
+      class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800 md:block z-50"
       v-show="showSideNav"
     >
       <div
-        class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r"
+        class="fixed flex flex-col top-0 left-0 w-72 bg-white h-full border-r"
       >
-        <div class="flex items-center justify-center h-14 border-b">
+        <div class="flex items-center justify-center h-14 border-b ml-12">
           <h1 class="flex items-center text-2xl font-extrabold">
             TimeManager<span
               class="bg-blue-100 text-blue-800 text-xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2"
