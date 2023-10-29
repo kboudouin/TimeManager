@@ -22,6 +22,7 @@ const fetchData = async () => {
   }
 };
 
+
 const startTimer = (startTime) => {
   clearInterval(interval);
   interval = setInterval(() => {
