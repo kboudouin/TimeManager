@@ -6,6 +6,7 @@ import wtRender from "./components/workingTimes/wtRender.vue";
 
 const routes = [
   { path: "/chartManager/:id", name: "chartManager", component: ChartManager },
+  { path: "/chartManager/:id", name: "chartManager", component: ChartManager },
   { path: "/Clock/:id", component: Clock },
   { path: "/Profile/:id", component: Profile },
   { path: "/working-times/:id", component: wtRender },

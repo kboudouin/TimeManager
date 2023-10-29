@@ -4,14 +4,28 @@ import axios from "axios";
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
+
+const showSideNav = ref(true);
+
+const toggleSideNav = () => {
+  showSideNav.value = !showSideNav.value;
+};
 </script>
 
 <template>
   <!-- IF USER CONNECTED -->
   <!-- MENU -->
   <div class="" v-if="isUserConnected">
+    <button
+      class="md:hidden p-2"
+      @click="toggleSideNav"
+      style="position: fixed; z-index: 100; top: 10px; left: 10px"
+    >
+      ☰
+    </button>
     <div
-      class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800"
+      class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800 md:block"
+      v-show="showSideNav"
     >
       <div
         class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r"
