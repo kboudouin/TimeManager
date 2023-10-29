@@ -8,7 +8,7 @@ const dailyData = ref(null);
 const weeklyData = ref(null);
 const cumulativeData = ref(null);
 const dateFilter = ref({ start: "2023-01-01", end: "2023-12-31" });
-const chartOptions = ref({ responsive: true });
+const chartOptions = ref();
 const totalWorkedHours = ref(0);
 const totalWorkedDays = ref(0);
 const loading = ref(true);
@@ -113,9 +113,7 @@ const getWeekNumber = (date) => {
 
 <template>
   <!-- Date Filter + Stats -->
-  <div
-    class="flex items-center p-4 bg-white rounded-lg scale-95 mb-6 w-full"
-  >
+  <div class="items-center p-4 bg-white rounded-lg scale-95 mb-6 w-full">
     <span class="mr-4 text-black font-bold">Filter by Date:</span>
     <input
       type="date"
@@ -124,7 +122,7 @@ const getWeekNumber = (date) => {
     />
     <span class="mx-4 text-black font-bold">to</span>
     <input type="date" v-model="dateFilter.end" class="p-2 rounded font-bold" />
-    <div class="stats ml-20 bg-white">
+    <!-- <div class="stats ml-20 bg-white">
       <div class="stat">
         <div class="stat-title text-black font-bold">Total Worked Hours</div>
         <div class="stat-value text-xl text-black">{{ totalWorkedHours }}</div>
@@ -133,7 +131,7 @@ const getWeekNumber = (date) => {
         <div class="stat-title text-black font-bold">Total Work Days</div>
         <div class="stat-value text-xl text-black">{{ totalWorkedDays }}</div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div v-if="loading">
@@ -160,11 +158,11 @@ const getWeekNumber = (date) => {
     </div>
   </div>
 
-  <div class="flex flex-wrap justify-around items-center" v-else>
+  <div class="grid grid-flow-row auto-rows-max items-center" v-else>
     <div>
       <!-- Daily Chart -->
       <div
-        class="m-4 bg-white p-4 rounded-lg w-fit"
+        class="mt-4 bg-white p-4 rounded-lg"
         v-if="dailyData"
         style="flex: 1"
       >
@@ -173,7 +171,7 @@ const getWeekNumber = (date) => {
 
       <!-- Weekly Chart -->
       <div
-        class="m-4 bg-white p-4 rounded-lg w-fit"
+        class="mt-4 bg-white p-4 rounded-lg"
         v-if="weeklyData"
         style="flex: 1"
       >
@@ -183,7 +181,7 @@ const getWeekNumber = (date) => {
 
     <!-- Cummulative Chart -->
     <div
-      class="m-4 bg-white p-4 rounded-lg w-fit"
+      class="mt-4 bg-white p-4 rounded-lg"
       v-if="cumulativeData"
       style="flex: 1"
     >

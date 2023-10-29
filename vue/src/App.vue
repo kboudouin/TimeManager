@@ -11,6 +11,6 @@ const isUserConnected = ref(localStorage.getItem("userId"));
 
 <template>
   <Authentification/>
-  <div class="mleft"><router-view v-if="isUserConnected"></router-view></div>
+  <div><router-view v-if="isUserConnected"></router-view></div>
 </template>
 
