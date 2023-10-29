@@ -29,6 +29,7 @@ const toggleSideNav = () => {
     >
       <div
         class="fixed flex flex-col top-0 left-0 w-72 bg-white h-full border-r"
+        style="z-index: 90"
       >
         <div class="flex items-center justify-center h-14 border-b ml-12">
           <h1 class="flex items-center text-2xl font-extrabold">

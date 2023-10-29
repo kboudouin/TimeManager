@@ -126,16 +126,16 @@ const getWeekNumber = (date) => {
       v-model="dateFilter.end"
       class="p-2 rounded font-bold w-full"
     />
-    <!-- <div class="stats ml-20 bg-white">
-      <div class="stat">
-        <div class="stat-title text-black font-bold">Total Worked Hours</div>
-        <div class="stat-value text-xl text-black">{{ totalWorkedHours }}</div>
-      </div>
-      <div class="stat">
-        <div class="stat-title text-black font-bold">Total Work Days</div>
-        <div class="stat-value text-xl text-black">{{ totalWorkedDays }}</div>
-      </div>
-    </div> -->
+  </div>
+  <div class="p-4 bg-white rounded-lg mb-6 grid grid-rows-1 grid-flow-col ">
+    <div class="">
+      <h2 class="text-black font-bold">Total Worked Hours</h2>
+      <h2 class="text-xl text-black">{{ totalWorkedHours }}</h2>
+    </div>
+    <div class="">
+      <h2 class="text-black font-bold">Total Work Days</h2>
+      <h2 class="text-xl text-black">{{ totalWorkedDays }}</h2>
+    </div>
   </div>
 
   <div v-if="loading">
