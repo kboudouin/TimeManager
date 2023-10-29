@@ -351,7 +351,7 @@ export default {
       const username1 = this.username;
 
       axios
-        .get(`http://54.88.141.45:4000/api/users`, {
+        .get(`http://44.207.191.254:4000/api/users`, {
           params: {
             email: email1,
             username: username1,
