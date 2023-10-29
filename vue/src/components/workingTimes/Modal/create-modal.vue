@@ -12,7 +12,7 @@ let end = "";
 const createWorkingTime = async () => {
   try {
     await axios.post(
-      `http://54.88.141.45:4000/api/workingtimes/${localStorage.getItem(
+      `http://44.207.191.254:4000/api/workingtimes/${localStorage.getItem(
         "userId"
       )}?start=${start}&end=${end}`
     );
@@ -32,13 +32,15 @@ const createWorkingTime = async () => {
         v-model="start"
         type="datetime-local"
         name="start-time"
-        id="start-time" />
+        id="start-time"
+      />
       <label for="end-time">Date de fin</label>
       <input
         v-model="end"
         type="datetime-local"
         name="end-time"
-        id="end-time" />
+        id="end-time"
+      />
       <button @click="createWorkingTime">Ajouter ce temps de travail</button>
     </form>
   </div>

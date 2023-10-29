@@ -10,7 +10,7 @@ const deleteModal = () => {
 const deleteEvent = async () => {
   try {
     await axios.delete(
-      `http://54.88.141.45:4000/api/workingtimes/${store.workingTime.id}`
+      `http://44.207.191.254:4000/api/workingtimes/${store.workingTime.id}`
     );
     store.toggleDeleteModal();
     window.location.reload();

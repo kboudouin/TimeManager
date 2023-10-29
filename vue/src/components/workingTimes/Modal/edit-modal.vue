@@ -14,7 +14,7 @@ const editWorkingTime = async () => {
   try {
     await axios.put(
       // `http://localhost:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
-      `http://54.88.141.45:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
+      `http://44.207.191.254:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
     );
     window.location.reload();
   } catch (error) {
@@ -33,13 +33,15 @@ const editWorkingTime = async () => {
         type="datetime-local"
         name="start-time"
         id="start-time"
-        v-model="start" />
+        v-model="start"
+      />
       <label for="end-time">Date de fin</label>
       <input
         type="datetime-local"
         name="end-time"
         id="end-time"
-        v-model="end" />
+        v-model="end"
+      />
       <button @click="editWorkingTime">Ajouter ce temps de travail</button>
     </form>
   </div>

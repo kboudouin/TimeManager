@@ -10,7 +10,7 @@ import { store } from "./store.js";
 const getWorkingTimes = async () => {
   try {
     const response = await axios.get(
-      `http://54.88.141.45:4000/api/workingtimes/${localStorage.getItem(
+      `http://44.207.191.254:4000/api/workingtimes/${localStorage.getItem(
         "userId"
       )}?start=2022-01-01T00:00:00Z&end=2023-12-30T00:00:00Z`
     );
