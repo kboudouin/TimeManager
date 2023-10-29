@@ -195,7 +195,7 @@ const toggleSideNav = () => {
   <!-- SIGN IN-->
   <div class="" v-if="!isUserConnected">
     <div
-      class="p-12 bg-base-300 rounded-2xl w-full"
+      class="p-12 bg-base-300 mx-auto rounded-2xl md:w-fit sm:w-full"
       id="SignInDiv"
       v-if="SignInDiv"
     >
@@ -253,7 +253,7 @@ const toggleSideNav = () => {
     <!-- IF CLICKED CREATE ACCOUNT -->
     <!-- CREATE ACC-->
     <div
-      class="p-12 bg-base-300 mx-auto rounded-2xl w-full"
+      class="p-12 bg-base-300 mx-auto rounded-2xl md:w-fit sm:w-full"
       id="CreateAccountDiv"
       v-show="showCreateAccount"
     >

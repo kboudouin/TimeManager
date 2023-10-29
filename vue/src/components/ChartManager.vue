@@ -113,7 +113,9 @@ const getWeekNumber = (date) => {
 
 <template>
   <!-- Date Filter + Stats -->
-  <div class="items-center p-4 bg-white rounded-lg scale-95 mb-6 w-full">
+  <div
+    class="grid grid-flow-row auto-rows-max items-center p-4 bg-white rounded-lg mb-6"
+  >
     <span class="mr-4 text-black font-bold">Filter by Date:</span>
     <input
       type="date"
@@ -162,7 +164,7 @@ const getWeekNumber = (date) => {
     <div>
       <!-- Daily Chart -->
       <div
-        class="mt-4 bg-white p-4 rounded-lg"
+        class="mt-4 bg-white p-4 rounded-lg h-25"
         v-if="dailyData"
         style="flex: 1"
       >
