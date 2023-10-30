@@ -12,6 +12,7 @@ const toggleSideNav = () => {
 };
 </script>
 
+
 <template>
   <!-- IF USER CONNECTED -->
   <!-- MENU -->
