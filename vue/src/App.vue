@@ -1,16 +1,15 @@
 <script setup>
-import Authentification from './components/Authentification.vue';
-import router from './router.js';
-import { ref, onMounted } from 'vue';
+import Authentification from "./components/Authentification.vue";
+import router from "./router.js";
+import { ref, onMounted } from "vue";
 onMounted(() => {
   isUserConnected.value = localStorage.getItem("userId");
-})
-const isUserConnected = ref(localStorage.getItem("userId"));
+});
 
+const isUserConnected = ref(localStorage.getItem("userId"));
 </script>
 
 <template>
-  <Authentification/>
+  <Authentification />
   <div><router-view v-if="isUserConnected"></router-view></div>
 </template>
-
