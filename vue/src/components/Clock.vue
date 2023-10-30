@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
 import emailjs from "emailjs-com";
@@ -16,6 +16,7 @@ const route = window.location.href;
 const id = route.split("/").slice(-1)[0];
 let interval;
 
+// Function to get all data
 const fetchData = async () => {
   const $toast = useToast();
   try {
@@ -25,13 +26,13 @@ const fetchData = async () => {
     if (status.value) {
       startTimer(new Date(sTime.value));
     }
-  } catch (error) {
-    $toast.error("An error has been encountered!");
-  }
+  } catch (error) {}
 };
 
+// Email has not been set at first
 let emailSent = false;
 
+// Function to sent email to alert user that he might of left his timer on
 const sendEmail = () => {
   const $toast = useToast();
 
@@ -58,6 +59,7 @@ const sendEmail = () => {
   );
 };
 
+// Function to start the time by looking at last time in data
 const startTimer = (startTime) => {
   clearInterval(interval);
   interval = setInterval(() => {
@@ -67,6 +69,7 @@ const startTimer = (startTime) => {
     const mm = String(diff.getUTCMinutes()).padStart(2, "0");
     const ss = String(diff.getUTCSeconds()).padStart(2, "0");
 
+    // if time has been running for more than 8hours send email to warn user
     const elapsedSeconds = diff / 1000;
     if (elapsedSeconds > 28800 && !emailSent) {
       sendEmail();
@@ -77,6 +80,7 @@ const startTimer = (startTime) => {
   }, 1000);
 };
 
+// Function to start the clock
 const clock = async () => {
   const $toast = useToast();
   status.value = true;
@@ -92,6 +96,7 @@ const clock = async () => {
   }
 };
 
+// Function to start refrsh clock + Create workingtime
 const refresh = async () => {
   const $toast = useToast();
   status.value = false;
