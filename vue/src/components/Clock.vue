@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
 import emailjs from "emailjs-com";
@@ -9,6 +9,8 @@ const sTime = ref(null);
 const eTime = ref(null);
 const timer = ref("00:00:00");
 
+const onVacation = ref(false);
+const onSickLeave = ref(false);
 
 const route = window.location.href;
 const id = route.split("/").slice(-1)[0];
@@ -112,41 +114,115 @@ const refresh = async () => {
   }
 };
 
-// first fetch on page relaod
-fetchData();
+// Retrieve onVacation and onSickLeave values from local storage on page load
+onMounted(() => {
+  fetchData();
+
+  if (localStorage.getItem("onVacation") === "true") {
+    onVacation.value = true;
+  }
+  if (localStorage.getItem("onSickLeave") === "true") {
+    onSickLeave.value = true;
+  }
+});
+
+// Update local storage when onVacation or onSickLeave values change
+const updateLocalStorage = () => {
+  localStorage.setItem("onVacation", onVacation.value);
+  localStorage.setItem("onSickLeave", onSickLeave.value);
+};
+
+// Toggle the value of onVacation and log the updated value
+const logVacationStatus = () => {
+  onVacation.value = !onVacation.value;
+  updateLocalStorage();
+};
+
+// Toggle the value of onSickLeave and log the updated value
+const logSickLeaveStatus = () => {
+  onSickLeave.value = !onSickLeave.value;
+  updateLocalStorage();
+};
 </script>
 
 <template>
-  <div class="p-4">
+  <div>
     <h1
-      class="font-extrabold text-transparent sm:text-2xl md:text-7xl bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 m-4"
+      class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
     >
-      The Clock
+      <span
+        class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+        >The Clock</span
+      >
     </h1>
-    <div class="p-4 sm:p-5 bg-white rounded-lg w-full">
-      <div class="flex flex-col items-center pb-4 sm:pb-10">
-        <div
-          class="w-full bg-neutral-800 rounded-lg p-4 sm:p-6 mb-4 sm:mb-10 shadow"
-        >
-          <h5 class="text-4xl sm:text-6xl md:text-8xl font-bold text-white">
+    <div class="w-full p-5 bg-white rounded-lg">
+      <div class="flex flex-col items-center pb-10">
+        <div class="w-full shadow bg-neutral-800 rounded-lg p-6 mb-10">
+          <div v-if="onVacation && !onSickLeave">
+            <h5 class="text-5xl font-bold text-gray-900 dark:text-white">
+              ON VACATION
+            </h5>
+          </div>
+          <div v-if="onSickLeave && !onVacation">
+            <h5 class="text-5xl font-bold text-gray-900 dark:text-white">
+              ON SICK DAY
+            </h5>
+          </div>
+          <h5
+            v-if="!onVacation && !onSickLeave"
+            class="text-4xl sm:text-6xl md:text-8xl font-bold text-white"
+          >
             {{ timer }}
           </h5>
+          <h3
+            v-if="onVacation && onSickLeave"
+            class="text-4xl font-bold text-gray-900 dark:text-white"
+          >
+            Choose only one parameter
+          </h3>
         </div>
-        <div class="flex mt-4 space-x-2 sm:space-x-3 md:mt-6">
-          <button
-            v-if="status"
-            @click="refresh"
-            class="btn font-extrabold inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300"
+
+        <div class="flex justify-start">
+          <div
+            id="app"
+            class="w-full shadow bg-neutral-800 rounded-lg p-6 mb-10"
           >
-            Stop Shift
-          </button>
-          <button
-            v-else
-            @click="clock"
-            class="btn inline-flex items-center px-3 sm:px-4 py-1 sm:py-2 text-sm font-extrabold text-white bg-base-500 border border-gray-300 rounded-lg hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-200"
-          >
-            Start Shift
-          </button>
+            <div>
+              <input
+                type="checkbox"
+                class="toggle toggle-warning"
+                v-model="onVacation"
+                @click="logVacationStatus"
+              />
+              On vacation
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                class="toggle toggle-info"
+                v-model="onSickLeave"
+                @click="logSickLeaveStatus"
+              />
+              On sick leave
+            </div>
+          </div>
+        </div>
+
+        <div v-if="!onVacation && !onSickLeave">
+          <div class="flex mt-4 space-x-3 md:mt-6">
+            <a
+              v-if="status"
+              @click="refresh"
+              class="scale-150 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >Stop Shift</a
+            >
+            <a
+              v-else
+              @click="clock"
+              class="scale-150 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
+              >Start Shift</a
+            >
+          </div>
         </div>
       </div>
     </div>
