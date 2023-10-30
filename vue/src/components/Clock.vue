@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
+import emailjs from "emailjs-com";
 
 const status = ref(false);
 const sTime = ref(null);
@@ -26,6 +27,34 @@ const fetchData = async () => {
   }
 };
 
+let emailSent = false;
+
+const sendEmail = () => {
+  const $toast = useToast();
+
+  const serviceID = "service_66ljsq7";
+  const templateID = "template_rpkv47p";
+  const publicKey = "-wA4cuYHit4lf3cUo";
+
+  const templateParams = {
+    to_email: localStorage.getItem("userEmail"),
+    to_username: localStorage.getItem("userName"),
+    message:
+      "You might have forgotten to turn off your timer. If so, please connect to the TimeManager website and end your shift!",
+  };
+
+  emailjs.send(serviceID, templateID, templateParams, publicKey).then(
+    (response) => {
+      $toast.success("Email sent successfully");
+      let emailSent = false;
+    },
+    (err) => {
+      console.log(err);
+      $toast.error("Failed to send email");
+    }
+  );
+};
+
 const startTimer = (startTime) => {
   clearInterval(interval);
   interval = setInterval(() => {
@@ -34,6 +63,13 @@ const startTimer = (startTime) => {
     const hh = String(diff.getUTCHours()).padStart(2, "0");
     const mm = String(diff.getUTCMinutes()).padStart(2, "0");
     const ss = String(diff.getUTCSeconds()).padStart(2, "0");
+
+    const elapsedSeconds = diff / 1000;
+    if (elapsedSeconds > 28800 && !emailSent) {
+      sendEmail();
+      emailSent = true;
+    }
+
     timer.value = `${hh}:${mm}:${ss}`;
   }, 1000);
 };
