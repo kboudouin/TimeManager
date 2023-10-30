@@ -13,10 +13,7 @@ let end = "";
 const editWorkingTime = async () => {
   try {
     await axios.put(
-      // `http://localhost:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
-      `http://44.207.191.254:4000/api/workingtimes/${localStorage.getItem(
-        "userId"
-      )}?start=${start}&end=${end}`
+      `http://44.207.191.254:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
     );
     window.location.reload();
   } catch (error) {
