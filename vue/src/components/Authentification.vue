@@ -375,7 +375,10 @@ export default {
         .then((response) => {
           console.log("Users found");
           console.log(response.data);
-          if (response.data.users) {
+          if (
+            response.data.users[0].username == username1 &&
+            response.data.users[0].email == email1
+          ) {
             const $toast = useToast();
             $toast.success("Logged in!");
             const user = response.data.users[0];
@@ -387,6 +390,8 @@ export default {
           }
         })
         .catch((error) => {
+          const $toast = useToast();
+          $toast.error("Something went wrong! Please try again!");
           console.error("API request failed:", error);
         });
     },
