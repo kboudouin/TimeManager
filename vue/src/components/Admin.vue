@@ -5,6 +5,7 @@ import axios from "axios";
 
 const loading = ref(false);
 const userData = ref(null);
+const clocksData = ref(null);
 
 onMounted(() => {
   const $toast = useToast();
@@ -14,16 +15,29 @@ onMounted(() => {
 
 const fetchData = async () => {
   loading.value = true;
-  axios
-    .get(`http://44.207.191.254:4000/api/users`)
-    .then((response) => {
-      userData.value = response.data.users;
-    })
-    .catch((error) => {
-      const $toast = useToast();
-      $toast.error("Error fetching userData");
-      console.error;
+  try {
+    const userResponse = await axios.get(
+      `http://44.207.191.254:4000/api/users`
+    );
+    userData.value = userResponse.data.users;
+
+    const clockResponse = await axios.get(`http://localhost:4000/api/clocks`);
+    clocksData.value = clockResponse.data.clocks;
+
+    userData.value = userData.value.map((user) => {
+      const clock = clocksData.value.find((c) => c.user === user.id.toString());
+      if (clock) {
+        user.status = clock.status;
+      } else {
+        user.status = "False";
+      }
+      return user;
     });
+  } catch (error) {
+    const $toast = useToast();
+    $toast.error("Error fetching data");
+    console.error(error);
+  }
 };
 </script>
 
@@ -34,7 +48,7 @@ const fetchData = async () => {
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr>
-          <th scope="col" class="px-6 py-3">Present</th>
+          <th scope="col" class="px-6 py-3">Presence</th>
           <th scope="col" class="px-6 py-3">Username</th>
           <th scope="col" class="px-6 py-3">Email</th>
           <th scope="col" class="px-6 py-3">Workingtime</th>
@@ -56,7 +70,7 @@ const fetchData = async () => {
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
-            True
+            {{ user.status === true ? "True" : "False" }}
           </th>
           <td class="px-6 py-4">{{ user.username }}</td>
           <td class="px-6 py-4">{{ user.email }}</td>
