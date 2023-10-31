@@ -127,7 +127,7 @@ const getWeekNumber = (date) => {
       class="p-2 rounded font-bold w-full"
     />
   </div>
-  <div class="p-4 bg-white rounded-lg mb-6 grid grid-rows-1 grid-flow-col ">
+  <div class="p-4 bg-white rounded-lg mb-6 grid grid-rows-1 grid-flow-col">
     <div class="">
       <h2 class="text-black font-bold">Total Worked Hours</h2>
       <h2 class="text-xl text-black">{{ totalWorkedHours }}</h2>
