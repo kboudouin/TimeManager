@@ -81,9 +81,7 @@ import { useToast } from "vue-toast-notification";
               required />
           </div>
           <div class="form-control mt-6">
-            <button @click="Deleteacc" class="btn btn-primary">
-              DELETE
-            </button>
+            <button @click="Deleteacc" class="btn btn-primary">DELETE</button>
           </div>
         </form>
       </div>
@@ -148,8 +146,9 @@ export default {
     Deleteacc() {
       axios
         .delete(
-          // `http://44.207.191.254:4000/api/users/` +
-          `http://localhost:4000/api/users/` + localStorage.getItem("userId")
+          `http://44.207.191.254:4000/api/users/` +
+            // `http://localhost:4000/api/users/` +
+            localStorage.getItem("userId")
         )
         .then((response) => {
           console.log("API response received: USER BEEN DELETED");
@@ -159,7 +158,8 @@ export default {
           localStorage.removeItem("userId");
           this.isUserConnected = false;
           console.log("logging out");
-          window.location.href = "/";
+          window.location.replace("/");
+          // this.$router.replace("/");
         })
         .catch((error) => {
           console.error("API request failed:", error);
@@ -223,8 +223,8 @@ export default {
 
       axios
         .put(
-          "http://localhost:4000/api/users/" +
-            // "http://44.207.191.254:4000/api/users/" +
+          // "http://localhost:4000/api/users/" +
+          "http://44.207.191.254:4000/api/users/" +
             userId +
             "?username=" +
             this.newusername

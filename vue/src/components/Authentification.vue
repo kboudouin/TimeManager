@@ -24,7 +24,7 @@ const toggleSideNav = () => {
     >
       ☰
     </button>
-
+    
     <div
       class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800 md:block z-50"
       v-show="showSideNav"
