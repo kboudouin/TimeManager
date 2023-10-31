@@ -8,6 +8,7 @@ onMounted(() => {
 
 const isUserConnected = ref(localStorage.getItem("userId"));
 </script>
+
 <template>
   <Authentification />
   <div><router-view v-if="isUserConnected"></router-view></div>
