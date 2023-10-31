@@ -1,10 +1,30 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useToast } from "vue-toast-notification";
+import axios from "axios";
+
+const loading = ref(false);
+const userData = ref(null);
+
 onMounted(() => {
   const $toast = useToast();
-  $toast.success("Welcome to admin dashboard");
+  $toast.success("Welcome to the admin dashboard");
+  fetchData();
 });
+
+const fetchData = async () => {
+  loading.value = true;
+  axios
+    .get(`http://44.207.191.254:4000/api/users`)
+    .then((response) => {
+      userData.value = response.data.users;
+    })
+    .catch((error) => {
+      const $toast = useToast();
+      $toast.error("Error fetching userData");
+      console.error;
+    });
+};
 </script>
 
 <template>
@@ -30,6 +50,7 @@ onMounted(() => {
       <tbody>
         <tr
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          v-for="user in userData"
         >
           <th
             scope="row"
@@ -37,20 +58,26 @@ onMounted(() => {
           >
             True
           </th>
-          <td class="px-6 py-4">username</td>
-          <td class="px-6 py-4">email</td>
+          <td class="px-6 py-4">{{ user.username }}</td>
+          <td class="px-6 py-4">{{ user.email }}</td>
           <td class="px-6 py-4">
             <a
               href="#"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >View</a
+              ><router-link
+                :to="{ name: 'workingtime', params: { id: user.id } }"
+                >View</router-link
+              ></a
             >
           </td>
           <td class="px-6 py-4">
             <a
               href="#"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >View</a
+              ><router-link
+                :to="{ name: 'chartManager', params: { id: user.id } }"
+                >View</router-link
+              ></a
             >
           </td>
           <td class="px-6 py-4 text-right">

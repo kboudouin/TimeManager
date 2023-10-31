@@ -29,7 +29,7 @@ defmodule ApiWeb.Router do
     get("workingtimes/:userID", WorkingtimeController, :index)
     get("workingtimes/:userID/:id", WorkingtimeController, :show)
     post("workingtimes/:userID", WorkingtimeController, :create)
-    resources("/clocks", ClockController, only: [:show])
+    resources("/clocks", ClockController, only: [:show, :index])
     post("clocks/:userID", ClockController, :create)
   end
 

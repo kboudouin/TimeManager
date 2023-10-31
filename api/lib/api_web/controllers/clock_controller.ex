@@ -11,6 +11,11 @@ defmodule ApiWeb.ClockController do
     json(conn, %{clock: clock})
   end
 
+  def index(conn, _params) do
+  clocks = Clocks.get_all_clocks()
+  json(conn, %{clocks: clocks})
+end
+
   def create(conn, %{"userID" => user_id}) do
     status = Map.get(conn.params, "status")
     IO.inspect(status, label: "Status in Controller")

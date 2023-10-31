@@ -8,6 +8,10 @@ defmodule Api.Clocks do
     |> Repo.insert()
   end
 
+  def get_all_clocks do
+  Repo.all(Clock)
+end
+
   def create_or_update_clock(user_id, attrs \\ %{}) do
     IO.inspect(attrs, label: "attrs in clocks")
 
