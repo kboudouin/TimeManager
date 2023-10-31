@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
-import router from "../Router";
+import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -375,10 +375,10 @@ export default {
     return {
       SignInDiv: true,
       showCreateAccount: false,
-      loading: false,
       username: "",
       email: "",
       isUserConnected: !!localStorage.getItem("userId"),
+      loading: false,
     };
   },
   methods: {
@@ -435,14 +435,14 @@ export default {
             response.data.users[0].username == username1 &&
             response.data.users[0].email == email1
           ) {
+            const $toast = useToast();
+            $toast.success("Logged in!");
             const user = response.data.users[0];
+            localStorage.setItem("userEmail", user.email);
+            localStorage.setItem("userUsername", user.username);
             localStorage.setItem("userId", user.id);
             this.isUserConnected = true;
             this.$router.push("/dashboard/" + localStorage.getItem("userId"));
-            localStorage.setItem("userEmail", user.email);
-            localStorage.setItem("userUsername", user.username);
-            const $toast = useToast();
-            $toast.success("Logged in!");
             this.loading = false;
           }
         })
