@@ -1,6 +1,6 @@
 <script setup>
 import Authentification from "./components/Authentification.vue";
-import router from "./Router";
+import router from "./router";
 import { ref, onMounted } from "vue";
 onMounted(() => {
   isUserConnected.value = localStorage.getItem("userId");
