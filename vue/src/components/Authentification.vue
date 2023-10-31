@@ -378,7 +378,7 @@ export default {
       username: "",
       email: "",
       isUserConnected: !!localStorage.getItem("userId"),
-      loading=false,
+      loading: false,
     };
   },
   methods: {
@@ -435,6 +435,8 @@ export default {
             response.data.users[0].username == username1 &&
             response.data.users[0].email == email1
           ) {
+            const $toast = useToast();
+            $toast.success("Logged in!");
             const user = response.data.users[0];
             localStorage.setItem("userEmail", user.email);
             localStorage.setItem("userUsername", user.username);
@@ -442,8 +444,6 @@ export default {
             this.isUserConnected = true;
             this.$router.push("/dashboard/" + localStorage.getItem("userId"));
             this.loading = false;
-            const $toast = useToast();
-            $toast.success("Logged in!");
           }
         })
         .catch((error) => {
