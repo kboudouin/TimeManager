@@ -42,19 +42,6 @@ import { useToast } from "vue-toast-notification";
             UPDATE EMAIL
           </button>
         </div>
-
-        <!-- <div class="stat">
-          <div class="stat-title">ID</div>
-          <div class="stat-value">{{ id }}</div>
-          <input
-            type="text"
-            placeholder="New ID"
-            class="input input-bordered"
-            required
-            ref="idInput"
-            v-model="newid" />
-          <button @click="updateid" class="btn btn-active">UPDATE ID</button>
-        </div> -->
       </div>
 
       <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
