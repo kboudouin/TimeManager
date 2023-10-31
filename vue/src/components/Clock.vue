@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import { useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
+import axios from "axios";
 import emailjs from "emailjs-com";
 
 const status = ref(false);
@@ -12,8 +13,9 @@ const timer = ref("00:00:00");
 const onVacation = ref(false);
 const onSickLeave = ref(false);
 
-const route = window.location.href;
-const id = route.split("/").slice(-1)[0];
+const route = useRoute();
+const id = route.params.id;
+
 let interval;
 
 // Function to get all data

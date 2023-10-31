@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter, useRoute } from "vue-router";
-import router from "../Router";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 

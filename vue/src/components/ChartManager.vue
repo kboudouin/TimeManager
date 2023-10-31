@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { Bar, Line } from "vue-chartjs";
+import { useRoute } from "vue-router";
 import axios from "axios";
 import "chart.js/auto";
 
@@ -16,8 +17,8 @@ const loading = ref(true);
 const fetchData = async () => {
   loading.value = true;
 
-  const route = window.location.href;
-  const id = route.split("/").slice(-1)[0];
+  const route = useRoute();
+  const id = route.params.id;
   const resp = await axios.get(
     `http://44.207.191.254:4000/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`
   );
