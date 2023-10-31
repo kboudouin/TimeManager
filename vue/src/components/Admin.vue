@@ -21,7 +21,9 @@ const fetchData = async () => {
     );
     userData.value = userResponse.data.users;
 
-    const clockResponse = await axios.get(`http://localhost:4000/api/clocks`);
+    const clockResponse = await axios.get(
+      `http://44.207.191.254:4000/api/clocks`
+    );
     clocksData.value = clockResponse.data.clocks;
 
     userData.value = userData.value.map((user) => {
