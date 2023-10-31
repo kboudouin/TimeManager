@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import { useToast } from "vue-toast-notification";
 </script>
 
 <template>
@@ -21,8 +22,7 @@ import axios from "axios";
             class="input input-bordered"
             required
             ref="usernameInput"
-            v-model="newusername"
-          />
+            v-model="userUsername" />
           <button @click="updateusername" class="btn btn-active">
             UPDATE USERNAME
           </button>
@@ -37,14 +37,13 @@ import axios from "axios";
             class="input input-bordered"
             required
             ref="emailInput"
-            v-model="newmail"
-          />
+            v-model="EMAIL" />
           <button @click="updatemail" class="btn btn-active">
             UPDATE EMAIL
           </button>
         </div>
 
-        <div class="stat">
+        <!-- <div class="stat">
           <div class="stat-title">ID</div>
           <div class="stat-value">{{ id }}</div>
           <input
@@ -53,14 +52,13 @@ import axios from "axios";
             class="input input-bordered"
             required
             ref="idInput"
-            v-model="newid"
-          />
+            v-model="newid" />
           <button @click="updateid" class="btn btn-active">UPDATE ID</button>
-        </div>
+        </div> -->
       </div>
 
       <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <form class="card-body">
+        <form @submit="(event) => event.preventDefault()" class="card-body">
           <h1>DELETE ACCOUNT</h1>
           <div class="form-control">
             <div class="form-control">
@@ -71,8 +69,7 @@ import axios from "axios";
                 type=""
                 placeholder="username"
                 class="input input-bordered"
-                required
-              />
+                required />
             </div>
             <label class="label">
               <span class="label-text">Email</span>
@@ -81,11 +78,12 @@ import axios from "axios";
               type="email"
               placeholder="email@mail.com"
               class="input input-bordered"
-              required
-            />
+              required />
           </div>
           <div class="form-control mt-6">
-            <button @click="Deleteacc" class="btn btn-primary">DELETE</button>
+            <button @click="Deleteacc" class="btn btn-primary">
+              DELETE
+            </button>
           </div>
         </form>
       </div>
@@ -148,27 +146,25 @@ export default {
 
     //
     Deleteacc() {
-      console.log("DELETION AND LOGOUT" + localStorage.getItem("userId"));
-      const userId = +localStorage.getItem("userId");
-
       axios
         .delete(
-          `http://44.207.191.254:4000/api/users/` +
-            localStorage.getItem("userId")
+          // `http://44.207.191.254:4000/api/users/` +
+          `http://localhost:4000/api/users/` + localStorage.getItem("userId")
         )
         .then((response) => {
           console.log("API response received: USER BEEN DELETED");
           console.log(response.data);
-
           localStorage.removeItem("userEmail");
           localStorage.removeItem("userUsername");
           localStorage.removeItem("userId");
           this.isUserConnected = false;
-          window.location = "/";
           console.log("logging out");
+          window.location.href = "/";
         })
         .catch((error) => {
           console.error("API request failed:", error);
+          const $toast = useToast();
+          $toast.error("An error occured, please try again later");
         });
     },
 
@@ -184,6 +180,7 @@ export default {
       axios
         .put(
           "http://44.207.191.254:4000/api/users/" +
+            // "http://localhost:4000/api/users/" +
             userId +
             "?email=" +
             this.newmail
@@ -191,6 +188,10 @@ export default {
         .then((response) => {
           console.log("API response received: MAIL BEEN UPDATED");
           console.log(response.data);
+          const $toast = useToast();
+          $toast.success(
+            response.data.info + "logout and login to see changes"
+          );
         });
     },
 
@@ -222,7 +223,8 @@ export default {
 
       axios
         .put(
-          "http://44.207.191.254:4000/api/users/" +
+          "http://localhost:4000/api/users/" +
+            // "http://44.207.191.254:4000/api/users/" +
             userId +
             "?username=" +
             this.newusername
@@ -230,6 +232,10 @@ export default {
         .then((response) => {
           console.log("API response received: uUSERNAME BEEN UPDATED");
           console.log(response.data);
+          const $toast = useToast();
+          $toast.success(
+            response.data.info + "logout and login to see changes"
+          );
         });
     },
   },
