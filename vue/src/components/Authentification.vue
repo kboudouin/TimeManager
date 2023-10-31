@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter, useRoute } from "vue-router";
+import router from "../Router";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -370,28 +371,29 @@ export default {
       this.showCreateAccount = false;
     },
     Logout() {
+      this.isUserConnected = false;
+      localStorage.removeItem("userId");
       const $toast = useToast();
       $toast.success("You are logged out!");
       localStorage.removeItem("userEmail");
       localStorage.removeItem("userUsername");
-      localStorage.removeItem("userId");
       this.isUserConnected = false;
-      window.location = "/";
+      this.$router.replace("/");
     },
     Dashboard() {
-      window.location = "/chartManager/" + localStorage.getItem("userId");
+      this.$router.push("/dashboard/" + localStorage.getItem("userId"));
     },
     Clock() {
-      window.location = "/clock/" + localStorage.getItem("userId");
+      this.$router.push("/clock/" + localStorage.getItem("userId"));
     },
     Profile() {
-      window.location = "/Profile/" + localStorage.getItem("userId");
+      this.$router.push("/Profile/" + localStorage.getItem("userId"));
     },
     workingTimes() {
-      window.location = "/working-times/" + localStorage.getItem("userId");
+      this.$router.push("/working-times/" + localStorage.getItem("userId"));
     },
     Admin() {
-      window.location = "/admin";
+      this.$router.push("/admin");
     },
 
     API() {
@@ -420,12 +422,10 @@ export default {
             localStorage.setItem("userUsername", user.username);
             localStorage.setItem("userId", user.id);
             this.isUserConnected = true;
-            window.location = "/chartManager/" + localStorage.getItem("userId");
+            this.$router.push("/dashboard/" + localStorage.getItem("userId"));
           }
         })
         .catch((error) => {
-          const $toast = useToast();
-          $toast.error("Something went wrong! Please try again!");
           console.error("API request failed:", error);
         });
     },

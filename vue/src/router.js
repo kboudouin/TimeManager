@@ -6,8 +6,8 @@ import Profile from "./components/Profile.vue";
 import wtRender from "./components/workingTimes/wtRender.vue";
 
 const routes = [
-  { path: "/admin", name: "Admin", component: Admin },
-  { path: "/chartManager/:id", name: "chartManager", component: ChartManager },
+  { path: "/Admin", name: "Admin", component: Admin },
+  { path: "/Dashboard/:id", name: "chartManager", component: ChartManager },
   { path: "/Clock/:id", component: Clock },
   { path: "/Profile/:id", component: Profile },
   { path: "/working-times/:id", component: wtRender },
