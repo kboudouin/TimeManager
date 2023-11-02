@@ -1,21 +1,34 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import { defineProps, defineEmits } from "vue";
 
 const { user } = defineProps(["user"]);
 const emit = defineEmits(["close", "fetchData"]);
-const deleteUser = async () => {
+
+const username = ref(user.username);
+const email = ref(user.email);
+const role = ref(user.role);
+
+watch(user, (newValue) => {
+  username.value = newValue.username;
+  email.value = newValue.email;
+  role.value = newValue.role;
+});
+
+const modifyUser = async () => {
   try {
-    await axios.put(`http://44.207.191.254:4000/api/users/${userId}`);
+    await axios.put(
+      `http://44.207.191.254:4000/api/users/${user.id}?email=${email.value}&username=${username.value}&role=${role.value}`
+    );
     emit("close");
     await emit("fetchData");
     const $toast = useToast();
-    $toast.success("User deleted successfully");
+    $toast.success("User updated successfully");
   } catch (error) {
     const $toast = useToast();
-    $toast.error("Error fetching data");
+    $toast.error("Error updating user");
     console.error(error);
   }
 };
@@ -39,17 +52,18 @@ const deleteUser = async () => {
         </button>
         <div class="px-6 py-6 lg:px-8">
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-            Updating user : {{ user.username }}
+            Updating {{ user.username }}
           </h3>
-          <form class="space-y-6" action="#">
+          <form class="space-y-6" action="#" @submit.prevent="modifyUser">
             <div>
               <label
-                for="email"
+                for="username"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Username</label
               >
               <input
-                v-model="user.username"
+                v-model="username"
+                id="username"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               />
             </div>
@@ -60,20 +74,26 @@ const deleteUser = async () => {
                 >Email</label
               >
               <input
-                v-model="user.email"
+                v-model="email"
+                id="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               />
             </div>
             <div>
               <label
-                for="password"
+                for="role"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Role</label
               >
-              <input
-                v-model="user.role"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              />
+              <select
+                v-model="role"
+                id="role"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+              >
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
             <button
               type="submit"

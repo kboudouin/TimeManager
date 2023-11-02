@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ChartManager from "./components/ChartManager.vue";
-import Admin from "./components/Admin.vue";
+import Admin from "./components/admin/Admin.vue";
 import Clock from "./components/Clock.vue";
 import Profile from "./components/Profile.vue";
 import wtRender from "./components/workingTimes/wtRender.vue";
