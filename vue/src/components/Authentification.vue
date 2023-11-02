@@ -238,24 +238,24 @@ const toggleSideNav = () => {
       <div class="space-y-5">
         <div class="space-y-2">
           <label class="text-sm font-medium text-white tracking-wide"
-            >Username</label
-          >
-          <input
-            v-model="username"
-            class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-            type=""
-            placeholder="Entrer your username"
-          />
-        </div>
-        <div class="space-y-2">
-          <label class="text-sm font-medium text-white tracking-wide"
             >Email</label
           >
           <input
             v-model="email"
             class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-            type=""
+            type="email"
             placeholder="Enter your email"
+          />
+        </div>
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-white tracking-wide"
+            >password</label
+          >
+          <input
+            v-model="password"
+            class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+            type="password"
+            placeholder="Enter your password"
           />
         </div>
 
@@ -332,18 +332,19 @@ const toggleSideNav = () => {
           <input
             v-model="email"
             class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-            type=""
+            type="email"
             placeholder="Enter your email"
           />
         </div>
         <div class="space-y-2">
           <label class="mb-5 text-sm font-medium text-white tracking-wide">
-            Comfirm Email
+            Password
           </label>
           <input
+            v-model="password"
             class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-            type=""
-            placeholder="Confirm your email"
+            type="password"
+            placeholder="Enter your password"
           />
         </div>
         <div class="flex items-center justify-between"></div>
@@ -418,23 +419,17 @@ export default {
 
     API() {
       this.loading = true;
-      const email1 = this.email;
-      const username1 = this.username;
+      const email = this.email;
+      const pass = this.password;
 
       axios
-        .get(`http://44.207.191.254:4000/api/users`, {
-          params: {
-            email: email1,
-            username: username1,
-          },
-        })
+        .get(
+          `http://44.207.191.254:4000/login?email=${email}&password=${pass}`,
+          {}
+        )
         .then((response) => {
           console.log("Users found");
-          console.log(response.data);
-          if (
-            response.data.users[0].username == username1 &&
-            response.data.users[0].email == email1
-          ) {
+          if (response.data.user.email == email) {
             const $toast = useToast();
             $toast.success("Logged in!");
             const user = response.data.users[0];
@@ -458,10 +453,10 @@ export default {
     CreateUSER() {
       const username = this.username;
       const email = this.email;
-      console.log("Creating user for" + username);
+      const password = this.password;
       axios
         .post(
-          `http://44.207.191.254:4000/api/users?email=${email}&username=${username}`
+          `http://44.207.191.254:4000/api/users?email=${email}&username=${username}&password=${password}&role=employee`
         )
         .then((response) => {
           const $toast = useToast();
