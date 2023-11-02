@@ -47,6 +47,12 @@ defmodule ApiWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug Corsica, origins: "*"
+  plug Corsica,
+  origins: "*",
+  allow_methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allow_headers: ["Content-Type", "Authorization"],
+  expose_headers: ["Content-Type"],
+  allow_credentials: true
+
   plug ApiWeb.Router
 end
