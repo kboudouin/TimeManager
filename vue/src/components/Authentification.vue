@@ -429,7 +429,7 @@ export default {
         )
         .then((response) => {
           console.log("Users found");
-          if (response.data.user.email == email) {
+          if (response.data.user) {
             const $toast = useToast();
             $toast.success("Logged in!");
             const user = response.data.users[0];
