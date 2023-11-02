@@ -19,10 +19,10 @@ defmodule Api.Users do
   end
 
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
-  end
+      %User{}
+      |> User.changeset(attrs)
+      |> Repo.insert()
+    end
 
   def get_user!(id), do: Repo.get!(User, id)
 
@@ -35,4 +35,16 @@ defmodule Api.Users do
   def delete_user(%User{} = user) do
     Repo.delete(user)
   end
+
+
+  def authenticate_user(email, password) do
+    user = Repo.get_by(User, email: email)
+    cond do
+      user && Bcrypt.verify_pass(password, user.password_hash) -> {:ok, user}
+      true -> :error
+    end
+  end
+
+
+
 end

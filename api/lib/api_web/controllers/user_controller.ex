@@ -16,14 +16,15 @@ defmodule ApiWeb.UserController do
     json(conn, %{users: users})
   end
 
-  def create(conn, user_params) do
-    with {:ok, %User{} = user} <- Users.create_user(user_params) do
-      conn
-      |> json(%{user: user})
-    else
-      _ -> json(conn, %{error: "Failed to create user"})
-    end
+def create(conn, user_params) do
+  with {:ok, %User{} = user} <- Users.create_user(user_params) do
+    user = Map.delete(user, :password_hash)
+    conn |> json(%{user: user})
+  else
+    _ -> json(conn, %{error: "Failed to create user"})
   end
+end
+
 
   def show(conn, %{"id" => id}) do
     try do
@@ -58,4 +59,13 @@ defmodule ApiWeb.UserController do
         json(conn, %{error: "No user has been found!"})
     end
   end
+
+
+  def login(conn, %{"email" => email, "password" => password}) do
+  case Users.authenticate_user(email, password) do
+    {:ok, user} -> json(conn, %{user: user})
+    :error -> json(conn, %{error: "Invalid credentials"})
+  end
+end
+
 end

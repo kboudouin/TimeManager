@@ -51,7 +51,9 @@ defmodule Api.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
-      {:corsica, "~> 1.1"}
+      {:corsica, "~> 1.1"},
+      {:comeonin, "~> 5.3"},
+      {:bcrypt_elixir, "~> 2.2"},
     ]
   end
 

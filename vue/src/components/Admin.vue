@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
+import chartManager from "./components/ChartManager"
 
 const loading = ref(false);
 const userData = ref(null);

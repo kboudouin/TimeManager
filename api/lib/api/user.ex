@@ -5,14 +5,27 @@ defmodule Api.User do
   schema "users" do
     field(:username, :string)
     field(:email, :string)
-    @derive {Jason.Encoder, only: [:id, :username, :email, :inserted_at, :updated_at]}
+    field(:password_hash, :string)
+    field(:role, :string, default: "employee")
+    field(:team, {:array, :string})
+    @derive {Jason.Encoder, only: [:id, :username, :email, :role, :team, :inserted_at, :updated_at]}
     timestamps(type: :utc_datetime)
   end
+
+  @required_fields ~w(username email)a
+  @optional_fields ~w()a
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email])
-    |> validate_required([:username, :email])
+    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
+    |> put_pass_hash(attrs["password"])
   end
+
+  defp put_pass_hash(changeset, password) when is_binary(password) do
+    hash = Bcrypt.hash_pwd_salt(password)
+    put_change(changeset, :password_hash, hash)
+  end
+  defp put_pass_hash(changeset, _), do: changeset
 end

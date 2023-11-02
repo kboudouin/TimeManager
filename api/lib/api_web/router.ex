@@ -25,6 +25,7 @@ defmodule ApiWeb.Router do
   scope "/api", ApiWeb do
     pipe_through(:api)
     resources("/users", UserController, only: [:index, :show, :create, :update, :delete])
+    post("/login", UserController, :login)
     resources("/workingtimes", WorkingtimeController, only: [:delete, :update])
     get("workingtimes/:userID", WorkingtimeController, :index)
     get("workingtimes/:userID/:id", WorkingtimeController, :show)
