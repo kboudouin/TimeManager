@@ -6,13 +6,13 @@ defmodule Api.User do
     field(:username, :string)
     field(:email, :string)
     field(:password_hash, :string)
-    field(:role, :string, default: "employee")
+    field(:role, :string)
     field(:team, {:array, :string})
     @derive {Jason.Encoder, only: [:id, :username, :email, :role, :team, :inserted_at, :updated_at]}
     timestamps(type: :utc_datetime)
   end
 
-  @required_fields ~w(username email)a
+  @required_fields ~w(username email role)a
   @optional_fields ~w()a
 
   @doc false
