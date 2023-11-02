@@ -432,7 +432,7 @@ export default {
           if (response.data.user) {
             const $toast = useToast();
             $toast.success("Logged in!");
-            const user = response.data.users[0];
+            const user = response.data.user;
             localStorage.setItem("userEmail", user.email);
             localStorage.setItem("userUsername", user.username);
             localStorage.setItem("userId", user.id);
