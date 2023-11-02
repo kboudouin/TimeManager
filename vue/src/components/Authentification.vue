@@ -423,7 +423,7 @@ export default {
       const pass = this.password;
 
       axios
-        .get(
+        .post(
           `http://44.207.191.254:4000/login?email=${email}&password=${pass}`,
           {}
         )
