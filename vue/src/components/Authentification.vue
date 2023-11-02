@@ -424,7 +424,7 @@ export default {
 
       axios
         .post(
-          `http://44.207.191.254:4000/login?email=${email}&password=${pass}`,
+          `http://44.207.191.254:4000/api/login?email=${email}&password=${pass}`,
           {}
         )
         .then((response) => {
