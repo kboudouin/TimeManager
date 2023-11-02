@@ -28,7 +28,7 @@ getWorkingTimes();
   <div>
     <WorkingTimes />
     <!-- MODAL -->
-    <CreateModal v-if="store.createModal" />
+    <CreateModal v-if="store.createModal"   />
     <DeleteModal v-if="store.deleteModal" />
     <EditModal v-if="store.editModal" />
   </div>

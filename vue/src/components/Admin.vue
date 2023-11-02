@@ -2,14 +2,18 @@
 import { ref, onMounted } from "vue";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
+import deleteModal from "./adminDelete.vue";
+import modifyModal from "./adminModify.vue";
 
 const loading = ref(false);
 const userData = ref(null);
 const clocksData = ref(null);
+const toggleDelete = ref(false);
+const toggleModify = ref(false);
+const selectedID = ref(null);
+const selectedUser = ref(null);
 
 onMounted(() => {
-  const $toast = useToast();
-  $toast.success("Welcome to the admin dashboard");
   fetchData();
 });
 
@@ -41,9 +45,35 @@ const fetchData = async () => {
     console.error(error);
   }
 };
+
+const toggleDeleteModal = async (id) => {
+  toggleDelete.value = !toggleDelete.value;
+  selectedID.value = id;
+};
+
+const toggleModifyModal = async (user) => {
+  toggleModify.value = !toggleModify.value;
+  selectedUser.value = user;
+};
 </script>
 
 <template>
+  <div v-if="toggleDelete">
+    <deleteModal
+      @close="toggleDeleteModal"
+      :userId="selectedID"
+      @fetchData="fetchData"
+    />
+  </div>
+
+  <div v-if="toggleModify">
+    <modifyModal
+      @close="toggleModifyModal"
+      :user="selectedUser"
+      @fetchData="fetchData"
+    />
+  </div>
+
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead
@@ -100,6 +130,7 @@ const fetchData = async () => {
           </td>
           <td class="px-6 py-4 text-right">
             <a
+              @click="toggleModifyModal(user)"
               href="#"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               >Edit</a
@@ -107,6 +138,7 @@ const fetchData = async () => {
           </td>
           <td class="px-6 py-4 text-right">
             <a
+              @click="toggleDeleteModal(user.id)"
               href="#"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               >Delete</a
