@@ -444,7 +444,7 @@ export default {
         .catch((error) => {
           console.error("API request failed:", error);
           const $toast = useToast();
-          $toast.error("Something went wrong! Please try again!");
+          $toast.error("Something went wrong!");
           this.loading = false;
         });
     },
