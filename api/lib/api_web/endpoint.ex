@@ -23,7 +23,7 @@ defmodule ApiWeb.Endpoint do
     gzip: false,
     only: ApiWeb.static_paths()
 
-  plug Corsica, origins: "http://44.207.191.254:5173", allow_methods: [:get, :post, :put, :delete, :options], headers: ["content-type", "authorization"]
+  plug Corsica, origins: "http://44.207.191.254:5173", allow_methods: ["*"], headers: ["content-type", "authorization"]
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
