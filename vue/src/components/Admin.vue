@@ -2,7 +2,6 @@
 import { ref, onMounted } from "vue";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
-import chartManager from "./components/ChartManager"
 
 const loading = ref(false);
 const userData = ref(null);
@@ -52,6 +51,7 @@ const fetchData = async () => {
       >
         <tr>
           <th scope="col" class="px-6 py-3">Presence</th>
+          <th scope="col" class="px-6 py-3">Role</th>
           <th scope="col" class="px-6 py-3">Username</th>
           <th scope="col" class="px-6 py-3">Email</th>
           <th scope="col" class="px-6 py-3">Workingtime</th>
@@ -75,6 +75,7 @@ const fetchData = async () => {
           >
             {{ user.status === true ? "True" : "False" }}
           </th>
+          <td class="px-6 py-4">{{ user.role }}</td>
           <td class="px-6 py-4">{{ user.username }}</td>
           <td class="px-6 py-4">{{ user.email }}</td>
           <td class="px-6 py-4">
