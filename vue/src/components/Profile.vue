@@ -7,12 +7,15 @@ import { useToast } from "vue-toast-notification";
 <template>
   <!-- IF USER CONNECTED -->
   <!-- MENU -->
+  <h1 class="text-5xl font-bold">Welcome back {{ userUsername }} !</h1>
+        <br>
 
   <div class="hero min-h-screen bg-base-200">
+   
+
     <div class="hero-content flex-col lg:flex-row-reverse">
       <div class="stats stats-vertical shadow">
-        <h1 class="text-5xl font-bold">Welcome back @user !</h1>
-
+        
         <div class="stat">
           <div class="stat-title">Username</div>
           <div class="stat-value">{{ userUsername }}</div>
