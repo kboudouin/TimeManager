@@ -1,10 +1,12 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
+import { defineProps } from "vue";
 import { Bar, Line } from "vue-chartjs";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import "chart.js/auto";
 
+const { user } = defineProps(["user"]);
 const dailyData = ref(null);
 const weeklyData = ref(null);
 const cumulativeData = ref(null);
@@ -18,7 +20,10 @@ const fetchData = async () => {
   loading.value = true;
 
   const route = useRoute();
-  const id = route.params.id;
+  let id = route.params.id;
+  if (id == null && user) {
+    id = user.id;
+  }
   const resp = await axios.get(
     `http://44.207.191.254:4000/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`
   );

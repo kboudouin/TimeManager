@@ -1,6 +1,7 @@
 defmodule Api.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Pbkdf2
 
   schema "users" do
     field(:username, :string)
@@ -24,8 +25,9 @@ defmodule Api.User do
   end
 
   defp put_pass_hash(changeset, password) when is_binary(password) do
-    hash = Bcrypt.hash_pwd_salt(password)
-    put_change(changeset, :password_hash, hash)
-  end
-  defp put_pass_hash(changeset, _), do: changeset
+      hash = Pbkdf2.hash_pwd_salt(password)
+      put_change(changeset, :password_hash, hash)
+    end
+
+
 end

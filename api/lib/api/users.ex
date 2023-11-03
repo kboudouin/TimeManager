@@ -3,6 +3,7 @@ defmodule Api.Users do
 
   alias Api.Repo
   alias Api.User
+  alias Pbkdf2
 
   def list_users do
     Repo.all(User)
@@ -37,14 +38,11 @@ defmodule Api.Users do
   end
 
 
-  def authenticate_user(email, password) do
+def authenticate_user(email, password) do
     user = Repo.get_by(User, email: email)
     cond do
-      user && Bcrypt.verify_pass(password, user.password_hash) -> {:ok, user}
+      user && Pbkdf2.verify_pass(password, user.password_hash) -> {:ok, user}
       true -> :error
     end
   end
-
-
-
 end
