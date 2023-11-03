@@ -1,6 +1,9 @@
 <script setup>
 import axios from "axios";
 import { store } from "../store.js";
+import { defineProps } from "vue";
+
+const { id } = defineProps(["id"]);
 
 const clickEvent = () => {
   return store.toggleCreateModal();
@@ -12,9 +15,7 @@ let end = "";
 const createWorkingTime = async () => {
   try {
     await axios.post(
-      `http://44.207.191.254:4000/api/workingtimes/${localStorage.getItem(
-        "userId"
-      )}?start=${start}&end=${end}`
+      `http://44.207.191.254:4000/api/workingtimes/${id}?start=${start}&end=${end}`
     );
     window.location.reload();
   } catch (error) {

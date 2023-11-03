@@ -5,13 +5,22 @@ import axios from "axios";
 import deleteModal from "./adminDelete.vue";
 import modifyModal from "./adminModify.vue";
 import chartModal from "../ChartManager.vue";
+import wtModal from "../workingTimes/wtRender.vue";
 
+// Loading red
 const loading = ref(false);
+
+// Data refs
 const userData = ref(null);
 const clocksData = ref(null);
+
+// Toogle refs
 const toggleDelete = ref(false);
 const toggleModify = ref(false);
 const toggleChart = ref(false);
+const toggleWt = ref(false);
+
+// Prop refs
 const selectedID = ref(null);
 const selectedUser = ref(null);
 
@@ -48,9 +57,9 @@ const fetchData = async () => {
   }
 };
 
-const toggleDeleteModal = async (id) => {
+const toggleDeleteModal = async (user) => {
   toggleDelete.value = !toggleDelete.value;
-  selectedID.value = id;
+  selectedUser.value = user;
 };
 
 const toggleModifyModal = async (user) => {
@@ -62,6 +71,12 @@ const toggleChartModal = async (user) => {
   toggleChart.value = !toggleChart.value;
   selectedUser.value = user;
 };
+
+const toggleWtModal = async (user) => {
+  toggleWt.value = !toggleWt.value;
+  console.log("Toogle Wt modal" + user);
+  selectedUser.value = user;
+};
 </script>
 
 <template>
@@ -69,7 +84,7 @@ const toggleChartModal = async (user) => {
   <div v-if="toggleDelete">
     <deleteModal
       @close="toggleDeleteModal"
-      :userId="selectedID"
+      :user="selectedUser"
       @fetchData="fetchData"
     />
   </div>
@@ -99,7 +114,30 @@ const toggleChartModal = async (user) => {
       </h2>
       <div class="relative m-4">
         <chartModal
-          @close="toggleChartModal"
+          :user="selectedUser"
+          @fetchData="fetchData"
+          class="items-center justify-center"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- WorkingTimes toggle modal component -->
+  <div v-if="toggleWt" class="fixed z-40 inset-0 overflow-y-auto">
+    <button
+      @click="toggleWtModal"
+      class="absolute z-50 right-6 top-6 text-sm bg-red-500 hover:bg-red-600 text-white py-2 px-2 rounded-lg"
+    >
+      Close
+    </button>
+    <div
+      class="md:mx-16 my-8 bg-white rounded-xl shadow-lg p-6 dark:bg-gray-800 max-h-screen overflow-y-auto relative"
+    >
+      <h2 class="font-extrabold text-xl">
+        WorkingTimes for {{ selectedUser.username }}
+      </h2>
+      <div class="relative m-4">
+        <wtModal
           :user="selectedUser"
           @fetchData="fetchData"
           class="items-center justify-center"
@@ -145,17 +183,13 @@ const toggleChartModal = async (user) => {
           <td class="px-6 py-4">{{ user.email }}</td>
           <td class="px-6 py-4">
             <a
-              href="#"
+              @click="toggleWtModal(user)"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              ><router-link
-                :to="{ name: 'workingtime', params: { id: user.id } }"
-                >View</router-link
-              ></a
+              >View</a
             >
           </td>
           <td class="px-6 py-4">
             <a
-              href="#"
               @click="toggleChartModal(user)"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               >View
@@ -164,7 +198,6 @@ const toggleChartModal = async (user) => {
           <td class="px-6 py-4 text-right">
             <a
               @click="toggleModifyModal(user)"
-              href="#"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               >Edit</a
             >
@@ -172,7 +205,6 @@ const toggleChartModal = async (user) => {
           <td class="px-6 py-4 text-right">
             <a
               @click="toggleDeleteModal(user)"
-              href="#"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               >Delete</a
             >

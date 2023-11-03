@@ -8,6 +8,7 @@ const { user } = defineProps(["user"]);
 const emit = defineEmits(["close", "fetchData"]);
 
 const username = ref(user.username);
+const id = ref(user.id);
 const email = ref(user.email);
 const role = ref(user.role);
 
@@ -20,7 +21,7 @@ watch(user, (newValue) => {
 const modifyUser = async () => {
   try {
     await axios.put(
-      `http://44.207.191.254:4000/api/users/${user.id}?email=${email.value}&username=${username.value}&role=${role.value}`
+      `http://44.207.191.254:4000/api/users/${id.value}?email=${email.value}&username=${username.value}&role=${role.value}`
     );
     emit("close");
     await emit("fetchData");

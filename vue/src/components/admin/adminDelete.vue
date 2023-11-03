@@ -4,18 +4,20 @@ import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import { defineProps, defineEmits } from "vue";
 
-const { userId } = defineProps(["userId"]);
+const { user } = defineProps(["user"]);
 const emit = defineEmits(["close", "fetchData"]);
+
 const deleteUser = async () => {
   try {
-    await axios.delete(`http://44.207.191.254:4000/api/users/${userId}`);
+    let id = user.id;
+    await axios.delete(`http://44.207.191.254:4000/api/users/${id}`);
     emit("close");
     await emit("fetchData");
     const $toast = useToast();
     $toast.success("User deleted successfully");
   } catch (error) {
     const $toast = useToast();
-    $toast.error("Error fetching data");
+    $toast.error("Error while deleting");
     console.error(error);
   }
 };
@@ -68,7 +70,7 @@ const deleteUser = async () => {
             />
           </svg>
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-            Are you sure you want to delete this product?
+            Do you want to delete : {{ user.username }}
           </h3>
           <button
             @click="deleteUser"
