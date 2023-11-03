@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import deleteModal from "./adminDelete.vue";
