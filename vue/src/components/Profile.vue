@@ -170,8 +170,8 @@ export default {
       const userId = localStorage.getItem("userId");
       axios
         .put(
-          //"http://44.207.191.254:4000/api/users/" +
-            "http://localhost:4000/api/users/" +
+          "http://44.207.191.254:4000/api/users/" +
+          //"http://localhost:4000/api/users/" +
             userId +
             "?email=" +
             this.newmail
@@ -214,8 +214,8 @@ export default {
 
       axios
         .put(
-           "http://localhost:4000/api/users/" +
-          //"http://44.207.191.254:4000/api/users/" +
+          // "http://localhost:4000/api/users/" +
+          "http://44.207.191.254:4000/api/users/" +
             userId +
             "?username=" +
             this.newusername
