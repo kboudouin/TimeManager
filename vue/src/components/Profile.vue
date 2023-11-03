@@ -5,9 +5,7 @@ import { useToast } from "vue-toast-notification";
 </script>
 
 <template>
-  <!-- IF USER CONNECTED -->
-  <!-- MENU -->
-  <h1 class="text-5xl font-bold">Welcome back {{ userUsername }} !</h1>
+   <h1 class="text-5xl font-bold">Welcome back {{ userUsername }} !</h1>
         <br>
 
   <div class="hero min-h-screen bg-base-200">
@@ -18,7 +16,8 @@ import { useToast } from "vue-toast-notification";
         
         <div class="stat">
           <div class="stat-title">Username</div>
-          <div class="stat-value">{{ userUsername }}</div>
+            <div class="stat">{{ userUsername }}</div>
+          
           <input
             type="text"
             placeholder="New username"
@@ -33,7 +32,8 @@ import { useToast } from "vue-toast-notification";
 
         <div class="stat">
           <div class="stat-title">Email</div>
-          <div class="stat-value">{{ EMAIL }}</div>
+          <div class="stat">{{ EMAIL }}</div>
+          <br>
           <input
             type="text"
             placeholder="New email"
@@ -45,10 +45,9 @@ import { useToast } from "vue-toast-notification";
             UPDATE EMAIL
           </button>
         </div>
-      </div>
-
-      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <form @submit="(event) => event.preventDefault()" class="card-body">
+        <div class="stat">
+          <div class="stat-title">{{ userUsername }}</div>
+          <form @submit="(event) => event.preventDefault()">
           <h1>DELETE ACCOUNT</h1>
           <div class="form-control">
             <div class="form-control">
@@ -74,7 +73,9 @@ import { useToast } from "vue-toast-notification";
             <button @click="Deleteacc" class="btn btn-primary">DELETE</button>
           </div>
         </form>
+        </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -170,7 +171,7 @@ export default {
       axios
         .put(
           "http://44.207.191.254:4000/api/users/" +
-            // "http://localhost:4000/api/users/" +
+          //"http://localhost:4000/api/users/" +
             userId +
             "?email=" +
             this.newmail

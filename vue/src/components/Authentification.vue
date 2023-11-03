@@ -448,7 +448,7 @@ export default {
       this.$router.push("/admin");
     },
     Teams() {
-      this.$router.push("/Teams");
+      this.$router.push("/Teams/" + localStorage.getItem("userId"));
     },
 
     API() {
