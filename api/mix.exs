@@ -54,6 +54,7 @@ defmodule Api.MixProject do
       {:corsica, "~> 1.1"},
       {:comeonin, "~> 5.3"},
       {:pbkdf2_elixir, "~> 1.0"},
+       {:guardian, "~> 2.0"},
 
     ]
   end

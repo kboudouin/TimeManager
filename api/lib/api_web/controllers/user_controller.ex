@@ -61,11 +61,17 @@ end
   end
 
 
-  def login(conn, %{"email" => email, "password" => password}) do
-  case Users.authenticate_user(email, password) do
-    {:ok, user} -> json(conn, %{user: user})
+def login(conn, %{"email" => email, "password" => password}) do
+  case Api.Users.authenticate_user(email, password) do
+    {:ok, user} ->
+      {:ok, jwt, _claims} = Api.Guardian.encode_and_sign(user)
+      conn
+      |> put_resp_cookie("token", jwt, http_only: true)
+      |> json(%{message: "Connected"})
     :error -> json(conn, %{error: "Invalid credentials"})
   end
 end
+
+
 
 end
