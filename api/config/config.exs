@@ -20,7 +20,15 @@ config :api, ApiWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Api.PubSub,
-  live_view: [signing_salt: "J1zFud9F"]
+  live_view: [signing_salt: "J1zFud9F"],
+  plug: [
+    {Plug.Session, store: :cookie, key: "token", signing_salt: "p!scin£_2023"},
+    {ApiWeb.Auth.Guardian, otp_app: :api}
+  ]
+
+  config :api, ApiWeb.Auth.Guardian,
+    issuer: "api",
+    secret_key: "AP!_P!scin£_2023"
 
 # Configures the mailer
 #

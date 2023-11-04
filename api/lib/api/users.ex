@@ -1,9 +1,12 @@
 defmodule Api.Users do
   import Ecto.Query
+  import ApiWeb.Auth.Guardian
 
+  alias Api.Token
   alias Api.Repo
   alias Api.User
   alias Pbkdf2
+  # alias ApiWeb.Auth.Guardian
 
   def list_users do
     Repo.all(User)
@@ -19,11 +22,19 @@ defmodule Api.Users do
     Repo.all(query)
   end
 
-  def create_user(attrs \\ %{}) do
-      %User{}
-      |> User.changeset(attrs)
-      |> Repo.insert()
+  def create_user(conn, attrs \\ %{}) do
+    case %User{}
+         |> User.changeset(attrs)
+         |> Repo.insert() do
+      {:ok, user} ->
+        #  create_token(user)
+         token = create_token(conn, user)
+        {:ok, %{user: user, token: token}}
+        # {:ok, %{user: user}}
+      error ->
+        error
     end
+  end
 
   def get_user!(id), do: Repo.get!(User, id)
 
@@ -38,7 +49,7 @@ defmodule Api.Users do
   end
 
 
-def authenticate_user(email, password) do
+  def authenticate_user(email, password) do
     user = Repo.get_by(User, email: email)
     cond do
       user && Pbkdf2.verify_pass(password, user.password_hash) -> {:ok, user}
