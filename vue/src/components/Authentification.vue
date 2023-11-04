@@ -458,7 +458,7 @@ export default {
       try {
         const response = await axios.post(
           `http://44.207.191.254:4000/api/login?email=${email}&password=${pass}`,
-          {}
+          { withCredentials: true }
         );
         console.log("Users found");
 
@@ -466,6 +466,7 @@ export default {
           this.isUserConnected = true;
 
           const setCookieHeader = response.headers["set-cookie"];
+          console.log(response.headers);
 
           if (setCookieHeader) {
             const jwtToken = setCookieHeader[0]

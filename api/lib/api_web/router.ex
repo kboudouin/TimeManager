@@ -12,12 +12,12 @@ defmodule ApiWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
-    plug(Corsica, origins: "*", allow_headers: ["Authorization", "Content-Type"])
+    plug(Corsica, origins: "*", allow_headers: ["Authorization", "Content-Type"],credentials: true)
   end
 
   pipeline :api_auth do
     plug(:accepts, ["json"])
-    plug(Corsica, origins: "*", allow_headers: ["Authorization", "Content-Type"])
+    plug(Corsica, origins: "*", allow_headers: ["Authorization", "Content-Type"],credentials: true)
     plug(Guardian.Plug.VerifyHeader, realm: "Bearer", module: Api.Guardian, error_handler: ApiWeb.GuardianErrorHandler)
     plug(Guardian.Plug.LoadResource, allow_blank: true, module: Api.Guardian)
     plug(Guardian.Plug.EnsureAuthenticated, error_handler: ApiWeb.GuardianErrorHandler)
