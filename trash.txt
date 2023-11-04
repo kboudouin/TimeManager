@@ -1,0 +1,27 @@
+defmodule Api.Token do
+  require Joken
+  use Joken.Config
+
+  @algorithm "HS256"
+  @jwt_secret "elixir_api_secret"
+
+  def generate_token(user, conn) do
+    claims = %{
+      "sub" => user.id,
+      "username" => user.username,
+      "role" => user.role
+    }
+
+    signer = Joken.Signer.create(@algorithm, @jwt_secret)
+    {:ok, token, _claims} = Joken.token(claims) |> Joken.sign(signer)
+    conn
+    |> Plug.Conn.put_resp_cookie("token", token, http_only: true, secure: true)
+    # |> json(%{message: "Token généré"})
+    token
+  end
+
+  def verify_token(token) do
+    signer = Joken.Signer.create(@algorithm, @jwt_secret)
+    Joken.verify(token, signer)
+  end
+end

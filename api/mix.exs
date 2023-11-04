@@ -54,7 +54,10 @@ defmodule Api.MixProject do
       {:corsica, "~> 1.1"},
       {:comeonin, "~> 5.3"},
       {:pbkdf2_elixir, "~> 1.0"},
-
+      # {:joken, "~> 2.2"},
+      # {:plug, "~> 1.10"}
+      {:guardian, "~> 2.0"},
+      {:plug, "~> 1.12"}
     ]
   end
 
