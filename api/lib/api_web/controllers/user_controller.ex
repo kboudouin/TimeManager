@@ -64,7 +64,8 @@ end
 def login(conn, %{"email" => email, "password" => password}) do
   case Api.Users.authenticate_user(email, password) do
     {:ok, user} ->
-      {:ok, jwt, _claims} = Api.Guardian.encode_and_sign(user)
+      claims = %{ "user_id" => user.id, "role" => user.role }
+      {:ok, jwt, _full_claims} = Api.Guardian.encode_and_sign(user, claims)
       conn
       |> put_resp_cookie("token", jwt, http_only: true)
       |> json(%{message: "Connected"})

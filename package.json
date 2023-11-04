@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "emailjs-com": "^3.2.0",
-    "form-data": "^4.0.0",
-    "mailgun.js": "^9.3.0"
-  }
-}

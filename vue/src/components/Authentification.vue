@@ -450,42 +450,47 @@ export default {
     Teams() {
       this.$router.push("/Teams/" + localStorage.getItem("userId"));
     },
-
-    API() {
+    async API() {
       this.loading = true;
       const email = this.email;
       const pass = this.password;
 
-      axios
-        .post(
+      try {
+        const response = await axios.post(
           `http://44.207.191.254:4000/api/login?email=${email}&password=${pass}`,
           {}
-        )
-        .then((response) => {
-          console.log("Users found");
-          if (response.data.user) {
-            this.isUserConnected = true;
-            const user = response.data.user;
-            if (user.role == "admin") {
-              window.location.reload();
-            }
-            localStorage.setItem("role", user.role);
-            localStorage.setItem("userEmail", user.email);
-            localStorage.setItem("userUsername", user.username);
-            localStorage.setItem("userId", user.id);
+        );
+        console.log("Users found");
+
+        if (response.data.message) {
+          this.isUserConnected = true;
+
+          const setCookieHeader = response.headers["set-cookie"];
+
+          if (setCookieHeader) {
+            const jwtToken = setCookieHeader[0]
+              .split(";")[0]
+              .replace("token=", "");
+
+            const jwtDecodeModule = await import("jwt-decode");
+            const userId = jwtDecodeModule.default(jwtToken).user_id;
+            const userRole = jwtDecodeModule.default(jwtToken).role;
+
+            localStorage.setItem("role", userRole);
+            localStorage.setItem("userId", userId);
+
             this.$router.push("/dashboard/" + localStorage.getItem("userId"));
             const $toast = useToast();
             $toast.success("Logged in!");
-            this.$router.push("/dashboard/" + localStorage.getItem("userId"));
             this.loading = false;
           }
-        })
-        .catch((error) => {
-          console.error("API request failed:", error);
-          const $toast = useToast();
-          $toast.error("Something went wrong!");
-          this.loading = false;
-        });
+        }
+      } catch (error) {
+        console.error("API request failed:", error);
+        const $toast = useToast();
+        $toast.error("Something went wrong!");
+        this.loading = false;
+      }
     },
 
     // Méthode pour créer un utilisateur (POST)
