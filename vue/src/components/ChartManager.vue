@@ -2,7 +2,7 @@
 import { ref, onMounted, watch } from "vue";
 import { defineProps } from "vue";
 import { Bar, Line } from "vue-chartjs";
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import VueCookies from "vue-cookies";
 import axios from "axios";
 import "chart.js/auto";
@@ -40,6 +40,10 @@ const fetchData = async () => {
   const workByWeek = {};
   let cumulativeWorkHours = 0;
   const workByCumulative = [];
+
+  if (resp.data && resp.data.error) {
+    this.$router.replace("/error");
+  }
 
   if (resp.data && resp.data.workingtimes) {
     totalWorkedHours.value = 0;
