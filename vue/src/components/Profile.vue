@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
+import VueCookies from "vue-cookies";
 </script>
 
 <template>

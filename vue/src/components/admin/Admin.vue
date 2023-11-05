@@ -7,8 +7,9 @@ import deleteModal from "./adminDelete.vue";
 import modifyModal from "./adminModify.vue";
 import chartModal from "../ChartManager.vue";
 import wtModal from "../workingTimes/wtRender.vue";
+import VueCookies from "vue-cookies";
 
-// Loading red
+// Loading ref
 const loading = ref(false);
 
 // Data refs
@@ -32,13 +33,24 @@ onMounted(() => {
 const fetchData = async () => {
   loading.value = true;
   try {
+    const token = VueCookies.get("token");
     const userResponse = await axios.get(
-      `http://44.207.191.254:4000/api/users`
+      `http://44.207.191.254:4000/api/users`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     userData.value = userResponse.data.users;
 
     const clockResponse = await axios.get(
-      `http://44.207.191.254:4000/api/clocks`
+      `http://44.207.191.254:4000/api/clocks`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     clocksData.value = clockResponse.data.clocks;
 

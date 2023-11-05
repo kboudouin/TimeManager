@@ -458,33 +458,21 @@ export default {
       try {
         const response = await axios.post(
           `http://44.207.191.254:4000/api/login?email=${email}&password=${pass}`,
+          {},
           { withCredentials: true }
         );
-        console.log("Users found");
 
-        if (response.data.message) {
+        if (response.data.user) {
           this.isUserConnected = true;
 
-          const setCookieHeader = response.headers["set-cookie"];
-          console.log(response.headers);
+          localStorage.setItem("role", response.data.user.role);
+          localStorage.setItem("userId", response.data.user.id);
+          localStorage.setItem("userUsername", response.data.user.username);
 
-          if (setCookieHeader) {
-            const jwtToken = setCookieHeader[0]
-              .split(";")[0]
-              .replace("token=", "");
-
-            const jwtDecodeModule = await import("jwt-decode");
-            const userId = jwtDecodeModule.default(jwtToken).user_id;
-            const userRole = jwtDecodeModule.default(jwtToken).role;
-
-            localStorage.setItem("role", userRole);
-            localStorage.setItem("userId", userId);
-
-            this.$router.push("/dashboard/" + localStorage.getItem("userId"));
-            const $toast = useToast();
-            $toast.success("Logged in!");
-            this.loading = false;
-          }
+          this.$router.push("/dashboard/" + response.data.user.id);
+          const $toast = useToast();
+          $toast.success("Logged in!");
+          this.loading = false;
         }
       } catch (error) {
         console.error("API request failed:", error);
@@ -493,7 +481,6 @@ export default {
         this.loading = false;
       }
     },
-
     // Méthode pour créer un utilisateur (POST)
     CreateUSER() {
       const username = this.username;
@@ -512,21 +499,6 @@ export default {
         })
         .catch((error) => {
           console.error("API request failed: USER FAILED TO BE ADDED", error);
-        });
-    },
-
-    // Méthode pour obtenir un utilisateur par son ID (GET)
-    GetUSERbyID() {
-      console.log("Button clicked");
-      const userId = 10; //a ajout
-      axios
-        .get(`http://44.207.191.254:4000/api/users/${userId}`)
-        .then((response) => {
-          console.log("API response received");
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error("API request failed:", error);
         });
     },
   },
