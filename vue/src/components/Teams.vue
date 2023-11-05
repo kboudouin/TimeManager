@@ -1,13 +1,7 @@
-<script setup>
-import { ref } from "vue";
-import axios from "axios";
-import { useToast } from "vue-toast-notification";
-</script>
 <template>
   <div class="container mx-auto py-4">
     <h1 class="text-3xl font-semibold mb-4">Gestion des équipes</h1>
 
-  
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Mes équipes</h2>
       <div class="carousel w-full">
@@ -26,10 +20,8 @@ import { useToast } from "vue-toast-notification";
         </div>
       </div>
     </section>
- 
-    
-    
-     <section class="mb-8">
+
+    <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Toutes les équipes</h2>
       <div class="carousel w-full">
         <div v-for="(group, index) in groupedTeams" :key="index" :id="'slide' + (index + 1)" class="carousel-item relative w-full">
@@ -47,51 +39,86 @@ import { useToast } from "vue-toast-notification";
         </div>
       </div>
     </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
+      <button @click="showCreateTeamForm" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-green-600">Créer une équipe</button>
+
+      <div v-if="creatingTeam" class="bg-white p-4 rounded-lg shadow">
+        <form @submit.prevent="addTeam">
+          <div class="mb-4">
+            <label for="teamName" class="block text-black font-semibold">Leader</label>
+            <input v-model="newTeam.name" type="text" id="teamName" class="w-full rounded border p-2">
+          </div>
+          <div class="mb-4">
+            <label for="teamDescription" class="block text-black font-semibold">Members</label>
+            <textarea v-model="newTeam.description" id="teamDescription" class="w-full rounded border p-2"></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="teamDescription" class="block text-black font-semibold">Description de l'équipe</label>
+            <textarea v-model="newTeam.description" id="teamDescription" class="w-full rounded border p-2"></textarea>
+          </div>
+          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover-bg-blue-600">Créer</button>
+        </form>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+import axios from "axios";
+import { useToast } from "vue-toast-notification";
+
 export default {
-  data() {
-    return {
-      teams: [
-        { id: 1, name: 'Équipe A', description: 'Description de l\'équipe A' },
-        { id: 2, name: 'Équipe B', description: 'Description de l\'équipe B' },
-        { id: 3, name: 'Équipe C', description: 'Description de l\'équipe C' },
-        { id: 1, name: 'Équipe D', description: 'Description de l\'équipe A' },
-        { id: 2, name: 'Équipe E', description: 'Description de l\'équipe B' },
-        { id: 3, name: 'Équipe F', description: 'Description de l\'équipe C' },
-        { id: 1, name: 'Équipe G', description: 'Description de l\'équipe A' },
-        { id: 2, name: 'Équipe H', description: 'Description de l\'équipe B' },
-        { id: 3, name: 'Équipe I', description: 'Description de l\'équipe C' },
-        // Ajoutez d'autres équipes ici
-      ],
-      myTeams: [
-        { id: 1, name: 'Mon Équipe A', description: 'Ma description de l\'équipe A' },
-        // Ajoutez d'autres équipes de l'utilisateur ici
-      ],
+  setup() {
+    const teams = [
+      { id: 1, name: 'Équipe A', description: 'Description de l\'équipe A' },
+      { id: 2, name: 'Équipe B', description: 'Description de l\'équipe B' },
+      { id: 3, name: 'Équipe C', description: 'Description de l\'équipe C' },
+      // Ajoutez d'autres équipes ici
+    ];
+
+    const creatingTeam = ref(false);
+    const newTeam = ref({
+      name: "",
+      description: "",
+    });
+
+    const groupedTeams = ref([]);
+
+    const showCreateTeamForm = () => {
+      creatingTeam.value = true;
+      newTeam.value = { name: "", description: "" };
     };
-  },
-  computed: {
-    groupedTeams() {
-      const chunkSize = 3; // Nombre d'équipes par groupe
-      return this.teams.reduce((resultArray, item, index) => {
-        const chunkIndex = Math.floor(index / chunkSize);
-        if (!resultArray[chunkIndex]) {
-          resultArray[chunkIndex] = [];
+
+    const addTeam = async () => {
+      try {
+        // Envoyer une requête POST pour ajouter la nouvelle équipe
+        const response = await axios.post("http://localhost:4000/api/teams", newTeam.value);
+
+        if (response.status === 201) {
+          useToast().success("Équipe ajoutée avec succès.");
+          // Mettre à jour les données des équipes si nécessaire
+          // Vous pouvez également rediriger l'utilisateur vers la page de gestion d'équipe
+          creatingTeam.value = false;
+        } else {
+          useToast().error("Erreur lors de l'ajout de l'équipe.");
         }
-        resultArray[chunkIndex].push(item);
-        return resultArray;
-      }, []);
-    },
-  },
-  methods: {
-    editTeam(teamId) {
-      // Fonction pour éditer une équipe (à implémenter)
-    },
-    leaveTeam(teamId) {
-      // Fonction pour quitter une équipe (à implémenter)
-    },
+      } catch (error) {
+        console.error("Erreur lors de l'ajout de l'équipe", error);
+        useToast().error("Erreur lors de l'ajout de l'équipe.");
+      }
+    };
+
+    return {
+      teams,
+      creatingTeam,
+      newTeam,
+      groupedTeams,
+      showCreateTeamForm,
+      addTeam,
+    };
   },
 };
 </script>
