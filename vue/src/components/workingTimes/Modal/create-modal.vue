@@ -2,6 +2,7 @@
 import axios from "axios";
 import { store } from "../store.js";
 import { defineProps } from "vue";
+import VueCookies from "vue-cookies";
 
 const { id } = defineProps(["id"]);
 
@@ -14,8 +15,15 @@ let end = "";
 // CREER UN TEMPS DE TRAVAIL
 const createWorkingTime = async () => {
   try {
+    const token = VueCookies.get("token");
     await axios.post(
-      `http://44.207.191.254:4000/api/workingtimes/${id}?start=${start}&end=${end}`
+      `http://44.207.191.254:4000/api/workingtimes/${id}?start=${start}&end=${end}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     window.location.reload();
   } catch (error) {
