@@ -24,6 +24,7 @@ const modifyUser = async () => {
     const token = VueCookies.get("token");
     await axios.put(
       `http://44.207.191.254:4000/api/users/${id.value}?email=${email.value}&username=${username.value}&role=${role.value}`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,

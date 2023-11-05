@@ -102,6 +102,7 @@ const clock = async () => {
     const token = VueCookies.get("token");
     await axios.post(
       `http://44.207.191.254:4000/api/clocks/${id}?status=true`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -126,6 +127,7 @@ const refresh = async () => {
   const token = VueCookies.get("token");
   const clockRequest = axios.post(
     `http://44.207.191.254:4000/api/clocks/${id}?status=false`,
+    {},
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -134,6 +136,7 @@ const refresh = async () => {
   );
   const workingTimeRequest = axios.post(
     `http://44.207.191.254:4000/api/workingtimes/${id}?start=${sTime.value}&end=${eTime.value}`,
+    {},
     {
       headers: {
         Authorization: `Bearer ${token}`,
