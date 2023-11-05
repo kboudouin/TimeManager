@@ -5,6 +5,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 import VueCookies from "vue-cookies";
+import router from "../router";
 
 const showSideNav = ref(false);
 const isAdmin = ref(false);
@@ -471,7 +472,7 @@ export default {
           localStorage.setItem("userId", response.data.user.id);
           localStorage.setItem("userUsername", response.data.user.username);
 
-          this.$router.push("/dashboard/" + response.data.user.id);
+          router.push("/dashboard/" + response.data.user.id);
           const $toast = useToast();
           $toast.success("Logged in!");
           this.loading = false;

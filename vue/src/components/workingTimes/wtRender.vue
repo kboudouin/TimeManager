@@ -4,6 +4,7 @@ import WorkingTimes from "./WorkingTimes.vue";
 import EditModal from "./Modal/edit-modal.vue";
 import CreateModal from "./Modal/create-modal.vue";
 import DeleteModal from "./Modal/delete-modal.vue";
+import router from "../../router";
 import VueCookies from "vue-cookies";
 import { defineProps, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -31,6 +32,9 @@ const getWorkingTimes = async () => {
         },
       }
     );
+    if (response.data.error) {
+      router.replace("/error");
+    }
     return store.setWorkingTimes(response.data.workingtimes.reverse());
   } catch (error) {
     store.setWorkingTimes([]);
