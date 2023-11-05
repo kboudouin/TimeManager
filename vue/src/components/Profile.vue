@@ -3,7 +3,6 @@ import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
 import VueCookies from "vue-cookies";
-import VueCookies from "vue-cookies";
 </script>
 
 <template>
@@ -97,6 +96,7 @@ export default {
       newusername: null,
       newmail: null,
       newid: null,
+      token: VueCookies.get("token"),
     };
   },
   created() {
@@ -111,16 +111,14 @@ export default {
       console.log("list of users in process...");
       const email1 = this.email;
       const username1 = this.username;
-      const token = VueCookies.get("token");
       axios
         .get(`http://44.207.191.254:4000/api/users`, {
           params: {
             email: email1,
             username: username1,
           },
-
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((response) => {
@@ -142,14 +140,13 @@ export default {
 
     //
     Deleteacc() {
-      const token = VueCookies.get("token");
       axios
         .delete(
           `http://44.207.191.254:4000/api/users/` +
             localStorage.getItem("userId"),
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${this.token}`,
             },
           }
         )
@@ -173,7 +170,6 @@ export default {
 
     updatemail() {
       this.newmail = this.$refs.emailInput.value;
-      const token = VueCookies.get("token");
       console.log(
         "UPDATE MAIL FROM " +
           localStorage.getItem("userId") +
@@ -181,7 +177,6 @@ export default {
           this.newmail
       );
       const userId = localStorage.getItem("userId");
-      const token = VueCookies.get("token");
       axios
         .put(
           "http://44.207.191.254:4000/api/users/" +
@@ -191,7 +186,7 @@ export default {
           {},
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${this.token}`,
             },
           }
         )
@@ -205,14 +200,6 @@ export default {
         });
     },
 
-    updateid() {
-
-      this.newid = this.$refs.idInput.value;
-      console.log(
-        "UPDATE ID FROM " + localStorage.getItem("userId") + " TO " + this.newid
-      );
-      const userId = localStorage.getItem("userId");
-
     updateusername() {
       this.newusername = this.$refs.usernameInput.value;
       console.log(
@@ -222,7 +209,6 @@ export default {
           this.newusername
       );
       const userId = localStorage.getItem("userId");
-      const token = VueCookies.get("token");
       axios
         .put(
           "http://44.207.191.254:4000/api/users/" +
@@ -232,16 +218,16 @@ export default {
           {},
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${this.token}`,
             },
           }
         )
         .then((response) => {
-          console.log("API response received: uUSERNAME BEEN UPDATED");
+          console.log("API response received: USERNAME BEEN UPDATED");
           console.log(response.data);
           const $toast = useToast();
           $toast.success(
-            response.data.info + "logout and login to see changes"
+            response.data.info + " logout and login to see changes"
           );
         });
     },
