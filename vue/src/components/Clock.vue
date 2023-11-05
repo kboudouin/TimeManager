@@ -18,6 +18,13 @@ const onSickLeave = ref(false);
 const route = useRoute();
 const id = route.params.id;
 
+if (
+  localStorage.getItem("userId") !== id &&
+  localStorage.getItem("userId") !== "admin"
+) {
+  router.replace("/error");
+}
+
 let interval;
 
 // Function to get all data

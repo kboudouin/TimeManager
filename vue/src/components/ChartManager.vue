@@ -17,6 +17,15 @@ const chartOptions = ref();
 const totalWorkedHours = ref(0);
 const totalWorkedDays = ref(0);
 const loading = ref(true);
+const route = useRoute();
+let id = route.params.id;
+
+if (
+  localStorage.getItem("userId") !== id &&
+  localStorage.getItem("userId") !== "admin"
+) {
+  router.replace("/error");
+}
 
 const fetchData = async () => {
   loading.value = true;

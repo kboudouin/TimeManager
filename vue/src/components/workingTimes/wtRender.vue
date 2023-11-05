@@ -13,6 +13,16 @@ import { store } from "./store.js";
 const { user } = defineProps(["user"]);
 const selectedID = ref(null);
 
+const route = useRoute();
+const id = route.params.id;
+
+if (
+  localStorage.getItem("userId") !== id &&
+  localStorage.getItem("userId") !== "admin"
+) {
+  router.replace("/error");
+}
+
 // API CALL
 const getWorkingTimes = async () => {
   //get id from prop or url
