@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
+import VueCookies from "vue-cookies";
 
 const showSideNav = ref(false);
 const isAdmin = ref(false);
@@ -430,6 +431,7 @@ export default {
       localStorage.removeItem("userEmail");
       localStorage.removeItem("userUsername");
       this.isUserConnected = false;
+      VueCookies.remove("token");
       this.$router.replace("/");
     },
     Dashboard() {

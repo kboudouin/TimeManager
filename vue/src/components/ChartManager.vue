@@ -40,8 +40,9 @@ const fetchData = async () => {
   const workByWeek = {};
   let cumulativeWorkHours = 0;
   const workByCumulative = [];
-  console.log(resp.data.error);
+
   if (resp.data.error) {
+    const router = useRouter();
     this.$router.replace("/error");
   }
 
