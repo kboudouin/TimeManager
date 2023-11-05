@@ -3,6 +3,8 @@ import { ref, onMounted, watch } from "vue";
 import { defineProps } from "vue";
 import { Bar, Line } from "vue-chartjs";
 import { useRoute } from "vue-router";
+import router from "../router";
+import VueCookies from "vue-cookies";
 import axios from "axios";
 import "chart.js/auto";
 
@@ -24,8 +26,14 @@ const fetchData = async () => {
   if (id == null && user) {
     id = user.id;
   }
+  const token = VueCookies.get("token");
   const resp = await axios.get(
-    `http://44.207.191.254:4000/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`
+    `http://44.207.191.254:4000/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   // Initialize containers for daily, weekly and Cumulative data
@@ -33,6 +41,11 @@ const fetchData = async () => {
   const workByWeek = {};
   let cumulativeWorkHours = 0;
   const workByCumulative = [];
+
+  //redirect to /error if user is not allowed to get data
+  if (resp.data.error) {
+    router.replace("/error");
+  }
 
   if (resp.data && resp.data.workingtimes) {
     totalWorkedHours.value = 0;

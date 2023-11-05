@@ -1,15 +1,24 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
+import VueCookies from "vue-cookies";
+import router from "../router";
 
 const showSideNav = ref(false);
+const isAdmin = ref(false);
+
+const checkAdmin = () => {
+  isAdmin.value = localStorage.getItem("role") === "admin";
+};
 
 const toggleSideNav = () => {
   showSideNav.value = !showSideNav.value;
 };
+
+onMounted(checkAdmin);
 </script>
 
 <template>
@@ -78,10 +87,9 @@ const toggleSideNav = () => {
                 >
               </a>
             </li>
-            <li>
+            <li v-if="isAdmin">
               <a
                 @click="Admin"
-                href="#"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span class="inline-flex justify-center items-center ml-4">
@@ -104,7 +112,7 @@ const toggleSideNav = () => {
                   @click="Dashboard"
                   class="ml-2 text-sm tracking-wide truncate"
                 >
-                  🚧 Admin Dashboard 🚧
+                  Admin Dashboard 🚀
                 </span>
               </a>
             </li>
@@ -418,11 +426,13 @@ export default {
     Logout() {
       this.isUserConnected = false;
       localStorage.removeItem("userId");
+      localStorage.removeItem("role");
       const $toast = useToast();
       $toast.success("You are logged out!");
       localStorage.removeItem("userEmail");
       localStorage.removeItem("userUsername");
       this.isUserConnected = false;
+      VueCookies.remove("token");
       this.$router.replace("/");
     },
     Dashboard() {
@@ -440,42 +450,40 @@ export default {
     Admin() {
       this.$router.push("/admin");
     },
-    Teams(){
-      this.$router.push("/Teams/"+ localStorage.getItem("userId"));
+    Teams() {
+      this.$router.push("/Teams/" + localStorage.getItem("userId"));
     },
-
-    API() {
+    async API() {
       this.loading = true;
       const email = this.email;
       const pass = this.password;
 
-      axios
-        .post(
+      try {
+        const response = await axios.post(
           `http://44.207.191.254:4000/api/login?email=${email}&password=${pass}`,
-          {}
-        )
-        .then((response) => {
-          console.log("Users found");
-          if (response.data.user) {
-            const $toast = useToast();
-            $toast.success("Logged in!");
-            const user = response.data.user;
-            localStorage.setItem("userEmail", user.email);
-            localStorage.setItem("userUsername", user.username);
-            localStorage.setItem("userId", user.id);
-            this.isUserConnected = true;
-            this.$router.push("/dashboard/" + localStorage.getItem("userId"));
-            this.loading = false;
-          }
-        })
-        .catch((error) => {
-          console.error("API request failed:", error);
-          const $toast = useToast();
-          $toast.error("Something went wrong!");
-          this.loading = false;
-        });
-    },
+          {},
+          { withCredentials: true }
+        );
 
+        if (response.data.user) {
+          this.isUserConnected = true;
+          console.log("setting local storage");
+          localStorage.setItem("role", response.data.user.role);
+          localStorage.setItem("userId", response.data.user.id);
+          localStorage.setItem("userUsername", response.data.user.username);
+
+          router.push("/dashboard/" + response.data.user.id);
+          const $toast = useToast();
+          $toast.success("Logged in!");
+          this.loading = false;
+        }
+      } catch (error) {
+        console.error("API request failed:", error);
+        const $toast = useToast();
+        $toast.error("Something went wrong!");
+        this.loading = false;
+      }
+    },
     // Méthode pour créer un utilisateur (POST)
     CreateUSER() {
       const username = this.username;
@@ -494,21 +502,6 @@ export default {
         })
         .catch((error) => {
           console.error("API request failed: USER FAILED TO BE ADDED", error);
-        });
-    },
-
-    // Méthode pour obtenir un utilisateur par son ID (GET)
-    GetUSERbyID() {
-      console.log("Button clicked");
-      const userId = 10; //a ajout
-      axios
-        .get(`http://44.207.191.254:4000/api/users/${userId}`)
-        .then((response) => {
-          console.log("API response received");
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error("API request failed:", error);
         });
     },
   },

@@ -24,10 +24,12 @@ defmodule Api.User do
     |> put_pass_hash(attrs["password"])
   end
 
-  defp put_pass_hash(changeset, password) when is_binary(password) do
-      hash = Pbkdf2.hash_pwd_salt(password)
-      put_change(changeset, :password_hash, hash)
-    end
+ defp put_pass_hash(changeset, password) when is_binary(password) do
+  hash = Pbkdf2.hash_pwd_salt(password)
+  put_change(changeset, :password_hash, hash)
+end
+defp put_pass_hash(changeset, _), do: changeset
+
 
 
 end

@@ -2,8 +2,10 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
+import router from "../router";
 import axios from "axios";
 import emailjs from "emailjs-com";
+import VueCookies from "vue-cookies";
 
 const status = ref(false);
 const sTime = ref(null);
@@ -22,7 +24,18 @@ let interval;
 const fetchData = async () => {
   const $toast = useToast();
   try {
-    const resp = await axios.get(`http://44.207.191.254:4000/api/clocks/${id}`);
+    const token = VueCookies.get("token");
+    const resp = await axios.get(
+      `http://44.207.191.254:4000/api/clocks/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (resp.data.error) {
+      router.replace("/error");
+    }
     status.value = resp.data.clock.status;
     sTime.value = resp.data.clock.time;
     if (status.value) {
@@ -90,7 +103,16 @@ const clock = async () => {
   startTimer(new Date(sTime.value));
 
   try {
-    await axios.post(`http://44.207.191.254:4000/api/clocks/${id}?status=true`);
+    const token = VueCookies.get("token");
+    await axios.post(
+      `http://44.207.191.254:4000/api/clocks/${id}?status=true`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   } catch (error) {
     $toast.error("An error has been encountered!");
     status.value = false;
@@ -106,12 +128,24 @@ const refresh = async () => {
   clearInterval(interval);
   timer.value = "00:00:00";
   $toast.success("WorkingTime Successfully Created!");
-
+  const token = VueCookies.get("token");
   const clockRequest = axios.post(
-    `http://44.207.191.254:4000/api/clocks/${id}?status=false`
+    `http://44.207.191.254:4000/api/clocks/${id}?status=false`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
   const workingTimeRequest = axios.post(
-    `http://44.207.191.254:4000/api/workingtimes/${id}?start=${sTime.value}&end=${eTime.value}`
+    `http://44.207.191.254:4000/api/workingtimes/${id}?start=${sTime.value}&end=${eTime.value}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   try {

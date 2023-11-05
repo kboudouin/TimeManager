@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import { defineProps, defineEmits } from "vue";
+import VueCookies from "vue-cookies";
 
 const { user } = defineProps(["user"]);
 const emit = defineEmits(["close", "fetchData"]);
@@ -10,7 +11,12 @@ const emit = defineEmits(["close", "fetchData"]);
 const deleteUser = async () => {
   try {
     let id = user.id;
-    await axios.delete(`http://44.207.191.254:4000/api/users/${id}`);
+    const token = VueCookies.get("token");
+    await axios.delete(`http://44.207.191.254:4000/api/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     emit("close");
     await emit("fetchData");
     const $toast = useToast();
