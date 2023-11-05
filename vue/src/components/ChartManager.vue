@@ -2,7 +2,8 @@
 import { ref, onMounted, watch } from "vue";
 import { defineProps } from "vue";
 import { Bar, Line } from "vue-chartjs";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
+import router from "./router";
 import VueCookies from "vue-cookies";
 import axios from "axios";
 import "chart.js/auto";
@@ -40,9 +41,8 @@ const fetchData = async () => {
   const workByWeek = {};
   let cumulativeWorkHours = 0;
   const workByCumulative = [];
-
   if (resp.data.error) {
-    const router = useRouter();
+    console.log("in" + resp.data.error);
     router.replace("/error");
   }
 
