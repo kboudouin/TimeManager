@@ -41,8 +41,9 @@ const fetchData = async () => {
   const workByWeek = {};
   let cumulativeWorkHours = 0;
   const workByCumulative = [];
+
+  //redirect to /error if user is not allowed to get data
   if (resp.data.error) {
-    console.log("in" + resp.data.error);
     router.replace("/error");
   }
 
