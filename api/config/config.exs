@@ -13,7 +13,7 @@ config :api,
 
 # Configures the endpoint
 config :api, ApiWeb.Endpoint,
-  url: [host: "http://44.207.191.254/"],
+  url: [host: "localhost"],
   adapter: Phoenix.Endpoint.Cowboy2Adapter,
   render_errors: [
     formats: [html: ApiWeb.ErrorHTML, json: ApiWeb.ErrorJSON],

@@ -457,14 +457,14 @@ export default {
 
       try {
         const response = await axios.post(
-          `http://localhost:4000/api/login?email=${email}&password=${pass}`,
+          `http://44.207.191.254:5173/api/login?email=${email}&password=${pass}`,
           {},
           { withCredentials: true }
         );
-
+        console.log("ok");
         if (response.data.user) {
           this.isUserConnected = true;
-
+          console.log("setting local storage");
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("userId", response.data.user.id);
           localStorage.setItem("userUsername", response.data.user.username);
