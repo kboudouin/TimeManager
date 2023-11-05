@@ -57,6 +57,7 @@ const fetchData = async () => {
 
 // Function to start the time by looking at last time in data
 const startTimer = (startTime) => {
+  loading.value = true;
   clearInterval(interval);
   interval = setInterval(() => {
     const now = new Date();
@@ -67,6 +68,7 @@ const startTimer = (startTime) => {
 
     timer.value = `${hh}:${mm}:${ss}`;
   }, 1000);
+  loading.value = false;
 };
 
 // Function to start the clock
