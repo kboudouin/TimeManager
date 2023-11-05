@@ -193,7 +193,7 @@ export default {
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("userId", response.data.user.id);
           localStorage.setItem("userUsername", response.data.user.username);
-
+          localStorage.setItem("userEmail", response.data.user.email);
           router.push("/dashboard/" + response.data.user.id);
           this.$emit("userConnected");
           const $toast = useToast();
