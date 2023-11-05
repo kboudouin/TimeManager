@@ -461,7 +461,7 @@ export default {
           {},
           { withCredentials: true }
         );
-        console.log("ok");
+
         if (response.data.user) {
           this.isUserConnected = true;
           console.log("setting local storage");
