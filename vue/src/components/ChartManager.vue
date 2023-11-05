@@ -43,7 +43,7 @@ const fetchData = async () => {
 
   if (resp.data.error) {
     const router = useRouter();
-    this.$router.replace("/error");
+    router.replace("/error");
   }
 
   if (resp.data && resp.data.workingtimes) {
