@@ -27,6 +27,11 @@ const toggleWt = ref(false);
 const selectedID = ref(null);
 const selectedUser = ref(null);
 
+//check if user is admin
+if (localStorage.getItem("role") !== "admin") {
+  router.replace("/error");
+}
+
 onMounted(() => {
   fetchData();
 });
