@@ -3,29 +3,28 @@ import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
 import VueCookies from "vue-cookies";
+import VueCookies from "vue-cookies";
 </script>
 
 <template>
-   <h1 class="text-5xl font-bold">Welcome back {{ userUsername }} !</h1>
-        <br>
+  <h1 class="text-5xl font-bold">Welcome back {{ userUsername }} !</h1>
+  <br />
 
   <div class="hero min-h-screen bg-base-200">
-   
-
     <div class="hero-content flex-col lg:flex-row-reverse">
       <div class="stats stats-vertical shadow">
-        
         <div class="stat">
           <div class="stat-title">Username</div>
-            <div class="stat">{{ userUsername }}</div>
-          
+          <div class="stat">{{ userUsername }}</div>
+
           <input
             type="text"
             placeholder="New username"
             class="input input-bordered"
             required
             ref="usernameInput"
-            v-model="userUsername" />
+            v-model="userUsername"
+          />
           <button @click="updateusername" class="btn btn-active">
             UPDATE USERNAME
           </button>
@@ -34,14 +33,15 @@ import VueCookies from "vue-cookies";
         <div class="stat">
           <div class="stat-title">Email</div>
           <div class="stat">{{ EMAIL }}</div>
-          <br>
+          <br />
           <input
             type="text"
             placeholder="New email"
             class="input input-bordered"
             required
             ref="emailInput"
-            v-model="EMAIL" />
+            v-model="EMAIL"
+          />
           <button @click="updatemail" class="btn btn-active">
             UPDATE EMAIL
           </button>
@@ -49,34 +49,35 @@ import VueCookies from "vue-cookies";
         <div class="stat">
           <div class="stat-title">{{ userUsername }}</div>
           <form @submit="(event) => event.preventDefault()">
-          <h1>DELETE ACCOUNT</h1>
-          <div class="form-control">
+            <h1>DELETE ACCOUNT</h1>
             <div class="form-control">
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Username</span>
+                </label>
+                <input
+                  type=""
+                  placeholder="username"
+                  class="input input-bordered"
+                  required
+                />
+              </div>
               <label class="label">
-                <span class="label-text">Username</span>
+                <span class="label-text">Email</span>
               </label>
               <input
-                type=""
-                placeholder="username"
+                type="email"
+                placeholder="email@mail.com"
                 class="input input-bordered"
-                required />
+                required
+              />
             </div>
-            <label class="label">
-              <span class="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="email@mail.com"
-              class="input input-bordered"
-              required />
-          </div>
-          <div class="form-control mt-6">
-            <button @click="Deleteacc" class="btn btn-primary">DELETE</button>
-          </div>
-        </form>
+            <div class="form-control mt-6">
+              <button @click="Deleteacc" class="btn btn-primary">DELETE</button>
+            </div>
+          </form>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -110,11 +111,16 @@ export default {
       console.log("list of users in process...");
       const email1 = this.email;
       const username1 = this.username;
+      const token = VueCookies.get("token");
       axios
         .get(`http://44.207.191.254:4000/api/users`, {
           params: {
             email: email1,
             username: username1,
+          },
+
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
@@ -136,11 +142,16 @@ export default {
 
     //
     Deleteacc() {
+      const token = VueCookies.get("token");
       axios
         .delete(
           `http://44.207.191.254:4000/api/users/` +
-            // `http://localhost:4000/api/users/` +
-            localStorage.getItem("userId")
+            localStorage.getItem("userId"),
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         )
         .then((response) => {
           console.log("API response received: USER BEEN DELETED");
@@ -162,6 +173,7 @@ export default {
 
     updatemail() {
       this.newmail = this.$refs.emailInput.value;
+      const token = VueCookies.get("token");
       console.log(
         "UPDATE MAIL FROM " +
           localStorage.getItem("userId") +
@@ -169,13 +181,19 @@ export default {
           this.newmail
       );
       const userId = localStorage.getItem("userId");
+      const token = VueCookies.get("token");
       axios
         .put(
           "http://44.207.191.254:4000/api/users/" +
-          //"http://localhost:4000/api/users/" +
             userId +
             "?email=" +
-            this.newmail
+            this.newmail,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         )
         .then((response) => {
           console.log("API response received: MAIL BEEN UPDATED");
@@ -188,21 +206,13 @@ export default {
     },
 
     updateid() {
+
       this.newid = this.$refs.idInput.value;
       console.log(
         "UPDATE ID FROM " + localStorage.getItem("userId") + " TO " + this.newid
       );
       const userId = localStorage.getItem("userId");
 
-      axios
-        .put(
-          "http://44.207.191.254:4000/api/users/" + userId + "?id=" + this.newid
-        )
-        .then((response) => {
-          console.log("API response received: USER ID BEEN UPDATED");
-          console.log(response.data);
-        });
-    },
     updateusername() {
       this.newusername = this.$refs.usernameInput.value;
       console.log(
@@ -212,14 +222,19 @@ export default {
           this.newusername
       );
       const userId = localStorage.getItem("userId");
-
+      const token = VueCookies.get("token");
       axios
         .put(
-          // "http://localhost:4000/api/users/" +
           "http://44.207.191.254:4000/api/users/" +
             userId +
             "?username=" +
-            this.newusername
+            this.newusername,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         )
         .then((response) => {
           console.log("API response received: uUSERNAME BEEN UPDATED");
