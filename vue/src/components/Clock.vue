@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
+import router from "../router";
 import axios from "axios";
 import emailjs from "emailjs-com";
 import VueCookies from "vue-cookies";
@@ -32,6 +33,9 @@ const fetchData = async () => {
         },
       }
     );
+    if (resp.data.error) {
+      router.replace("/error");
+    }
     status.value = resp.data.clock.status;
     sTime.value = resp.data.clock.time;
     if (status.value) {

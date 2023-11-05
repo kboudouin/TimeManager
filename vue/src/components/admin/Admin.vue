@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
+import router from ".../router";
 import deleteModal from "./adminDelete.vue";
 import modifyModal from "./adminModify.vue";
 import chartModal from "../ChartManager.vue";
@@ -42,6 +43,9 @@ const fetchData = async () => {
         },
       }
     );
+    if (userResponse.data.error) {
+      router.replace("/error");
+    }
     userData.value = userResponse.data.users;
 
     const clockResponse = await axios.get(
