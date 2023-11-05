@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from "vue";
 import { defineProps } from "vue";
 import { Bar, Line } from "vue-chartjs";
 import { useRoute } from "vue-router";
-import router from "./router";
+import router from "../router";
 import VueCookies from "vue-cookies";
 import axios from "axios";
 import "chart.js/auto";
