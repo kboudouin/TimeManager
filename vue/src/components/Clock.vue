@@ -46,10 +46,12 @@ const fetchData = async () => {
     }
     status.value = resp.data.clock.status;
     sTime.value = resp.data.clock.time;
+
     if (status.value) {
       startTimer(new Date(sTime.value));
-      loading.value = false;
     }
+
+    loading.value = false;
   } catch (error) {}
 };
 
