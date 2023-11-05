@@ -18,6 +18,10 @@ const totalWorkedHours = ref(0);
 const totalWorkedDays = ref(0);
 const loading = ref(true);
 
+if (localStorage.getItem("role") == "admin") {
+  router.replace("/error");
+}
+
 const fetchData = async () => {
   loading.value = true;
 

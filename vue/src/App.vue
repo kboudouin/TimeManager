@@ -2,13 +2,12 @@
 import Authentification from "./components/Authentification.vue";
 import NavBar from "./components/navBar.vue";
 import router from "./router";
-import VueCookies from "vue-cookies";
 import { ref, onMounted } from "vue";
 
-const isUserConnected = ref(VueCookies.get("token"));
+const isUserConnected = ref(localStorage.getItem("userId"));
 
 const handleUserConnected = () => {
-  isUserConnected.value = VueCookies.get("token");
+  isUserConnected.value = localStorage.getItem("userId");
 };
 
 onMounted(() => {
