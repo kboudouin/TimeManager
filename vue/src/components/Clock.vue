@@ -48,7 +48,7 @@ const fetchData = async () => {
     sTime.value = resp.data.clock.time;
 
     if (status.value) {
-      startTimer(new Date(sTime.value));
+      await startTimer(new Date(sTime.value));
     }
 
     loading.value = false;
