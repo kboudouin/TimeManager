@@ -9,3 +9,4 @@ services:
     build: ./vue
     ports:
       - "80:5173"
+      
