@@ -11,7 +11,6 @@ import { defineEmits } from "vue";
 const emit = defineEmits(["userConnected"]);
 </script>
 
-
 <template>
   <!-- SIGN IN-->
   <div>
@@ -222,7 +221,6 @@ export default {
           $toast.success("Account created! Please login!");
           this.SignInDiv = true;
           this.showCreateAccount = false;
-          console.log(response.data);
         })
         .catch((error) => {
           console.error("API request failed: USER FAILED TO BE ADDED", error);
