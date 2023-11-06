@@ -114,7 +114,7 @@ export default {
       const email1 = this.email;
       const username1 = this.username;
       axios
-        .get(`http://44.207.191.254:4000/api/users`, {
+        .get(`https://epitechproject.com/api/users`, {
           params: {
             email: email1,
             username: username1,
@@ -144,7 +144,7 @@ export default {
     Deleteacc() {
       axios
         .delete(
-          `http://44.207.191.254:4000/api/users/` +
+          `https://epitechproject.com/api/users/` +
             localStorage.getItem("userId"),
           {
             headers: {
@@ -181,7 +181,7 @@ export default {
       const userId = localStorage.getItem("userId");
       axios
         .put(
-          "http://44.207.191.254:4000/api/users/" +
+          "https://epitechproject.com/api/users/" +
             userId +
             "?email=" +
             this.newmail,
@@ -213,7 +213,7 @@ export default {
       const userId = localStorage.getItem("userId");
       axios
         .put(
-          "http://44.207.191.254:4000/api/users/" +
+          "https://epitechproject.com/api/users/" +
             userId +
             "?username=" +
             this.newusername,
