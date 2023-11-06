@@ -101,7 +101,7 @@ def login(conn, %{"email" => email, "password" => password}) do
       {:ok, jwt, _full_claims} = Api.Guardian.encode_and_sign(user, claims)
       conn
       |> put_resp_cookie("token", jwt, http_only: false, max_age: 8 * 60 * 60)
-      |> json(%{user: user})
+      |> json(%{user: user,token: jwt})
     :error -> json(conn, %{error: "Invalid credentials"})
   end
 end

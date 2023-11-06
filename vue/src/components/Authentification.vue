@@ -197,6 +197,7 @@ export default {
           localStorage.setItem("userId", response.data.user.id);
           localStorage.setItem("userUsername", response.data.user.username);
           localStorage.setItem("userEmail", response.data.user.email);
+          localStorage.setItem("token", response.data.token);
 
           // Proceed with navigation and user feedback
           router.push("/dashboard/" + response.data.user.id);
