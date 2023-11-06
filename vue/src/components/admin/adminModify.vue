@@ -23,7 +23,7 @@ const modifyUser = async () => {
   try {
     const token = VueCookies.get("token");
     await axios.put(
-      `http://44.207.191.254:4000/api/users/${id.value}?email=${email.value}&username=${username.value}&role=${role.value}`,
+      `https://epitechproject.com/api/users/${id.value}?email=${email.value}&username=${username.value}&role=${role.value}`,
       {},
       {
         headers: {

@@ -12,7 +12,7 @@ const deleteUser = async () => {
   try {
     let id = user.id;
     const token = VueCookies.get("token");
-    await axios.delete(`http://44.207.191.254:4000/api/users/${id}`, {
+    await axios.delete(`https://epitechproject.com/api/users/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -15,7 +15,7 @@ const editWorkingTime = async () => {
   try {
     const token = VueCookies.get("token");
     await axios.put(
-      `http://44.207.191.254:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`,
+      `https://epitechproject.com/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`,
       {},
       {
         headers: {

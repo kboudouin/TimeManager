@@ -41,7 +41,7 @@ const fetchData = async () => {
   try {
     const token = VueCookies.get("token");
     const userResponse = await axios.get(
-      `http://44.207.191.254:4000/api/users`,
+      `https://epitechproject.com/api/users`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const fetchData = async () => {
     userData.value = userResponse.data.users;
 
     const clockResponse = await axios.get(
-      `http://44.207.191.254:4000/api/clocks`,
+      `https://epitechproject.com/api/clocks`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

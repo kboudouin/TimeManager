@@ -12,7 +12,7 @@ const deleteEvent = async () => {
   try {
     const token = VueCookies.get("token");
     await axios.delete(
-      `http://44.207.191.254:4000/api/workingtimes/${store.workingTime.id}`,
+      `https://epitechproject.com/api/workingtimes/${store.workingTime.id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
