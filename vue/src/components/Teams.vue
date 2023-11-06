@@ -285,7 +285,7 @@ export default {
     };
 
     const API = () => {
-      const token = VueCookies.get("token");
+      const token = localStorage.getItem("token");
       console.log("Récupération de la liste des membres en cours...");
       axios
         .get("https://epitechproject.com/api/users", {

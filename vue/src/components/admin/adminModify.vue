@@ -21,7 +21,7 @@ watch(user, (newValue) => {
 
 const modifyUser = async () => {
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     await axios.put(
       `https://epitechproject.com/api/users/${id.value}?email=${email.value}&username=${username.value}&role=${role.value}`,
       {},

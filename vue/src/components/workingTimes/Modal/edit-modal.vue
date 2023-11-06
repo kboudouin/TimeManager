@@ -13,7 +13,7 @@ let end = "";
 // MODIFIER UN TEMPS DE TRAVAIL
 const editWorkingTime = async () => {
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     await axios.put(
       `https://epitechproject.com/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`,
       {},

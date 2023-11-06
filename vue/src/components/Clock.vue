@@ -32,7 +32,7 @@ const fetchData = async () => {
   loading.value = true;
   const $toast = useToast();
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     const resp = await axios.get(
       `https://epitechproject.com/api/clocks/${id}`,
       {
@@ -79,7 +79,7 @@ const clock = async () => {
   startTimer(new Date(sTime.value));
 
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     await axios.post(
       `https://epitechproject.com/api/clocks/${id}?status=true`,
       {},
@@ -104,7 +104,7 @@ const refresh = async () => {
   clearInterval(interval);
   timer.value = "00:00:00";
   $toast.success("WorkingTime Successfully Created!");
-  const token = VueCookies.get("token");
+  const token = localStorage.getItem("token");
   const clockRequest = axios.post(
     `https://epitechproject.com/api/clocks/${id}?status=false`,
     {},

@@ -33,7 +33,7 @@ const getWorkingTimes = async () => {
   }
   selectedID.value = id;
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     const response = await axios.get(
       `https://epitechproject.com/api/workingtimes/${id}?start=2022-01-01T00:00:00Z&end=2023-12-30T00:00:00Z`,
       {

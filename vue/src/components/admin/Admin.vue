@@ -39,7 +39,7 @@ onMounted(() => {
 const fetchData = async () => {
   loading.value = true;
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     const userResponse = await axios.get(
       `https://epitechproject.com/api/users`,
       {

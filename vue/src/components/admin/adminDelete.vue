@@ -11,7 +11,7 @@ const emit = defineEmits(["close", "fetchData"]);
 const deleteUser = async () => {
   try {
     let id = user.id;
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     await axios.delete(`https://epitechproject.com/api/users/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

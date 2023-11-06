@@ -15,7 +15,7 @@ let end = "";
 // CREER UN TEMPS DE TRAVAIL
 const createWorkingTime = async () => {
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     await axios.post(
       `https://epitechproject.com/api/workingtimes/${id}?start=${start}&end=${end}`,
       {},

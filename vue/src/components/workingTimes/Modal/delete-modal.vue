@@ -10,7 +10,7 @@ const deleteModal = () => {
 
 const deleteEvent = async () => {
   try {
-    const token = VueCookies.get("token");
+    const token = localStorage.getItem("token");
     await axios.delete(
       `https://epitechproject.com/api/workingtimes/${store.workingTime.id}`,
       {
