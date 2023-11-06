@@ -8,4 +8,4 @@ services:
   vue:
     build: ./vue
     ports:
-      - "5173:80"
+      - "80:80"
