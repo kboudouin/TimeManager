@@ -2,63 +2,194 @@
   <div class="container mx-auto py-4">
     <h1 class="text-3xl font-semibold mb-4">Gestion des équipes</h1>
 
+    <!-- Section "Mes équipes" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Mes équipes</h2>
       <div class="carousel w-full">
-        <div v-for="(group, index) in groupedTeams" :key="index" :id="'slide' + (index + 1)" class="carousel-item relative w-full">
+        <div
+          v-for="(group, index) in groupedTeams"
+          :key="index"
+          :id="'slide' + (index + 1)"
+          class="carousel-item relative w-full"
+        >
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <li v-for="team in group" :key="team.id" class="bg-white p-4 rounded-lg shadow">
+            <li
+              v-for="team in group"
+              :key="team.id"
+              class="bg-white p-4 rounded-lg shadow"
+            >
               <h3 class="text-lg font-semibold">{{ team.name }}</h3>
               <p class="text-gray-500">{{ team.description }}</p>
-              <button @click="editTeam(team.id)" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Modifier</button>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
             </li>
           </ul>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a :href="'#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)" class="btn btn-circle">❮</a>
-            <a :href="'#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)" class="btn btn-circle">❯</a>
+          <div
+            class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+          >
+            <a
+              :href="
+                '#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)
+              "
+              class="btn btn-circle"
+              >❮</a
+            >
+            <a
+              :href="
+                '#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)
+              "
+              class="btn btn-circle"
+              >❯</a
+            >
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Section "Toutes les équipes" -->
 
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Toutes les équipes</h2>
       <div class="carousel w-full">
-        <div v-for="(group, index) in groupedTeams" :key="index" :id="'slide' + (index + 1)" class="carousel-item relative w-full">
+        <div
+          v-for="(group, index) in groupedTeams"
+          :key="index"
+          :id="'slide' + (index + 1)"
+          class="carousel-item relative w-full"
+        >
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <li v-for="team in group" :key="team.id" class="bg-white p-4 rounded-lg shadow">
+            <li
+              v-for="team in group"
+              :key="team.id"
+              class="bg-white p-4 rounded-lg shadow"
+            >
               <h3 class="text-lg font-semibold">{{ team.name }}</h3>
               <p class="text-gray-500">{{ team.description }}</p>
-              <button @click="editTeam(team.id)" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Modifier</button>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
             </li>
           </ul>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a :href="'#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)" class="btn btn-circle">❮</a>
-            <a :href="'#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)" class="btn btn-circle">❯</a>
+          <div
+            class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+          >
+            <a
+              :href="
+                '#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)
+              "
+              class="btn btn-circle"
+              >❮</a
+            >
+            <a
+              :href="
+                '#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)
+              "
+              class="btn btn-circle"
+              >❯</a
+            >
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Section "Créer une nouvelle équipe" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
-      <button @click="showCreateTeamForm" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-green-600">Créer une équipe</button>
+      <button
+        @click="BOUTON"
+        class="bg-green-500 text-black py-2 px-4 rounded hover:bg-green-600"
+      >
+        {{ showCreateTeamForm ? "Fermer le formulaire" : "Créer une équipe" }}
+      </button>
 
-      <div v-if="creatingTeam" class="bg-white p-4 rounded-lg shadow">
+      <!-- Formulaire de création d'équipe -->
+      <div v-if="showCreateTeamForm" class="bg-white p-4 rounded-lg shadow">
         <form @submit.prevent="addTeam">
           <div class="mb-4">
-            <label for="teamName" class="block text-black font-semibold">Leader</label>
-            <input v-model="newTeam.name" type="text" id="teamName" class="w-full rounded border p-2">
+            <label for="teamName" class="block text-black font-semibold"
+              >Leader</label
+            >
+            <input
+              v-model="newTeam.name"
+              type="text"
+              id="teamName"
+              class="w-full rounded border p-2"
+            />
           </div>
           <div class="mb-4">
-            <label for="teamDescription" class="block text-black font-semibold">Members</label>
-            <textarea v-model="newTeam.description" id="teamDescription" class="w-full rounded border p-2"></textarea>
+            <label for="teamMembers" class="block text-black font-semibold"
+              >Members</label
+            >
+            <select
+              v-model="newTeam.members"
+              id="teamMembers"
+              multiple
+              class="w-full rounded border p-2 appearance-none"
+            >
+              <option
+                v-for="member in availableMembers"
+                :key="member.id"
+                :value="member.id"
+              >
+                {{ member.name }}
+              </option>
+            </select>
+          </div>
+          <!-- Liste des membres sélectionnés -->
+          <div class="mb-4">
+            <label class="block text-black font-semibold"
+              >Membres sélectionnés</label
+            >
+            <div class="flex flex-wrap">
+              <span
+                v-for="memberId in newTeam.members"
+                :key="memberId"
+                class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
+              >
+                {{
+                  availableMembers.find((member) => member.id === memberId).name
+                }}
+                <button
+                  @click="removeMember(memberId)"
+                  class="ml-2 text-red-600 hover:text-red-800"
+                >
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </span>
+            </div>
           </div>
           <div class="mb-4">
-            <label for="teamDescription" class="block text-black font-semibold">Description de l'équipe</label>
-            <textarea v-model="newTeam.description" id="teamDescription" class="w-full rounded border p-2"></textarea>
+            <label class="block text-black font-semibold"
+              >Description de l'équipe</label
+            >
+            <textarea class="w-full rounded border p-2"></textarea>
           </div>
-          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover-bg-blue-600">Créer</button>
+          <button
+            type="submit"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover-bg-blue-600"
+          >
+            Créer
+          </button>
         </form>
       </div>
     </section>
@@ -66,16 +197,22 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
+import VueCookies from "vue-cookies";
 import { useToast } from "vue-toast-notification";
 
 export default {
+  data() {
+    return {
+      showCreateTeamForm: false,
+    };
+  },
   setup() {
     const teams = [
-      { id: 1, name: 'Équipe A', description: 'Description de l\'équipe A' },
-      { id: 2, name: 'Équipe B', description: 'Description de l\'équipe B' },
-      { id: 3, name: 'Équipe C', description: 'Description de l\'équipe C' },
+      { id: 1, name: "Équipe A", description: "Description de l'équipe A" },
+      { id: 2, name: "Équipe B", description: "Description de l'équipe B" },
+      { id: 3, name: "Équipe C", description: "Description de l'équipe C" },
       // Ajoutez d'autres équipes ici
     ];
 
@@ -83,25 +220,61 @@ export default {
     const newTeam = ref({
       name: "",
       description: "",
+      members: [],
     });
 
+    const availableMembers = ref([
+      { id: 1, name: "Martin", description: "Description de l'équipe A" },
+      { id: 2, name: "Équipe B", description: "Description de l'équipe B" },
+      { id: 3, name: "Équipe C", description: "Description de l'équipe C" },
+      // Ajoutez plus de membres ici
+    ]);
     const groupedTeams = ref([]);
+    const selectedMembers = ref([]);
+
+    const addSelectedMember = (memberId) => {
+      if (!newTeam.members.includes(memberId)) {
+        newTeam.members.push(memberId);
+      }
+    };
+
+    const removeMember = (memberId) => {
+      const index = newTeam.members.indexOf(memberId);
+      if (index !== -1) {
+        newTeam.members.splice(index, 1);
+      }
+    };
 
     const showCreateTeamForm = () => {
       creatingTeam.value = true;
-      newTeam.value = { name: "", description: "" };
+      newTeam.value = { name: "", description: "", members: [] };
+    };
+
+    const toggleCreateTeamForm = () => {
+      this.showCreateTeamForm = !this.showCreateTeamForm;
     };
 
     const addTeam = async () => {
       try {
-        // Envoyer une requête POST pour ajouter la nouvelle équipe
-        const response = await axios.post("http://localhost:4000/api/teams", newTeam.value);
+        const response = await axios.post(
+          "https://epitechproject.com/api/teams",
+          newTeam.value
+        );
 
         if (response.status === 201) {
           useToast().success("Équipe ajoutée avec succès.");
-          // Mettre à jour les données des équipes si nécessaire
-          // Vous pouvez également rediriger l'utilisateur vers la page de gestion d'équipe
           creatingTeam.value = false;
+
+          // Ajoutez l'équipe nouvellement créée à la liste des équipes
+          teams.push({
+            id: teams.length + 1,
+            name: newTeam.value.name,
+            description: newTeam.value.description,
+            members: newTeam.value.members,
+          });
+
+          // Mise à jour de groupedTeams
+          groupedTeams.value = groupTeams(teams);
         } else {
           useToast().error("Erreur lors de l'ajout de l'équipe.");
         }
@@ -111,6 +284,33 @@ export default {
       }
     };
 
+    const API = () => {
+      const token = VueCookies.get("token");
+      console.log("Récupération de la liste des membres en cours...");
+      axios
+        .get("https://epitechproject.com/api/users", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log("Membres trouvés");
+          console.log(response.data);
+
+          if (response.data.users) {
+            availableMembers.value = response.data.users;
+            console.log(availableMembers);
+          }
+        })
+        .catch((error) => {
+          console.error("Requête API échouée :", error);
+        });
+    };
+
+    onMounted(() => {
+      API();
+    });
+
     return {
       teams,
       creatingTeam,
@@ -118,6 +318,11 @@ export default {
       groupedTeams,
       showCreateTeamForm,
       addTeam,
+      availableMembers,
+      selectedMembers,
+      addSelectedMember,
+      toggleCreateTeamForm,
+      removeMember,
     };
   },
 };

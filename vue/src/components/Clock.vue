@@ -34,7 +34,7 @@ const fetchData = async () => {
   try {
     const token = VueCookies.get("token");
     const resp = await axios.get(
-      `http://44.207.191.254:4000/api/clocks/${id}`,
+      `https://epitechproject.com/api/clocks/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ const clock = async () => {
   try {
     const token = VueCookies.get("token");
     await axios.post(
-      `http://44.207.191.254:4000/api/clocks/${id}?status=true`,
+      `https://epitechproject.com/api/clocks/${id}?status=true`,
       {},
       {
         headers: {
@@ -106,7 +106,7 @@ const refresh = async () => {
   $toast.success("WorkingTime Successfully Created!");
   const token = VueCookies.get("token");
   const clockRequest = axios.post(
-    `http://44.207.191.254:4000/api/clocks/${id}?status=false`,
+    `https://epitechproject.com/api/clocks/${id}?status=false`,
     {},
     {
       headers: {
@@ -115,7 +115,7 @@ const refresh = async () => {
     }
   );
   const workingTimeRequest = axios.post(
-    `http://44.207.191.254:4000/api/workingtimes/${id}?start=${sTime.value}&end=${eTime.value}`,
+    `https://epitechproject.com/api/workingtimes/${id}?start=${sTime.value}&end=${eTime.value}`,
     {},
     {
       headers: {

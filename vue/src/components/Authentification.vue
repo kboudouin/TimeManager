@@ -184,7 +184,7 @@ export default {
 
       try {
         const response = await axios.post(
-          `http://44.207.191.254:4000/api/login?email=${email}&password=${pass}`,
+          `https://epitechproject.com/api/login?email=${email}&password=${pass}`,
           {},
           { withCredentials: true }
         );
@@ -214,14 +214,13 @@ export default {
       const password = this.password;
       axios
         .post(
-          `http://44.207.191.254:4000/api/users?email=${email}&username=${username}&password=${password}&role=employee`
+          `https://epitechproject.com/api/users?email=${email}&username=${username}&password=${password}&role=employee`
         )
         .then((response) => {
           const $toast = useToast();
           $toast.success("Account created! Please login!");
           this.SignInDiv = true;
           this.showCreateAccount = false;
-          console.log(response.data);
         })
         .catch((error) => {
           console.error("API request failed: USER FAILED TO BE ADDED", error);

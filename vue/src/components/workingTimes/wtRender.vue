@@ -35,7 +35,7 @@ const getWorkingTimes = async () => {
   try {
     const token = VueCookies.get("token");
     const response = await axios.get(
-      `http://44.207.191.254:4000/api/workingtimes/${id}?start=2022-01-01T00:00:00Z&end=2023-12-30T00:00:00Z`,
+      `https://epitechproject.com/api/workingtimes/${id}?start=2022-01-01T00:00:00Z&end=2023-12-30T00:00:00Z`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

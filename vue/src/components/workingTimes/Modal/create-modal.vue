@@ -17,7 +17,7 @@ const createWorkingTime = async () => {
   try {
     const token = VueCookies.get("token");
     await axios.post(
-      `http://44.207.191.254:4000/api/workingtimes/${id}?start=${start}&end=${end}`,
+      `https://epitechproject.com/api/workingtimes/${id}?start=${start}&end=${end}`,
       {},
       {
         headers: {
