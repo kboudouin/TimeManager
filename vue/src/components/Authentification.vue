@@ -189,15 +189,21 @@ export default {
           { withCredentials: true }
         );
 
+        console.log("DATA IS: " + response.data);
+
         if (response.data.user) {
+          // Store user information in localStorage
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("userId", response.data.user.id);
           localStorage.setItem("userUsername", response.data.user.username);
           localStorage.setItem("userEmail", response.data.user.email);
+
+          // Proceed with navigation and user feedback
           router.push("/dashboard/" + response.data.user.id);
           this.$emit("userConnected");
           const $toast = useToast();
           $toast.success("Logged in!");
+
           this.loading = false;
         }
       } catch (error) {
