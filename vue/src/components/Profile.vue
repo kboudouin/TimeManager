@@ -98,7 +98,7 @@ export default {
       newusername: null,
       newmail: null,
       newid: null,
-      token: localStorage.getItem("token");
+      token: localStorage.getItem("token"),
     };
   },
   created() {
