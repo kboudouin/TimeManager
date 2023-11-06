@@ -11,6 +11,7 @@ import { defineEmits } from "vue";
 const emit = defineEmits(["userConnected"]);
 </script>
 
+
 <template>
   <!-- SIGN IN-->
   <div>
