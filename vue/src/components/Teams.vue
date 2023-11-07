@@ -125,19 +125,22 @@
             <label for="teamMembers" class="block text-black font-semibold"
               >Members</label
             >
+
             <select
-              v-model="newTeam.members"
-              id="teamMembers"
-              multiple
-              class="w-full rounded border p-2 appearance-none"
-            >
-              <option
-                v-for="member in availableMembers"
-                :key="member.id"
-                :value="member.id"
-              > ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
-              </option>
-            </select>
+  v-model="newTeam.members"
+  id="teamMembers"
+  multiple
+  class="w-full rounded border p-2 appearance-none"
+>
+  <option
+    v-for="member in availableMembers"
+    :key="member.id"
+    :value="member.id"
+    @click="addSelectedMember(member.id)"
+  >
+    ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
+  </option>
+</select>
           </div>
           <!-- Liste des membres sélectionnés -->
           <div class="mb-4">
@@ -206,6 +209,12 @@ export default {
     };
   },
   methods: {
+    addSelectedMember(memberId) {
+    const member = this.availableMembers.find((m) => m.id === memberId);
+    if (member) {
+      this.selectedMembers.push(member.username);
+    }
+  },
 
     BOUTON(){
       console.log("avant clique"+ BOUTONVISIBILITY);
