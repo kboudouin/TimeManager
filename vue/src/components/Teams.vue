@@ -231,12 +231,6 @@ export default {
       description: "",
       members: [],
     });
-
-    const availableMembers = ref([
-      { id: 1, username: "Martin", email: "Description de l'équipe A" },
-
-      // Ajoutez plus de membres ici
-    ]);
     const groupedTeams = ref([]);
     const selectedMembers = ref([]);
 
