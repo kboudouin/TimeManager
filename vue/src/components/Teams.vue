@@ -135,8 +135,14 @@
                 v-for="member in availableMembers"
                 :key="member.id"
                 :value="member.id"
-              >
-                {{ member.name }}
+              > NAME : 
+                {{ member.username }}
+
+                ID : 
+                {{ member.id }}
+
+                EMAIL : 
+                {{ member.email }}
               </option>
             </select>
           </div>
