@@ -122,10 +122,10 @@
 >
 
   <option
-    v-for="leader in availableLeaders"
-    :key="leader.id"
-    :value="leader.id"
-    @click="addSelectedLeader(leader.id)"
+    v-for="member in availableMembers"
+    :key="member.id"
+    :value="member.id"
+    @click="addSelectedMember(member.id)"
   >
   ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
     ID : {{ leader.id }} USERNAME : {{ leader.username }} EMAIL : {{ leader.email }}
