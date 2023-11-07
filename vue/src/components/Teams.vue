@@ -114,12 +114,22 @@
             <label for="teamName" class="block text-black font-semibold"
               >Leader</label
             >
-            <input
-              v-model="newTeam.name"
-              type="text"
-              id="teamName"
-              class="w-full rounded border p-2"
-            />
+            <select
+  v-model="newTeam.members"
+  id="teamMembers"
+  multiple
+  class="w-full rounded border p-2 appearance-none"
+>
+
+  <option
+    v-for="member in availableMembers"
+    :key="member.id"
+    :value="member.id"
+    @click="addSelectedMember(member.id)"
+  >
+    ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
+  </option>
+</select>
           </div>
           <div class="mb-4">
             <label for="teamMembers" class="block text-black font-semibold"
