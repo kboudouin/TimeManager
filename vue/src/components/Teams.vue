@@ -154,9 +154,9 @@
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
               >
-                {{
-                  availableMembers.find((member) => member.id === memberId).name
-                }}
+
+              test
+          
                 <button
                   @click="removeMember(memberId)"
                   class="ml-2 text-red-600 hover:text-red-800"
@@ -227,7 +227,10 @@ export default {
       console.log("apres clique"+ BOUTONVISIBILITY);
     },
   },
+
   setup() {
+
+    
     const teams = [
       { id: 1, name: "Équipe A", description: "Description de l'équipe A" },
       { id: 2, name: "Équipe B", description: "Description de l'équipe B" },
@@ -250,6 +253,7 @@ export default {
     const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
+        console.log("ajout de personnage"+memberID);
       }
     };
 
@@ -257,6 +261,7 @@ export default {
       const index = newTeam.members.indexOf(memberId);
       if (index !== -1) {
         newTeam.members.splice(index, 1);
+        console.log("suppression personnage");
       }
     };
 
