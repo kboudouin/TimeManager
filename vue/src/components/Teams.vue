@@ -239,6 +239,7 @@ export default {
     const creatingTeam = ref(false);
     const newTeam = ref({
       name: "",
+      
       description: "",
       members: [],
     });
@@ -251,6 +252,8 @@ export default {
     const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
+        console.log(memberId);
+        console.log(newTeam);
       }
     };
 
@@ -283,13 +286,13 @@ export default {
 
           // Ajoutez l'équipe nouvellement créée à la liste des équipes
           teams.push({
-            id: teams.length + 1,
-            name: newTeam.value.name,
-            description: newTeam.value.description,
+            leaderId: teams.length + 1,
+            leader: newTeam.value.name,
             members: newTeam.value.members,
           });
 
           // Mise à jour de groupedTeams
+          console.log("reussi");
           groupedTeams.value = groupTeams(teams);
         } else {
           useToast().error("Erreur lors de l'ajout de l'équipe.");
