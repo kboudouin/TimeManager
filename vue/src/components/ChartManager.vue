@@ -229,7 +229,7 @@ const preparePieData = (workingTimes) => {
         <div class="flex items-center">
           <div class="flex flex-col w-full">
             <span class="font-extrabold">Total Overtime Hours</span>
-            <span class="text-lg font-semibold">None</span>
+            <span class="text-lg font-semibold">0</span>
           </div>
         </div>
       </div>
