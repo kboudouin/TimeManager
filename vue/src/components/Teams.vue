@@ -98,7 +98,9 @@
         </div>
       </div>
     </section>
-
+ <p>
+  {{ availableMembers.find((member) => member.id === memberId).username }}
+ </p>  
     <!-- Section "Créer une nouvelle équipe" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
@@ -234,9 +236,8 @@ export default {
     });
 
     const availableMembers = ref([
-      { id: 1, name: "Martin", description: "Description de l'équipe A" },
-      { id: 2, name: "Équipe B", description: "Description de l'équipe B" },
-      { id: 3, name: "Équipe C", description: "Description de l'équipe C" },
+      { id: 1, username: "Martin", email: "Description de l'équipe A" },
+
       // Ajoutez plus de membres ici
     ]);
     const groupedTeams = ref([]);
