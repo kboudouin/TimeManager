@@ -155,10 +155,10 @@
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
               >
                 {{
-                  availableMembers.find((member) => member.id === memberid).username
+                  availableMembers.find((member) => member.id === memberId).name
                 }}
                 <button
-                  @click="removeMember(memberid)"
+                  @click="removeMember(memberId)"
                   class="ml-2 text-red-600 hover:text-red-800"
                 >
                   <svg
