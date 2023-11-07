@@ -13,6 +13,7 @@
           class="carousel-item relative w-full"
         >
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Boucle à travers les équipes du groupe -->
             <li
               v-for="team in group"
               :key="team.id"
@@ -62,6 +63,7 @@
           class="carousel-item relative w-full"
         >
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Boucle à travers les équipes du groupe -->
             <li
               v-for="team in group"
               :key="team.id"
@@ -77,6 +79,7 @@
               </button>
             </li>
           </ul>
+          <!-- Pagination pour passer d'une équipe à l'autre -->
           <div
             class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
           >
@@ -103,9 +106,9 @@
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
       <button
-  @click="toggleCreateForm"
-  class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
->CREATE TEAM</button>
+        @click="toggleCreateForm"
+        class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
+      >CREATE TEAM</button>
 
       <!-- Formulaire de création d'équipe -->
       <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
@@ -114,45 +117,44 @@
             <label for="teamName" class="block text-black font-semibold"
               >Leader {{leaderIDselected}}</label
             >
+            <!-- Sélection du leader de l'équipe -->
             <select
-  v-model="newTeam.members"
-  id="teamMembers"
-  multiple
-  class="w-full rounded border p-2 appearance-none"
->
-
-  <option
-    v-for="leader in availableLeaders"
-    :key="leader.id"
-    :value="leader.id"
-    @click="addSelectedLeader(leader.id)"
-  >
-  ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
-    ID : {{ leader.id }} USERNAME : {{ leader.username }} EMAIL : {{ leader.email }}
-  </option>
-</select>
+              v-model="newTeam.members"
+              id="teamMembers"
+              multiple
+              class="w-full rounded border p-2 appearance-none"
+            >
+              <option
+                v-for="member in availableMembers"
+                :key="member.id"
+                :value="member.id"
+                @click="addSelectedMember(member.id)"
+              >
+                ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
+                ID : {{ leader.id }} USERNAME : {{ leader.username }} EMAIL : {{ leader.email }}
+              </option>
+            </select>
           </div>
+          <!-- Sélection des membres de l'équipe -->
           <div class="mb-4">
             <label for="teamMembers" class="block text-black font-semibold"
               >Members</label
             >
-
             <select
-  v-model="newTeam.members"
-  id="teamMembers"
-  multiple
-  class="w-full rounded border p-2 appearance-none"
->
-
-  <option
-    v-for="member in availableMembers"
-    :key="member.id"
-    :value="member.id"
-    @click="addSelectedMember(member.id)"
+    v-model="newTeam.members"
+    id="teamMembers"
+    multiple
+    class="w-full rounded border p-2 appearance-none"
   >
-    ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
-  </option>
-</select>
+    <option
+      v-for="member in availableMembers"
+      :key="member.id"
+      :value="member.id"
+      @click="addSelectedMember(member.id)"
+    >
+      ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
+    </option>
+  </select>
           </div>
           <!-- Liste des membres sélectionnés -->
           <div class="mb-4">
@@ -168,6 +170,7 @@
                 {{
                   availableMembers.find((member) => member.id === memberId).name
                 }}
+                <!-- Bouton pour supprimer un membre sélectionné -->
                 <button
                   @click="removeMember(memberId)"
                   class="ml-2 text-red-600 hover:text-red-800"
@@ -196,6 +199,7 @@
             >
             <textarea class="w-full rounded border p-2"></textarea>
           </div>
+          <!-- Bouton pour soumettre le formulaire de création d'équipe -->
           <button
             type="submit"
             class="bg-blue-500 text-white py-2 px-4 rounded hover-bg-blue-600"
@@ -223,28 +227,26 @@ export default {
   },
   methods: {
     addSelectedMember(memberId) {
-    const member = this.availableMembers.find((m) => m.id === memberId);
-    if (member) {
-      this.selectedMembers.push(member.username);
-    }
-  },
+      const member = this.availableMembers.find((m) => m.id === memberId);
+      if (member) {
+        this.selectedMembers.push(member.username);
+      }
+    },
 
-  addSelectedLeader(leader){
+    addSelectedLeader(leader) {
+      console.log("alors leader : " + leader);
+      this.leaderIDselected = leader;
+      console.log("leaderIDselected : " + this.leaderIDselected);
+    },
 
-    console.log("alors leader : "+leader);
-    leaderIDselected = leader;
-    console.log("leaderIDselected : "+this.leaderIDselected);
-
-  },
-
-    BOUTON(){
-      console.log("avant clique"+ BOUTONVISIBILITY);
-      if (this.BOUTONVISIBILITY = true){
+    BOUTON() {
+      console.log("avant clique" + BOUTONVISIBILITY);
+      if (this.BOUTONVISIBILITY = true) {
         this.BOUTONVISIBILITY == false;
-      }else if(this.BOUTONVISIBILITY = false){
+      } else if (this.BOUTONVISIBILITY = false) {
         this.BOUTONVISIBILITY == true;
       }
-      console.log("apres clique"+ BOUTONVISIBILITY);
+      console.log("apres clique" + BOUTONVISIBILITY);
     },
   },
   
@@ -275,11 +277,14 @@ export default {
       console.log("ajout leader ID : "+ leaderId);
       };
 
-    const addSelectedMember = (memberId) => {
+      const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
-        console.log(memberId);
-        console.log(newTeam);
+        // Récupérer le USERNAME du membre et l'ajouter à la liste
+        const member = availableMembers.value.find((m) => m.id === memberId);
+        if (member) {
+          selectedMembers.value.push(member.username);
+        }
       }
     };
 
