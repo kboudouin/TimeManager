@@ -103,9 +103,9 @@
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
       <button
-        @click="BOUTON"
-        class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
-      > CREATE TEAM</button>
+  @click="toggleCreateForm"
+  class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
+>CREATE TEAM</button>
 
       <!-- Formulaire de création d'équipe -->
       <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
@@ -313,11 +313,18 @@ export default {
         });
     };
 
+    const BOUTONVISIBILITY = ref(false);
+
+    const toggleCreateForm = () => {
+      BOUTONVISIBILITY.value = true;
+    };
+
     onMounted(() => {
       API();
     });
 
     return {
+      BOUTONVISIBILITY,
       teams,
       creatingTeam,
       newTeam,
@@ -327,6 +334,7 @@ export default {
       availableMembers,
       selectedMembers,
       addSelectedMember,
+      toggleCreateForm,
       toggleCreateTeamForm,
       removeMember,
     };
