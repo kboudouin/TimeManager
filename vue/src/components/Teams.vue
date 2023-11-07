@@ -164,7 +164,7 @@
                 v-for="memberId in newTeam.members"
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
-              >
+              >test {{ nameusername }}
                 {{
                   availableMembers.find((member) => member.id === memberId).name
                 }}
@@ -219,13 +219,21 @@ export default {
     return {
       BOUTONVISIBILITY: false,
       leaderIDselected: null,
+      nameusername: string,
     };
   },
   methods: {
+
+    test(){
+      console.log("test reussi");
+    },
+
     addSelectedMember(memberId) {
     const member = this.availableMembers.find((m) => m.id === memberId);
     if (member) {
       this.selectedMembers.push(member.username);
+      nameusername = member.username;
+      console.log("le membre selectionner est"+ member.username);
     }
   },
 
