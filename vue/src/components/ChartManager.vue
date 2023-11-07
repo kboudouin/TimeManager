@@ -284,7 +284,7 @@ const preparePieData = (workingTimes) => {
     >
       <Line id="Cumulative-Line-Chart" :data="cumulativeData" />
     </div>
-
+    <!-- Pie Chart -->
     <div
       class="mt-4 bg-base-200 p-4 rounded-lg transition-shadow hover:shadow-xl"
       v-if="pieData"

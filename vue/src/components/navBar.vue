@@ -35,14 +35,14 @@ onMounted(checkAdmin);
     </button>
 
     <div
-      class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800 md:block z-50"
+      class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 md:block z-50"
       v-show="showSideNav"
     >
       <div
-        class="fixed flex flex-col top-0 left-0 w-72 bg-white h-full border-r"
+        class="fixed flex flex-col top-0 left-0 w-72 bg-base-100 h-full border-r border-base-200"
         style="z-index: 90"
       >
-        <div class="flex items-center justify-center h-14 border-b ml-14 mt-3">
+        <div class="flex items-center justify-center h-14 ml-14 mt-3">
           <h1 class="flex items-center text-2xl font-extrabold">
             TimeManager<span class="scale-150 mr-2 px-2.5 py-0.50 ml-2"
               >🚀</span
@@ -52,17 +52,17 @@ onMounted(checkAdmin);
         <div class="overflow-y-auto overflow-x-hidden flex-grow">
           <ul class="flex flex-col py-4 space-y-1">
             <li class="px-5">
-              <div class="flex flex-row items-center h-8">
-                <div class="text-sm font-light tracking-wide text-gray-500">
-                  Menu
-                </div>
+              <div
+                class="flex flex-row items-center h-8 border-t border-base-200"
+              >
+                <div class="text-sm font-light tracking-wide">Menu</div>
               </div>
             </li>
             <li>
               <a
                 @click="Dashboard"
                 href="#"
-                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
                   class="inline-flex scale-125 justify-center items-center ml-4"
@@ -79,7 +79,7 @@ onMounted(checkAdmin);
             <li v-if="isAdmin">
               <a
                 @click="Admin"
-                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
                   class="inline-flex scale-125 justify-center items-center ml-4"
@@ -98,7 +98,7 @@ onMounted(checkAdmin);
               <a
                 @click="Clock"
                 href="#"
-                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
                   class="inline-flex scale-150 justify-center items-center ml-4"
@@ -117,7 +117,7 @@ onMounted(checkAdmin);
               <a
                 @click="workingTimes"
                 style="cursor: pointer"
-                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
                   class="inline-flex scale-125 justify-center items-center ml-4"
@@ -131,15 +131,13 @@ onMounted(checkAdmin);
             </li>
             <li class="px-5">
               <div class="flex flex-row items-center h-8">
-                <div class="text-sm font-light tracking-wide text-gray-500">
-                  Settings
-                </div>
+                <div class="text-sm font-light tracking-wide">Settings</div>
               </div>
             </li>
             <li>
               <a
                 @click="Profile"
-                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
                   class="inline-flex scale-125 justify-center items-center ml-4"
@@ -152,7 +150,7 @@ onMounted(checkAdmin);
             <li>
               <a
                 @click="Teams"
-                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
                   class="inline-flex scale-125 justify-center items-center ml-4"
@@ -165,7 +163,7 @@ onMounted(checkAdmin);
             <li>
               <a
                 @click="Logout"
-                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
                   class="inline-flex scale-150 justify-center items-center ml-4"
