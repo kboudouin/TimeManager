@@ -104,10 +104,8 @@
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
       <button
         @click="BOUTON"
-        class="bg-green-500 text-black py-2 px-4 rounded hover:bg-green-600"
-      >
-        {{ showCreateTeamForm ? "Fermer le formulaire" : "Créer une équipe" }}
-      </button>
+        class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
+      > CREATE TEAM</button>
 
       <!-- Formulaire de création d'équipe -->
       <div v-if="showCreateTeamForm" class="bg-white p-4 rounded-lg shadow">
@@ -207,6 +205,14 @@ export default {
     return {
       showCreateTeamForm: false,
     };
+  },
+  methods: {
+
+    BOUTON(){
+      console.log("avant clique"+ showCreateTeamForm);
+      this.showCreateTeamForm = true;
+      console.log("apres clique"+ showCreateTeamForm);
+    },
   },
   setup() {
     const teams = [
