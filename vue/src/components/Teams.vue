@@ -135,14 +135,7 @@
                 v-for="member in availableMembers"
                 :key="member.id"
                 :value="member.id"
-              > NAME : 
-                {{ member.username }}
-
-                ID : 
-                {{ member.id }}
-
-                EMAIL : 
-                {{ member.email }}
+              > {{ member.id }} || {{ member.username }} || {{ member.email }}
               </option>
             </select>
           </div>
@@ -158,10 +151,10 @@
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
               >
                 {{
-                  availableMembers.find((member) => member.id === memberId).name
+                  availableMembers.find((member) => member.id === memberid).username
                 }}
                 <button
-                  @click="removeMember(memberId)"
+                  @click="removeMember(memberid)"
                   class="ml-2 text-red-600 hover:text-red-800"
                 >
                   <svg
