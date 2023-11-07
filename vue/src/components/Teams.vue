@@ -132,6 +132,7 @@
   multiple
   class="w-full rounded border p-2 appearance-none"
 >
+
   <option
     v-for="member in availableMembers"
     :key="member.id"
