@@ -164,7 +164,7 @@
                 v-for="memberId in newTeam.members"
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
-              >test {{ nameusername }}
+              >test
                 {{
                   availableMembers.find((member) => member.id === memberId).name
                 }}
