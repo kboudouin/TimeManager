@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { defineProps } from "vue";
-import { Bar, Line } from "vue-chartjs";
+import { Bar, Line, Pie } from "vue-chartjs";
 import { useRoute } from "vue-router";
 import router from "../router";
 import VueCookies from "vue-cookies";
@@ -10,7 +10,9 @@ import "chart.js/auto";
 
 const { user } = defineProps(["user"]);
 const dailyData = ref(null);
+
 const weeklyData = ref(null);
+const pieData = ref({});
 const cumulativeData = ref(null);
 const dateFilter = ref({ start: "2023-01-01", end: "2023-12-31" });
 const chartOptions = ref();
@@ -42,11 +44,12 @@ const fetchData = async () => {
     }
   );
 
-  // Initialize containers for daily, weekly and Cumulative data
+  // Initialize containers for daily, weekly, Pie Chart and Cumulative data
   const workByDay = {};
   const workByWeek = {};
   let cumulativeWorkHours = 0;
   const workByCumulative = [];
+  preparePieData(resp.data.workingtimes);
 
   //redirect to /error if user is not allowed to get data
   if (resp.data.error) {
@@ -54,6 +57,7 @@ const fetchData = async () => {
   }
 
   if (resp.data && resp.data.workingtimes) {
+    console.log(resp.data.workingtimes);
     totalWorkedHours.value = 0;
     totalWorkedDays.value = 0;
     // Process the fetched data
@@ -118,6 +122,7 @@ const fetchData = async () => {
       ],
     };
   }
+
   loading.value = false;
 };
 
@@ -133,6 +138,46 @@ const getWeekNumber = (date) => {
   const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
   const pastDaysOfYear = (date - firstDayOfYear + 86400000) / 86400000;
   return `W-${Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7)}`;
+};
+
+const preparePieData = (workingTimes) => {
+  const workByDayOfWeek = {
+    Sunday: 0,
+    Monday: 0,
+    Tuesday: 0,
+    Wednesday: 0,
+    Thursday: 0,
+    Friday: 0,
+    Saturday: 0,
+  };
+
+  workingTimes.forEach((wt) => {
+    const start = new Date(wt.start);
+    const end = new Date(wt.end);
+    const workHours = (end - start) / (1000 * 60 * 60);
+    const dayOfWeek = start.toLocaleString("en-US", { weekday: "long" });
+    workByDayOfWeek[dayOfWeek] += workHours;
+  });
+
+  pieData.value = {
+    labels: Object.keys(workByDayOfWeek),
+    datasets: [
+      {
+        label: "Work Hours by Day of Week",
+        data: Object.values(workByDayOfWeek),
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+          "#FF9F40",
+          "#C9CBCF",
+        ],
+        hoverOffset: 4,
+      },
+    ],
+  };
 };
 </script>
 
@@ -152,14 +197,42 @@ const getWeekNumber = (date) => {
       class="p-2 rounded font-bold w-full"
     />
   </div>
-  <div class="p-4 bg-base-200 rounded-lg mb-6 grid grid-rows-1 grid-flow-col">
-    <div class="">
-      <h2 class="text-xl font-bold">Work Hours</h2>
-      <h2 class="text-2xl font-bold">{{ totalWorkedHours }}</h2>
+  <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-4">
+    <div>
+      <div
+        class="p-4 bg-base-200 transition-shadow rounded-lg shadow-sm hover:shadow-lg"
+      >
+        <div class="flex items-center">
+          <div class="flex flex-col w-full">
+            <span class="font-extrabold">Total Work Hours</span>
+            <span class="text-lg font-semibold">{{ totalWorkedHours }}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="">
-      <h2 class="text-xl font-bold">Work Days</h2>
-      <h2 class="text-2xl font-bold">{{ totalWorkedDays }}</h2>
+    <div>
+      <div
+        class="p-4 bg-base-200 transition-shadow rounded-lg shadow-sm hover:shadow-lg"
+      >
+        <div class="flex items-center">
+          <div class="flex flex-col w-full">
+            <span class="font-extrabold">Total Work Days</span>
+            <span class="text-lg font-semibold">{{ totalWorkedDays }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        class="p-4 bg-base-200 transition-shadow rounded-lg shadow-sm hover:shadow-lg"
+      >
+        <div class="flex items-center">
+          <div class="flex flex-col w-full">
+            <span class="font-extrabold">Total Overtime Hours</span>
+            <span class="text-lg font-semibold">None</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -187,38 +260,36 @@ const getWeekNumber = (date) => {
     </div>
   </div>
 
-  <div class="grid grid-flow-row auto-rows-max items-center" v-else>
-    <div>
-      <!-- Daily Chart -->
-      <div
-        class="mt-4 bg-white p-4 rounded-lg h-25"
-        v-if="dailyData"
-        style="flex: 1"
-      >
-        <Bar id="Daily-Bar-Chart" :options="chartOptions" :data="dailyData" />
-      </div>
+  <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-4" v-else>
+    <!-- Daily Chart -->
+    <div
+      class="mt-4 bg-base-200 p-4 rounded-lg transition-shadow hover:shadow-xl"
+      v-if="dailyData"
+    >
+      <Bar id="Daily-Bar-Chart" :data="dailyData" />
+    </div>
 
-      <!-- Weekly Chart -->
-      <div
-        class="mt-4 bg-white p-4 rounded-lg"
-        v-if="weeklyData"
-        style="flex: 1"
-      >
-        <bar id="Weekly-Bar-Chart" :options="chartOptions" :data="weeklyData" />
-      </div>
+    <!-- Weekly Chart -->
+    <div
+      class="mt-4 bg-base-200 p-4 rounded-lg transition-shadow hover:shadow-xl"
+      v-if="weeklyData"
+    >
+      <bar id="Weekly-Bar-Chart" :data="weeklyData" />
     </div>
 
     <!-- Cummulative Chart -->
     <div
-      class="mt-4 bg-white p-4 rounded-lg"
+      class="mt-4 bg-base-200 p-4 rounded-lg transition-shadow hover:shadow-xl"
       v-if="cumulativeData"
-      style="flex: 1"
     >
-      <Line
-        id="Cumulative-Line-Chart"
-        :options="chartOptions"
-        :data="cumulativeData"
-      />
+      <Line id="Cumulative-Line-Chart" :data="cumulativeData" />
+    </div>
+
+    <div
+      class="mt-4 bg-base-200 p-4 rounded-lg transition-shadow hover:shadow-xl"
+      v-if="pieData"
+    >
+      <Pie id="Pie-Chart" :data="pieData" />
     </div>
   </div>
 </template>

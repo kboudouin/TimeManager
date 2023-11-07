@@ -8,7 +8,7 @@ import router from "../router";
 </script>
 
 <template>
-  <h1 class="text-4xl mt-2 font-bold">Welcome back {{ userUsername }} !</h1>
+  <h1 class="text-4xl mt-2 font-bold">Hello {{ userUsername }} !</h1>
   <br />
 
   <div class="heromin-h-screen">
