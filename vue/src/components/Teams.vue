@@ -105,7 +105,7 @@
       <button
         @click="BOUTON"
         class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
-      > CREATE TEAM</button>
+      > CREATE TEAsufihiuhfsiufhM</button>
 
       <!-- Formulaire de création d'équipe -->
       <div v-if="showCreateTeamForm" class="bg-white p-4 rounded-lg shadow">
