@@ -135,7 +135,7 @@
                 v-for="member in availableMembers"
                 :key="member.id"
                 :value="member.id"
-              > {{ member.id }} || {{ member.username }} || {{ member.email }}
+              > || ID || {{ member.id }} || USERNAME || {{ member.username }} || EMAIL || {{ member.email }}
               </option>
             </select>
           </div>
@@ -231,6 +231,9 @@ export default {
       description: "",
       members: [],
     });
+
+    const availableMembers = ref([
+    ]);
     const groupedTeams = ref([]);
     const selectedMembers = ref([]);
 
