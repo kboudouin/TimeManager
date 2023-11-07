@@ -8,15 +8,15 @@ import router from "../router";
 </script>
 
 <template>
-  <h1 class="text-5xl font-bold">Welcome back {{ userUsername }} !</h1>
+  <h1 class="text-4xl mt-2 font-bold">Welcome back {{ userUsername }} !</h1>
   <br />
 
-  <div class="hero min-h-screen bg-base-200">
+  <div class="heromin-h-screen">
     <div class="hero-content flex-col lg:flex-row-reverse">
-      <div class="stats stats-vertical shadow">
+      <div class="stats stats-vertical bg-base-200 w-full md:w-96 shadow">
         <div class="stat">
-          <div class="stat-title">Username</div>
-          <div class="stat">{{ userUsername }}</div>
+          <div class="stat-title mb-4">Username</div>
+          <!-- <div class="stat">{{ userUsername }}</div> -->
 
           <input
             type="text"
@@ -33,7 +33,7 @@ import router from "../router";
 
         <div class="stat">
           <div class="stat-title">Email</div>
-          <div class="stat">{{ EMAIL }}</div>
+          <!-- <div class="stat">{{ EMAIL }}</div> -->
           <br />
           <input
             type="text"
@@ -47,10 +47,9 @@ import router from "../router";
             UPDATE EMAIL
           </button>
         </div>
-        <div class="stat">
-          <div class="stat-title">{{ userUsername }}</div>
+        <div class="stat mt-4">
           <form @submit="(event) => event.preventDefault()">
-            <h1>DELETE ACCOUNT</h1>
+            <h1 class="text-xl">Delete your account ?</h1>
             <div class="form-control">
               <div class="form-control">
                 <label class="label">
@@ -58,7 +57,7 @@ import router from "../router";
                 </label>
                 <input
                   type=""
-                  placeholder="username"
+                  placeholder="Enter username"
                   class="input input-bordered"
                   required
                 />
@@ -68,13 +67,13 @@ import router from "../router";
               </label>
               <input
                 type="email"
-                placeholder="email@mail.com"
+                placeholder="Enter email"
                 class="input input-bordered"
                 required
               />
             </div>
             <div class="form-control mt-6">
-              <button @click="Deleteacc" class="btn btn-primary">DELETE</button>
+              <button @click="Deleteacc" class="btn btn-error">DELETE</button>
             </div>
           </form>
         </div>
