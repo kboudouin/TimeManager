@@ -137,7 +137,7 @@
     v-for="member in availableMembers"
     :key="member.id"
     :value="member.id"
-    @click="addSelectedMember(member.id)"
+    @click="addSelectedMember(member.)"
   >
     ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
   </option>
@@ -154,9 +154,10 @@
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
               >
-
-              test
-          
+              test 
+                {{
+                  availableMembers.find((member) => member.email === memberId).email
+                }}
                 <button
                   @click="removeMember(memberId)"
                   class="ml-2 text-red-600 hover:text-red-800"
@@ -253,7 +254,6 @@ export default {
     const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
-        console.log("ajout de personnage"+memberID);
       }
     };
 
@@ -261,7 +261,6 @@ export default {
       const index = newTeam.members.indexOf(memberId);
       if (index !== -1) {
         newTeam.members.splice(index, 1);
-        console.log("suppression personnage");
       }
     };
 
