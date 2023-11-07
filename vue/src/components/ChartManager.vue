@@ -138,28 +138,28 @@ const getWeekNumber = (date) => {
 
 <template>
   <!-- Date Filter + Stats -->
-  <div class="p-4 bg-white rounded-lg mb-6 flex items-start">
+  <div class="p-4 bg-base-200 rounded-lg mb-6 flex items-start">
     <span class="mr-4 text-black font-bold hidden">Filter by Date:</span>
     <input
       type="date"
       v-model="dateFilter.start"
       class="p-2 rounded font-bold w-full"
     />
-    <span class="mx-4 text-black text-2xl font-extrabold">to</span>
+    <span class="mx-4 text-2xl font-extrabold">to</span>
     <input
       type="date"
       v-model="dateFilter.end"
       class="p-2 rounded font-bold w-full"
     />
   </div>
-  <div class="p-4 bg-white rounded-lg mb-6 grid grid-rows-1 grid-flow-col">
+  <div class="p-4 bg-base-200 rounded-lg mb-6 grid grid-rows-1 grid-flow-col">
     <div class="">
-      <h2 class="text-black font-bold">Total Worked Hours</h2>
-      <h2 class="text-xl text-black">{{ totalWorkedHours }}</h2>
+      <h2 class="text-xl font-bold">Work Hours</h2>
+      <h2 class="text-2xl font-bold">{{ totalWorkedHours }}</h2>
     </div>
     <div class="">
-      <h2 class="text-black font-bold">Total Work Days</h2>
-      <h2 class="text-xl text-black">{{ totalWorkedDays }}</h2>
+      <h2 class="text-xl font-bold">Work Days</h2>
+      <h2 class="text-2xl font-bold">{{ totalWorkedDays }}</h2>
     </div>
   </div>
 
