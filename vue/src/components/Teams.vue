@@ -112,7 +112,7 @@
         <form @submit.prevent="addTeam">
           <div class="mb-4">
             <label for="teamName" class="block text-black font-semibold"
-              >Leader</label
+              >Leader {{leaderIDselected}}</label
             >
             <select
   v-model="newTeam.members"
@@ -217,6 +217,7 @@ export default {
   data() {
     return {
       BOUTONVISIBILITY: false,
+      leaderIDselected: null,
     };
   },
   methods: {
@@ -225,6 +226,14 @@ export default {
     if (member) {
       this.selectedMembers.push(member.username);
     }
+  },
+
+  addSelectedLeader(leader){
+
+    console.log("alors leader : "+leader);
+    leaderIDselected = leader;
+    console.log("leaderIDselected : "+this.leaderIDselected);
+
   },
 
     BOUTON(){
