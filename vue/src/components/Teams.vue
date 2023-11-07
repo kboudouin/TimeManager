@@ -137,7 +137,7 @@
     v-for="member in availableMembers"
     :key="member.id"
     :value="member.id"
-    @click="addSelectedMember(member.)"
+    @click="addSelectedMember(member.id)"
   >
     ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
   </option>
@@ -154,9 +154,8 @@
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
               >
-              test 
                 {{
-                  availableMembers.find((member) => member.email === memberId).email
+                  availableMembers.find((member) => member.id === memberId).name
                 }}
                 <button
                   @click="removeMember(memberId)"
@@ -228,10 +227,8 @@ export default {
       console.log("apres clique"+ BOUTONVISIBILITY);
     },
   },
-
+  
   setup() {
-
-    
     const teams = [
       { id: 1, name: "Équipe A", description: "Description de l'équipe A" },
       { id: 2, name: "Équipe B", description: "Description de l'équipe B" },
