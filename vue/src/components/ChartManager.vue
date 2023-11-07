@@ -3,6 +3,8 @@ import { ref, onMounted, watch } from "vue";
 import { defineProps } from "vue";
 import { Bar, Line } from "vue-chartjs";
 import { useRoute } from "vue-router";
+import router from "../router";
+import VueCookies from "vue-cookies";
 import axios from "axios";
 import "chart.js/auto";
 
@@ -15,17 +17,29 @@ const chartOptions = ref();
 const totalWorkedHours = ref(0);
 const totalWorkedDays = ref(0);
 const loading = ref(true);
+const route = useRoute();
+let id = route.params.id;
+
+if (
+  localStorage.getItem("userId") !== id &&
+  localStorage.getItem("role") !== "admin"
+) {
+  router.replace("/error");
+}
 
 const fetchData = async () => {
   loading.value = true;
 
   const route = useRoute();
-  let id = route.params.id;
-  if (id == null && user) {
-    id = user.id;
-  }
+  let id = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const resp = await axios.get(
-    `http://44.207.191.254:4000/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`
+    `https://epitechproject.com/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   // Initialize containers for daily, weekly and Cumulative data
@@ -33,6 +47,11 @@ const fetchData = async () => {
   const workByWeek = {};
   let cumulativeWorkHours = 0;
   const workByCumulative = [];
+
+  //redirect to /error if user is not allowed to get data
+  if (resp.data.error) {
+    router.replace("/error");
+  }
 
   if (resp.data && resp.data.workingtimes) {
     totalWorkedHours.value = 0;
@@ -119,28 +138,28 @@ const getWeekNumber = (date) => {
 
 <template>
   <!-- Date Filter + Stats -->
-  <div class="p-4 bg-white rounded-lg mb-6 flex items-start">
+  <div class="p-4 bg-base-200 rounded-lg mb-6 flex items-start">
     <span class="mr-4 text-black font-bold hidden">Filter by Date:</span>
     <input
       type="date"
       v-model="dateFilter.start"
       class="p-2 rounded font-bold w-full"
     />
-    <span class="mx-4 text-black text-2xl font-extrabold">to</span>
+    <span class="mx-4 text-2xl font-extrabold">to</span>
     <input
       type="date"
       v-model="dateFilter.end"
       class="p-2 rounded font-bold w-full"
     />
   </div>
-  <div class="p-4 bg-white rounded-lg mb-6 grid grid-rows-1 grid-flow-col">
+  <div class="p-4 bg-base-200 rounded-lg mb-6 grid grid-rows-1 grid-flow-col">
     <div class="">
-      <h2 class="text-black font-bold">Total Worked Hours</h2>
-      <h2 class="text-xl text-black">{{ totalWorkedHours }}</h2>
+      <h2 class="text-xl font-bold">Work Hours</h2>
+      <h2 class="text-2xl font-bold">{{ totalWorkedHours }}</h2>
     </div>
     <div class="">
-      <h2 class="text-black font-bold">Total Work Days</h2>
-      <h2 class="text-xl text-black">{{ totalWorkedDays }}</h2>
+      <h2 class="text-xl font-bold">Work Days</h2>
+      <h2 class="text-2xl font-bold">{{ totalWorkedDays }}</h2>
     </div>
   </div>
 

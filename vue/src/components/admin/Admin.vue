@@ -3,12 +3,14 @@ import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
+import router from "../../router";
 import deleteModal from "./adminDelete.vue";
 import modifyModal from "./adminModify.vue";
 import chartModal from "../ChartManager.vue";
 import wtModal from "../workingTimes/wtRender.vue";
+import VueCookies from "vue-cookies";
 
-// Loading red
+// Loading ref
 const loading = ref(false);
 
 // Data refs
@@ -25,6 +27,11 @@ const toggleWt = ref(false);
 const selectedID = ref(null);
 const selectedUser = ref(null);
 
+//check if user is admin
+if (localStorage.getItem("role") !== "admin") {
+  router.replace("/error");
+}
+
 onMounted(() => {
   fetchData();
 });
@@ -32,13 +39,27 @@ onMounted(() => {
 const fetchData = async () => {
   loading.value = true;
   try {
+    const token = localStorage.getItem("token");
     const userResponse = await axios.get(
-      `http://44.207.191.254:4000/api/users`
+      `https://epitechproject.com/api/users`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+    if (userResponse.data.error) {
+      router.replace("/error");
+    }
     userData.value = userResponse.data.users;
 
     const clockResponse = await axios.get(
-      `http://44.207.191.254:4000/api/clocks`
+      `https://epitechproject.com/api/clocks`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     clocksData.value = clockResponse.data.clocks;
 

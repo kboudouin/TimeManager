@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { store } from "../store.js";
+import VueCookies from "vue-cookies";
 
 const editModal = () => {
   store.toggleEditModal();
@@ -12,8 +13,15 @@ let end = "";
 // MODIFIER UN TEMPS DE TRAVAIL
 const editWorkingTime = async () => {
   try {
+    const token = localStorage.getItem("token");
     await axios.put(
-      `http://44.207.191.254:4000/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`
+      `https://epitechproject.com/api/workingtimes/${store.workingTime.id}?start=${start}&end=${end}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     window.location.reload();
   } catch (error) {

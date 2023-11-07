@@ -1,97 +1,352 @@
-<script setup>
-import { ref } from "vue";
-import axios from "axios";
-import { useToast } from "vue-toast-notification";
-</script>
 <template>
   <div class="container mx-auto py-4">
     <h1 class="text-3xl font-semibold mb-4">Gestion des équipes</h1>
 
-  
+    <!-- Section "Mes équipes" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Mes équipes</h2>
       <div class="carousel w-full">
-        <div v-for="(group, index) in groupedTeams" :key="index" :id="'slide' + (index + 1)" class="carousel-item relative w-full">
+        <div
+          v-for="(group, index) in groupedTeams"
+          :key="index"
+          :id="'slide' + (index + 1)"
+          class="carousel-item relative w-full"
+        >
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <li v-for="team in group" :key="team.id" class="bg-white p-4 rounded-lg shadow">
+            <li
+              v-for="team in group"
+              :key="team.id"
+              class="bg-white p-4 rounded-lg shadow"
+            >
               <h3 class="text-lg font-semibold">{{ team.name }}</h3>
               <p class="text-gray-500">{{ team.description }}</p>
-              <button @click="editTeam(team.id)" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Modifier</button>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
             </li>
           </ul>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a :href="'#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)" class="btn btn-circle">❮</a>
-            <a :href="'#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)" class="btn btn-circle">❯</a>
+          <div
+            class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+          >
+            <a
+              :href="
+                '#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)
+              "
+              class="btn btn-circle"
+              >❮</a
+            >
+            <a
+              :href="
+                '#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)
+              "
+              class="btn btn-circle"
+              >❯</a
+            >
           </div>
         </div>
       </div>
     </section>
- 
-    
-    
-     <section class="mb-8">
+
+    <!-- Section "Toutes les équipes" -->
+
+    <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Toutes les équipes</h2>
       <div class="carousel w-full">
-        <div v-for="(group, index) in groupedTeams" :key="index" :id="'slide' + (index + 1)" class="carousel-item relative w-full">
+        <div
+          v-for="(group, index) in groupedTeams"
+          :key="index"
+          :id="'slide' + (index + 1)"
+          class="carousel-item relative w-full"
+        >
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <li v-for="team in group" :key="team.id" class="bg-white p-4 rounded-lg shadow">
+            <li
+              v-for="team in group"
+              :key="team.id"
+              class="bg-white p-4 rounded-lg shadow"
+            >
               <h3 class="text-lg font-semibold">{{ team.name }}</h3>
               <p class="text-gray-500">{{ team.description }}</p>
-              <button @click="editTeam(team.id)" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Modifier</button>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
             </li>
           </ul>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a :href="'#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)" class="btn btn-circle">❮</a>
-            <a :href="'#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)" class="btn btn-circle">❯</a>
+          <div
+            class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+          >
+            <a
+              :href="
+                '#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)
+              "
+              class="btn btn-circle"
+              >❮</a
+            >
+            <a
+              :href="
+                '#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)
+              "
+              class="btn btn-circle"
+              >❯</a
+            >
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Section "Créer une nouvelle équipe" -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
+      <button
+  @click="toggleCreateForm"
+  class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
+>CREATE TEAM</button>
+
+      <!-- Formulaire de création d'équipe -->
+      <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
+        <form @submit.prevent="addTeam">
+          <div class="mb-4">
+            <label for="teamName" class="block text-black font-semibold"
+              >Leader</label
+            >
+            <input
+              v-model="newTeam.name"
+              type="text"
+              id="teamName"
+              class="w-full rounded border p-2"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="teamMembers" class="block text-black font-semibold"
+              >Members</label
+            >
+            <select
+              v-model="newTeam.members"
+              id="teamMembers"
+              multiple
+              class="w-full rounded border p-2 appearance-none"
+            >
+              <option
+                v-for="member in availableMembers"
+                :key="member.id"
+                :value="member.id"
+              > NAME : 
+                {{ member.username }}
+
+                ID : 
+                {{ member.id }}
+
+                EMAIL : 
+                {{ member.email }}
+              </option>
+            </select>
+          </div>
+          <!-- Liste des membres sélectionnés -->
+          <div class="mb-4">
+            <label class="block text-black font-semibold"
+              >Membres sélectionnés</label
+            >
+            <div class="flex flex-wrap">
+              <span
+                v-for="memberId in newTeam.members"
+                :key="memberId"
+                class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
+              >
+                {{
+                  availableMembers.find((member) => member.id === memberId).name
+                }}
+                <button
+                  @click="removeMember(memberId)"
+                  class="ml-2 text-red-600 hover:text-red-800"
+                >
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="block text-black font-semibold"
+              >Description de l'équipe</label
+            >
+            <textarea class="w-full rounded border p-2"></textarea>
+          </div>
+          <button
+            type="submit"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover-bg-blue-600"
+          >
+            Créer
+          </button>
+        </form>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import VueCookies from "vue-cookies";
+import { useToast } from "vue-toast-notification";
+
 export default {
   data() {
     return {
-      teams: [
-        { id: 1, name: 'Équipe A', description: 'Description de l\'équipe A' },
-        { id: 2, name: 'Équipe B', description: 'Description de l\'équipe B' },
-        { id: 3, name: 'Équipe C', description: 'Description de l\'équipe C' },
-        { id: 1, name: 'Équipe D', description: 'Description de l\'équipe A' },
-        { id: 2, name: 'Équipe E', description: 'Description de l\'équipe B' },
-        { id: 3, name: 'Équipe F', description: 'Description de l\'équipe C' },
-        { id: 1, name: 'Équipe G', description: 'Description de l\'équipe A' },
-        { id: 2, name: 'Équipe H', description: 'Description de l\'équipe B' },
-        { id: 3, name: 'Équipe I', description: 'Description de l\'équipe C' },
-        // Ajoutez d'autres équipes ici
-      ],
-      myTeams: [
-        { id: 1, name: 'Mon Équipe A', description: 'Ma description de l\'équipe A' },
-        // Ajoutez d'autres équipes de l'utilisateur ici
-      ],
+      BOUTONVISIBILITY: false,
     };
   },
-  computed: {
-    groupedTeams() {
-      const chunkSize = 3; // Nombre d'équipes par groupe
-      return this.teams.reduce((resultArray, item, index) => {
-        const chunkIndex = Math.floor(index / chunkSize);
-        if (!resultArray[chunkIndex]) {
-          resultArray[chunkIndex] = [];
-        }
-        resultArray[chunkIndex].push(item);
-        return resultArray;
-      }, []);
+  methods: {
+
+    BOUTON(){
+      console.log("avant clique"+ BOUTONVISIBILITY);
+      if (this.BOUTONVISIBILITY = true){
+        this.BOUTONVISIBILITY == false;
+      }else if(this.BOUTONVISIBILITY = false){
+        this.BOUTONVISIBILITY == true;
+      }
+      console.log("apres clique"+ BOUTONVISIBILITY);
     },
   },
-  methods: {
-    editTeam(teamId) {
-      // Fonction pour éditer une équipe (à implémenter)
-    },
-    leaveTeam(teamId) {
-      // Fonction pour quitter une équipe (à implémenter)
-    },
+  setup() {
+    const teams = [
+      { id: 1, name: "Équipe A", description: "Description de l'équipe A" },
+      { id: 2, name: "Équipe B", description: "Description de l'équipe B" },
+      { id: 3, name: "Équipe C", description: "Description de l'équipe C" },
+      // Ajoutez d'autres équipes ici
+    ];
+
+    const creatingTeam = ref(false);
+    const newTeam = ref({
+      name: "",
+      description: "",
+      members: [],
+    });
+
+    const availableMembers = ref([
+      { id: 1, username: "Martin", email: "Description de l'équipe A" },
+
+      // Ajoutez plus de membres ici
+    ]);
+    const groupedTeams = ref([]);
+    const selectedMembers = ref([]);
+
+    const addSelectedMember = (memberId) => {
+      if (!newTeam.members.includes(memberId)) {
+        newTeam.members.push(memberId);
+      }
+    };
+
+    const removeMember = (memberId) => {
+      const index = newTeam.members.indexOf(memberId);
+      if (index !== -1) {
+        newTeam.members.splice(index, 1);
+      }
+    };
+
+    const showCreateTeamForm = () => {
+      creatingTeam.value = true;
+      newTeam.value = { name: "", description: "", members: [] };
+    };
+
+    const toggleCreateTeamForm = () => {
+      this.showCreateTeamForm = !this.showCreateTeamForm;
+    };
+
+    const addTeam = async () => {
+      try {
+        const response = await axios.post(
+          "https://epitechproject.com/api/teams",
+          newTeam.value
+        );
+
+        if (response.status === 201) {
+          useToast().success("Équipe ajoutée avec succès.");
+          creatingTeam.value = false;
+
+          // Ajoutez l'équipe nouvellement créée à la liste des équipes
+          teams.push({
+            id: teams.length + 1,
+            name: newTeam.value.name,
+            description: newTeam.value.description,
+            members: newTeam.value.members,
+          });
+
+          // Mise à jour de groupedTeams
+          groupedTeams.value = groupTeams(teams);
+        } else {
+          useToast().error("Erreur lors de l'ajout de l'équipe.");
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'ajout de l'équipe", error);
+        useToast().error("Erreur lors de l'ajout de l'équipe.");
+      }
+    };
+
+    const API = () => {
+      const token = localStorage.getItem("token");
+      console.log("Récupération de la liste des membres en cours...");
+      axios
+        .get("https://epitechproject.com/api/users", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log("Membres trouvés");
+          console.log(response.data);
+
+          if (response.data.users) {
+            availableMembers.value = response.data.users;
+            console.log(availableMembers);
+          }
+        })
+        .catch((error) => {
+          console.error("Requête API échouée :", error);
+        });
+    };
+
+    const BOUTONVISIBILITY = ref(false);
+
+    const toggleCreateForm = () => {
+      BOUTONVISIBILITY.value = true;
+    };
+
+    onMounted(() => {
+      API();
+    });
+
+    return {
+      BOUTONVISIBILITY,
+      teams,
+      creatingTeam,
+      newTeam,
+      groupedTeams,
+      showCreateTeamForm,
+      addTeam,
+      availableMembers,
+      selectedMembers,
+      addSelectedMember,
+      toggleCreateForm,
+      toggleCreateTeamForm,
+      removeMember,
+    };
   },
 };
 </script>

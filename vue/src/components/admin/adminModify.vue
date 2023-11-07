@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import { defineProps, defineEmits } from "vue";
+import VueCookies from "vue-cookies";
 
 const { user } = defineProps(["user"]);
 const emit = defineEmits(["close", "fetchData"]);
@@ -20,8 +21,15 @@ watch(user, (newValue) => {
 
 const modifyUser = async () => {
   try {
+    const token = localStorage.getItem("token");
     await axios.put(
-      `http://44.207.191.254:4000/api/users/${id.value}?email=${email.value}&username=${username.value}&role=${role.value}`
+      `https://epitechproject.com/api/users/${id.value}?email=${email.value}&username=${username.value}&role=${role.value}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     emit("close");
     await emit("fetchData");

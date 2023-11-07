@@ -6,14 +6,21 @@ defmodule ApiWeb.UserController do
 
   action_fallback(ApiWeb.FallbackController)
 
-  def index(conn, params) do
-    users =
-      case {params["username"], params["email"]} do
-        {nil, nil} -> Users.list_users()
-        _ -> Users.filter_users(params)
-      end
+  defp check_user_permission(%User{id: user_id, role: "admin"}, _requested_id, _action), do: :ok
+  defp check_user_permission(%User{id: user_id, role: "employee"}, requested_id, :update) when user_id == requested_id, do: :ok
+  defp check_user_permission(%User{id: user_id, role: "employee"}, requested_id, :delete) when user_id == requested_id, do: :ok
+  defp check_user_permission(_, _, _), do: {:error, "Permission denied"}
 
-    json(conn, %{users: users})
+
+  def index(conn, _params) do
+    current_user = Guardian.Plug.current_resource(conn)
+
+    case current_user.role do
+      "admin" ->
+        users = Users.list_users()
+        json(conn, %{users: users})
+      _ -> json(conn, %{error: "Permission denied"})
+    end
   end
 
 def create(conn, user_params) do
@@ -27,45 +34,75 @@ end
 
 
   def show(conn, %{"id" => id}) do
-    try do
-      user = Users.get_user!(id)
-      json(conn, %{user: user})
-    rescue
-      Ecto.NoResultsError ->
-        json(conn, %{error: "No user has been found!"})
-    end
+      current_user = Guardian.Plug.current_resource(conn)
+      requested_id = String.to_integer(id)
+
+      case check_user_permission(current_user, requested_id, :show) do
+        :ok ->
+          try do
+            user = Users.get_user!(id)
+            json(conn, %{user: user})
+          rescue
+            Ecto.NoResultsError ->
+              json(conn, %{error: "No user has been found!"})
+          end
+
+        {:error, message} ->
+          json(conn, %{error: message})
+      end
   end
 
   def update(conn, %{"id" => id_string} = params) do
-    try do
-      id = String.to_integer(id_string)
-      user = Users.get_user!(id)
-      user_params = Map.drop(params, ["id"])
-      _updated_user = Users.update_user(user, user_params)
-      json(conn, %{info: "User has been updated"})
-    rescue
-      Ecto.NoResultsError ->
-        json(conn, %{error: "No user has been found!"})
+    current_user = Guardian.Plug.current_resource(conn)
+    requested_id = String.to_integer(id_string)
+
+    case check_user_permission(current_user, requested_id, :update) do
+      :ok ->
+        try do
+          user = Users.get_user!(requested_id)
+          user_params = Map.drop(params, ["id"])
+          _updated_user = Users.update_user(user, user_params)
+          json(conn, %{info: "User has been updated"})
+        rescue
+          Ecto.NoResultsError ->
+            json(conn, %{error: "No user has been found!"})
+        end
+
+      {:error, message} ->
+        json(conn, %{error: message})
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    try do
-      user = Users.get_user!(id)
-      Users.delete_user(user)
-      json(conn, %{info: "User Has Been Deleted!"})
-    rescue
-      Ecto.NoResultsError ->
-        json(conn, %{error: "No user has been found!"})
+    current_user = Guardian.Plug.current_resource(conn)
+    requested_id = String.to_integer(id)
+
+    case check_user_permission(current_user, requested_id, :delete) do
+      :ok ->
+        try do
+          user = Users.get_user!(requested_id)
+          Users.delete_user(user)
+          json(conn, %{info: "User Has Been Deleted!"})
+        rescue
+          Ecto.NoResultsError ->
+            json(conn, %{error: "No user has been found!"})
+        end
+
+      {:error, message} ->
+        json(conn, %{error: message})
     end
   end
 
 
-  def login(conn, %{"email" => email, "password" => password}) do
-  case Users.authenticate_user(email, password) do
-    {:ok, user} -> json(conn, %{user: user})
+def login(conn, %{"email" => email, "password" => password}) do
+  case Api.Users.authenticate_user(email, password) do
+    {:ok, user} ->
+      claims = %{ "user_id" => user.id, "role" => user.role }
+      {:ok, jwt, _full_claims} = Api.Guardian.encode_and_sign(user, claims)
+      conn
+      |> put_resp_cookie("token", jwt, http_only: false, max_age: 8 * 60 * 60)
+      |> json(%{user: user,token: jwt})
     :error -> json(conn, %{error: "Invalid credentials"})
   end
 end
-
 end

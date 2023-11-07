@@ -12,27 +12,40 @@ defmodule ApiWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
-    plug(Corsica, origins: "*", allow_headers: ["Authorization", "Content-Type"])
+    plug(Corsica, origins: "http://44.207.191.254:5173",allow_headers: ["Authorization", "Content-Type"],credentials: true)
   end
+
+  pipeline :api_auth do
+    plug(:accepts, ["json"])
+    plug(Corsica, origins: "http://44.207.191.254:5173",allow_headers: ["Authorization", "Content-Type"],credentials: true)
+    plug(Guardian.Plug.VerifyHeader, realm: "Bearer", module: Api.Guardian, error_handler: ApiWeb.GuardianErrorHandler)
+    plug(Guardian.Plug.LoadResource, allow_blank: true, module: Api.Guardian)
+    plug(Guardian.Plug.EnsureAuthenticated, error_handler: ApiWeb.GuardianErrorHandler)
+  end
+
+
 
   scope "/", ApiWeb do
     pipe_through(:browser)
-
     get("/", PageController, :home)
   end
 
-  # Other scopes may use custom stacks.
-  scope "/api", ApiWeb do
+   scope "/api", ApiWeb do
     pipe_through(:api)
-    resources("/users", UserController, only: [:index, :show, :create, :update, :delete])
+    resources("/users", UserController, only: [:create])
     post("/login", UserController, :login)
-    resources("/workingtimes", WorkingtimeController, only: [:delete, :update])
-    get("workingtimes/:userID", WorkingtimeController, :index)
-    get("workingtimes/:userID/:id", WorkingtimeController, :show)
-    post("workingtimes/:userID", WorkingtimeController, :create)
-    resources("/clocks", ClockController, only: [:show, :index])
-    post("clocks/:userID", ClockController, :create)
   end
+  # Other scopes may use custom stacks.
+    scope "/api", ApiWeb do
+      pipe_through(:api_auth)
+      resources("/users", UserController, only: [:index, :show, :update, :delete])
+      resources("/workingtimes", WorkingtimeController, only: [:delete, :update])
+      get("workingtimes/:userID", WorkingtimeController, :index)
+      get("workingtimes/:userID/:id", WorkingtimeController, :show)
+      post("workingtimes/:userID", WorkingtimeController, :create)
+      resources("/clocks", ClockController, only: [:show, :index])
+      post("clocks/:userID", ClockController, :create)
+    end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:api, :dev_routes) do

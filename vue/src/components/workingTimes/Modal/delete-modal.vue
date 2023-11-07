@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { store } from "../store.js";
+import VueCookies from "vue-cookies";
 
 const deleteModal = () => {
   // console.log(store.workingTime);
@@ -9,8 +10,14 @@ const deleteModal = () => {
 
 const deleteEvent = async () => {
   try {
+    const token = localStorage.getItem("token");
     await axios.delete(
-      `http://44.207.191.254:4000/api/workingtimes/${store.workingTime.id}`
+      `https://epitechproject.com/api/workingtimes/${store.workingTime.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     store.toggleDeleteModal();
     window.location.reload();

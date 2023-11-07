@@ -1,0 +1,8 @@
+{
+  "appId": "com.epitechproject",
+  "appName": "TimeManager",
+  "webDir": "vue/dist/",
+  "server": {
+    "androidScheme": "https"
+  }
+}
