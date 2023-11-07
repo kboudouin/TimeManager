@@ -17,8 +17,7 @@ const createEvent = () => {
       <WorkingTimeVue
         v-for="item in store.workingTimes"
         :key="Math.random() + item.user"
-        :data="item"
-      />
+        :data="item" />
     </div>
   </section>
 </template>
@@ -58,8 +57,7 @@ const createEvent = () => {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(15, 1fr);
     grid-auto-rows: 1fr;
-    overflow-y: visible;
-    overflow-x: hidden;
+    overflow: auto;
     &::-webkit-scrollbar {
       width: 0.5rem;
     }
