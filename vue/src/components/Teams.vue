@@ -105,10 +105,10 @@
       <button
         @click="BOUTON"
         class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
-      > CREATE TEAsufihiuhfsiufhM</button>
+      > CREATE TEAM</button>
 
       <!-- Formulaire de création d'équipe -->
-      <div v-if="showCreateTeamForm" class="bg-white p-4 rounded-lg shadow">
+      <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
         <form @submit.prevent="addTeam">
           <div class="mb-4">
             <label for="teamName" class="block text-black font-semibold"
@@ -203,15 +203,15 @@ import { useToast } from "vue-toast-notification";
 export default {
   data() {
     return {
-      showCreateTeamForm: false,
+      BOUTONVISIBILITY: false,
     };
   },
   methods: {
 
     BOUTON(){
-      console.log("avant clique"+ showCreateTeamForm);
-      this.showCreateTeamForm = true;
-      console.log("apres clique"+ showCreateTeamForm);
+      console.log("avant clique"+ BOUTONVISIBILITY);
+      this.BOUTONVISIBILITY = true;
+      console.log("apres clique"+ BOUTONVISIBILITY);
     },
   },
   setup() {
