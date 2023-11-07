@@ -34,17 +34,20 @@ defmodule ApiWeb.Router do
     pipe_through(:api)
     resources("/users", UserController, only: [:create])
     post("/login", UserController, :login)
+    get("/teams/", TeamController, :index)
+    get("/teams/:id", TeamController, :index)
+    post("/teams", TeamController, :create)
   end
   # Other scopes may use custom stacks.
     scope "/api", ApiWeb do
       pipe_through(:api_auth)
       resources("/users", UserController, only: [:index, :show, :update, :delete])
       resources("/workingtimes", WorkingtimeController, only: [:delete, :update])
-      get("workingtimes/:userID", WorkingtimeController, :index)
-      get("workingtimes/:userID/:id", WorkingtimeController, :show)
-      post("workingtimes/:userID", WorkingtimeController, :create)
+      get("/workingtimes/:userID", WorkingtimeController, :index)
+      get("/workingtimes/:userID/:id", WorkingtimeController, :show)
+      post("/workingtimes/:userID", WorkingtimeController, :create)
       resources("/clocks", ClockController, only: [:show, :index])
-      post("clocks/:userID", ClockController, :create)
+      post("/clocks/:userID", ClockController, :create)
     end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
