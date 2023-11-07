@@ -345,6 +345,7 @@ export default {
           if (response.data.users) {
             availableMembers.value = response.data.users;
             availableLeaders.value = response.data.users;
+            console.log("availableLeaders:"+ availableLeaders);
           }
         })
         .catch((error) => {
@@ -376,6 +377,7 @@ export default {
       toggleCreateForm,
       toggleCreateTeamForm,
       removeMember,
+      addSelectedLeader,
     };
   },
 };
