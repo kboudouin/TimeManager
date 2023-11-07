@@ -127,6 +127,7 @@
     :value="leader.id"
     @click="addSelectedLeader(leader.id)"
   >
+  ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
     ID : {{ leader.id }} USERNAME : {{ leader.username }} EMAIL : {{ leader.email }}
   </option>
 </select>
