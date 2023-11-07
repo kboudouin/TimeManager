@@ -63,7 +63,7 @@
           class="carousel-item relative w-full"
         >
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Boucle à travers les équipes du groupe -->
+            <!-- Boucle à travers les équipes du groupe (similaire à la section précédente) -->
             <li
               v-for="team in group"
               :key="team.id"
@@ -140,21 +140,23 @@
             <label for="teamMembers" class="block text-black font-semibold"
               >Members</label
             >
+
             <select
-    v-model="newTeam.members"
-    id="teamMembers"
-    multiple
-    class="w-full rounded border p-2 appearance-none"
-  >
-    <option
-      v-for="member in availableMembers"
-      :key="member.id"
-      :value="member.id"
-      @click="addSelectedMember(member.id)"
-    >
-      ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
-    </option>
-  </select>
+              v-model="newTeam.members"
+              id="teamMembers"
+              multiple
+              class="w-full rounded border p-2 appearance-none"
+            >
+
+              <option
+                v-for="member in availableMembers"
+                :key="member.id"
+                :value="member.id"
+                @click="addSelectedMember(member.id)"
+              >
+                ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
+              </option>
+            </select>
           </div>
           <!-- Liste des membres sélectionnés -->
           <div class="mb-4">
@@ -249,6 +251,8 @@ export default {
       console.log("apres clique" + BOUTONVISIBILITY);
     },
   },
+
+
   
   setup() {
     const teams = [
@@ -277,14 +281,11 @@ export default {
       console.log("ajout leader ID : "+ leaderId);
       };
 
-      const addSelectedMember = (memberId) => {
+    const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
-        // Récupérer le USERNAME du membre et l'ajouter à la liste
-        const member = availableMembers.value.find((m) => m.id === memberId);
-        if (member) {
-          selectedMembers.value.push(member.username);
-        }
+        console.log(memberId);
+        console.log(newTeam);
       }
     };
 
