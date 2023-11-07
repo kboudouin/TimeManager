@@ -14,7 +14,9 @@ const heure = (date) => {
       : dateObj.getMonth() + 1;
   const year = dateObj.getFullYear();
   const hour =
-    dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours();
+    dateObj.getHours() < 10
+      ? `0${dateObj.getHours() - 1}`
+      : dateObj.getHours() - 1;
   const minutes =
     dateObj.getMinutes() < 10
       ? `0${dateObj.getMinutes()}`
