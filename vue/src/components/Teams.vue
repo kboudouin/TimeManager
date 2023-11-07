@@ -121,14 +121,8 @@
   class="w-full rounded border p-2 appearance-none"
 >
 
-  <option
-    v-for="leader in availableLeaders"
-    :key="leader.id"
-    :value="leader.id"
-    @click="addSelectedLeader(leader.id)"
-  >
-  ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
-    ID : {{ leader.id }} USERNAME : {{ leader.username }} EMAIL : {{ leader.email }}
+  <option  >
+  ID : USERNAME : EMAIL : 
   </option>
 </select>
           </div>
