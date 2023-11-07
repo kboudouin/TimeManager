@@ -122,12 +122,12 @@
 >
 
   <option
-    v-for="member in availableMembers"
-    :key="member.id"
-    :value="member.id"
-    @click="addSelectedMember(member.id)"
+    v-for="leader in availableLeaders"
+    :key="leader.id"
+    :value="leader.id"
+    @click="addSelectedLeader(leader.id)"
   >
-    ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
+    ID : {{ leader.id }} USERNAME : {{ leader.username }} EMAIL : {{ leader.email }}
   </option>
 </select>
           </div>
@@ -259,6 +259,12 @@ export default {
     const groupedTeams = ref([]);
     const selectedMembers = ref([]);
 
+    const availableLeaders=ref([]);
+
+    const addSelectedLeader =(leaderId) => {
+      console.log("ajout leader ID : "+ leaderId);
+      };
+
     const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
@@ -328,7 +334,7 @@ export default {
 
           if (response.data.users) {
             availableMembers.value = response.data.users;
-            console.log(availableMembers);
+            availableLeaders.value = response.data.users;
           }
         })
         .catch((error) => {
