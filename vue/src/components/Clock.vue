@@ -20,7 +20,7 @@ const id = route.params.id;
 
 if (
   localStorage.getItem("userId") !== id &&
-  localStorage.getItem("userId") !== "admin"
+  localStorage.getItem("role") !== "admin"
 ) {
   router.replace("/error");
 }
