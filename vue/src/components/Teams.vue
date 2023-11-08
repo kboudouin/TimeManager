@@ -251,9 +251,9 @@ export default {
 
     BOUTON(){
       console.log("avant clique"+ BOUTONVISIBILITY);
-      if (this.BOUTONVISIBILITY == true) {
+      if (this.BOUTONVISIBILITY === true) {
   this.BOUTONVISIBILITY = false;
-} else if (this.BOUTONVISIBILITY == false) {
+} else if (this.BOUTONVISIBILITY === false) {
   this.BOUTONVISIBILITY = true;
 }
       console.log("apres clique"+ BOUTONVISIBILITY);
