@@ -208,11 +208,17 @@ export default {
     username: "",
     BOUTONVISIBILITY: false,
     leaderIDselected: null,
-    nameusername: "", // Ajoutez cette ligne
+    userUsername: null,
+    id: null,
+    EMAIL: null,
+    selectedMembers: [], 
   };
 },
 created() {
+    // Récupérez la valeur depuis le localStorage
     this.userUsername = localStorage.getItem("userUsername");
+    this.id = localStorage.getItem("userId");
+    this.EMAIL = localStorage.getItem("userEmail");
   },
   methods: {
 
@@ -229,16 +235,6 @@ created() {
     }
   },
 
-  addSelectedLeader(leader){
-
-    console.log("alors leader : "+leader);
-    leaderIDselected = leader;
-    console.log("leaderIDselected : "+this.leaderIDselected);
-
-  },
-
-  
-
     BOUTON(){
       if (this.BOUTONVISIBILITY === true) {
       this.BOUTONVISIBILITY = false;
@@ -250,16 +246,12 @@ created() {
   
   setup() {
     const teams = [
-      { id: 1, name: "Équipe A", description: "Description de l'équipe A" },
-      { id: 2, name: "Équipe B", description: "Description de l'équipe B" },
-      { id: 3, name: "Équipe C", description: "Description de l'équipe C" },
       // Ajoutez d'autres équipes ici
     ];
 
 
     const newTeam = ref({
       name: "",
-      
       description: "",
       members: [],
     });
@@ -268,12 +260,6 @@ created() {
     ]);
     const groupedTeams = ref([]);
     const selectedMembers = ref([]);
-
-    const availableLeaders=ref([]);
-
-    const addSelectedLeader =(leaderId) => {
-      console.log("ajout leader ID : "+ leaderId);
-      };
 
     const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
