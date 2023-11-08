@@ -137,45 +137,43 @@
 
  <!-- Liste des leaders sélectionnés -->
  <div class="mb-4">
-            <label class="block text-black font-semibold"
-              >Selected Leader</label
-            >
-            <div class="flex flex-wrap">
-              <span
-                v-for="memberId in newTeam.members"
-                :key="memberId"
-                class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
-              >test
-                {{
-                  availableMembers.find((member) => member.id === memberId).name
-                }}
-                <button
-                  @click="removeMember(memberId)"
-                  class="ml-2 text-red-600 hover:text-red-800"
-                >
-                  <svg
-                    class="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    ></path>
-                  </svg>
-                </button>
-              </span>
-            </div>
+  <label for="teamName" class="block text-black font-semibold">Leader</label>
+  <select v-model="leaderIDselected" id="teamMembers" class="w-full rounded border p-2 appearance-none">
+    <option
+      v-for="member in availableLeaders"
+      :key="member.id"
+      :value="member.id"
+    >
+      {{ member.name }}  <!-- Utilisez le nom du leader -->
+    </option>
+  </select>
+</div>
 
-
-
-          </div>
-
-
+<!-- Liste des leaders sélectionnés -->
+<div class="mb-4">
+  <label class="block text-black font-semibold">Selected Leader</label>
+  <div class="flex flex-wrap">
+    <span v-if="leaderIDselected" class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center">
+      {{ availableLeaders.find((leader) => leader.id === leaderIDselected).name }}
+      <button @click="removeLeader(leaderIDselected)" class="ml-2 text-red-600 hover:text-red-800">
+        <svg
+          class="h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </span>
+  </div>
+</div>
           <div class="mb-4">
             <label for="teamMembers" class="block text-black font-semibold"
               >Members</label
@@ -282,7 +280,10 @@ export default {
       nameusername = member.username;
       console.log("le membre selectionner est"+ member.username);
     }
+
   },
+
+  
 
   addSelectedLeader(leader){
 
