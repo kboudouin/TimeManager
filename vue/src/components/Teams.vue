@@ -223,26 +223,6 @@ created() {
     this.EMAIL = localStorage.getItem("userEmail");
   },
   methods: {
-    addSelectedMember (memberId){
-      this.addToMyList(memberId);
-      console.log("ajout membre : "+memberId);
-
-      /*if (!newTeam.members.includes(memberId)) {
-        newTeam.members.push(memberId);
-        console.log(memberId);
-        console.log(newTeam);
-      }*/
-    },
-
-    removeMember(memberId){
-      const index = newTeam.members.indexOf(memberId);
-      if (index !== -1) {
-        newTeam.members.splice(index, 1);
-      }
-    },
-
-
-
     addToMyList(item) {
     this.myList.push(item);
   },
@@ -285,6 +265,25 @@ created() {
     ]);
     const groupedTeams = ref([]);
     const selectedMembers = ref([]);
+
+    const addSelectedMember = (memberId) => {
+      this.addToMyList(memberId);
+      console.log("ajout membre : "+memberId)
+
+      /*if (!newTeam.members.includes(memberId)) {
+        newTeam.members.push(memberId);
+        console.log(memberId);
+        console.log(newTeam);
+      }*/
+    };
+
+    const removeMember = (memberId) => {
+      const index = newTeam.members.indexOf(memberId);
+      if (index !== -1) {
+        newTeam.members.splice(index, 1);
+      }
+    };
+
     const creatingTeam = ref(false);
 
 const showCreateTeamForm = () => {
