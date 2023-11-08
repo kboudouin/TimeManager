@@ -270,11 +270,11 @@ created() {
       this.addToMyList(memberId);
       console.log("ajout membre : "+memberId)
 
-      /*if (!newTeam.members.includes(memberId)) {
+      if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
         console.log(memberId);
         console.log(newTeam);
-      }*/
+      }
     };
 
     const removeMember = (memberId) => {
