@@ -184,7 +184,7 @@
             >
             <textarea class="w-full rounded border p-2"></textarea>
           </div>
-          <button
+          <button @click="addTeam"
             type="submit"
             class="bg-blue-500 text-white py-2 px-4 rounded hover-bg-blue-600"
           >
@@ -301,8 +301,8 @@ const toggleCreateTeamForm = () => {
 
           // Ajoutez l'équipe nouvellement créée à la liste des équipes
           teams.push({
-            leaderId: teams.length + 1,
-            leader: newTeam.value.name,
+            leaderId: this.id,
+            leader: this.userUsername,
             members: newTeam.value.members,
           });
 
