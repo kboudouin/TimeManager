@@ -109,7 +109,7 @@
 
 
       <!-- Formulaire de création d'équipe -->
-      <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
+      <div  class="bg-white p-4 rounded-lg shadow">
         <form @submit.prevent="addTeam">
           <div class="mb-4">
             <label for="teamName" class="block text-black font-semibold"
