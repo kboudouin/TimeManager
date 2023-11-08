@@ -18,7 +18,7 @@
               :key="team.id"
               class="bg-white p-4 rounded-lg shadow"
             >
-              <h3 class="text-lg font-semibold">{{ team.name }}</h3>
+              <h3 class="text-lg font-semibold">{{ team.leader }}</h3>
               <p class="text-gray-500">{{ team.description }}</p>
               <button
                 @click="editTeam(team.id)"
@@ -102,7 +102,6 @@
     <!-- Section "Créer une nouvelle équipe" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
-
       <button
         @click="BOUTON"
         class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
@@ -111,8 +110,8 @@
       </button>
 
       <!-- Formulaire de création d'équipe -->
-      <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
-        <form>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <form @submit.prevent="addTeam">
           <div class="mb-4">
             <label for="teamName" class="block text-black font-semibold"
               >Leader {{ userUsername }}</label
@@ -123,7 +122,6 @@
             <label for="teamMembers" class="block text-black font-semibold"
               >Members</label
             >
-
             <select
               v-model="newTeam.members"
               id="teamMembers"
@@ -151,11 +149,9 @@
                 v-for="memberId in newTeam.members"
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
-                >test
-
-                {{
-                  availableMembers.find((member) => member.id === memberId).name
-                }}
+                :title="memberName"
+              >
+                {{ memberName }}
                 <button
                   @click="removeMember(memberId)"
                   class="ml-2 text-red-600 hover:text-red-800"
@@ -223,24 +219,6 @@ export default {
     this.EMAIL = localStorage.getItem("userEmail");
   },
   methods: {
-    addSelectedMember(memberId) {
-      this.addToMyList(memberId);
-      console.log("ajout membre : " + memberId);
-
-      /*if (!newTeam.members.includes(memberId)) {
-        newTeam.members.push(memberId);
-        console.log(memberId);
-        console.log(newTeam);
-      }*/
-    },
-
-    removeMember(memberId) {
-      const index = newTeam.members.indexOf(memberId);
-      if (index !== -1) {
-        newTeam.members.splice(index, 1);
-      }
-    },
-
     addToMyList(item) {
       this.myList.push(item);
     },
@@ -259,9 +237,9 @@ export default {
     },
 
     BOUTON() {
-      if (this.BOUTONVISIBILITY === true) {
+      if (this.BOUTONVISIBILITY) {
         this.BOUTONVISIBILITY = false;
-      } else if (this.BOUTONVISIBILITY === false) {
+      } else if (!this.BOUTONVISIBILITY) {
         this.BOUTONVISIBILITY = true;
       }
     },
@@ -281,6 +259,25 @@ export default {
     const availableMembers = ref([]);
     const groupedTeams = ref([]);
     const selectedMembers = ref([]);
+
+    const addSelectedMember = (memberId) => {
+      const member = this.availableMembers.find((m) => m.id === memberId);
+      if (member) {
+        this.selectedMembers.push(member.username);
+        nameusername = member.username;
+        console.log("le membre sélectionné est " + member.username);
+
+        // Définir la variable memberName
+        memberName = member.name;
+      }
+    };
+
+    const removeMember = (memberId) => {
+      const index = newTeam.members.indexOf(memberId);
+      if (index !== -1) {
+        newTeam.members.splice(index, 1);
+      }
+    };
 
     const creatingTeam = ref(false);
 
