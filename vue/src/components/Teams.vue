@@ -147,10 +147,10 @@
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
               >test
                 {{
-                  availableLeaders.find((leader) => leader.id === leaderId).name
+                  availableMembers.find((member) => member.id === memberId).name
                 }}
                 <button
-                  @click="removeLeader(leaderId)"
+                  @click="removeMember(memberId)"
                   class="ml-2 text-red-600 hover:text-red-800"
                 >
                   <svg
@@ -173,7 +173,7 @@
 
 
 
-          </div>
+     </div>
 
 
           <div class="mb-4">
@@ -282,10 +282,7 @@ export default {
       nameusername = member.username;
       console.log("le membre selectionner est"+ member.username);
     }
-
   },
-
-  
 
   addSelectedLeader(leader){
 
