@@ -333,8 +333,6 @@ const toggleCreateTeamForm = () => {
 
           if (response.data.users) {
             availableMembers.value = response.data.users;
-            availableLeaders.value = response.data.users;
-            console.log("availableLeaders:"+ availableLeaders);
           }
         })
         .catch((error) => {
@@ -366,7 +364,6 @@ const toggleCreateTeamForm = () => {
       toggleCreateForm,
       toggleCreateTeamForm,
       removeMember,
-      addSelectedLeader,
     };
   },
 };
