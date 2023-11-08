@@ -145,34 +145,33 @@
             >
             <div class="flex flex-wrap">
               <span
-                v-for="memberId in newTeam.members"
-                :key="memberId"
-                class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
-              >test
-    
-                {{
-                  availableMembers.find((member) => member.id === memberId).name
-                }}
-                <button
-                  @click="removeMember(memberId)"
-                  class="ml-2 text-red-600 hover:text-red-800"
-                >
-                  <svg
-                    class="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    ></path>
-                  </svg>
-                </button>
-              </span>
+  v-for="memberId in newTeam.members"
+  :key="memberId"
+  class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
+  :title="memberName"
+>
+  {{ memberName }}
+  <button
+    @click="removeMember(memberId)"
+    class="ml-2 text-red-600 hover:text-red-800"
+  >
+    <svg
+      class="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      ></path>
+    </svg>
+  </button>
+</span>
+
             </div>
           </div>
           <div class="mb-4">
@@ -263,15 +262,17 @@ created() {
     const selectedMembers = ref([]);
 
     const addSelectedMember = (memberId) => {
-      this.addToMyList(memberId);
-      console.log("ajout membre : "+memberId)
+  const member = this.availableMembers.find((m) => m.id === memberId);
+  if (member) {
+    this.selectedMembers.push(member.username);
+    nameusername = member.username;
+    console.log("le membre sélectionné est " + member.username);
+    
+    // Définir la variable memberName
+    memberName = member.name;
+  }
+};
 
-      if (!newTeam.members.includes(memberId)) {
-        newTeam.members.push(memberId);
-        console.log(memberId);
-        console.log(newTeam);
-      }
-    };
 
     const removeMember = (memberId) => {
       const index = newTeam.members.indexOf(memberId);
