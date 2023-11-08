@@ -3,15 +3,15 @@ defmodule Api.Team do
   import Ecto.Changeset
 
   schema "teams" do
-    field(:leader_id, :integer)
+    field(:leaderId, :integer)
     field(:leader, :string)
     field(:members, {:array, :map})
 
-    @derive {Jason.Encoder, only: [:id, :leader_id, :leader, :members, :inserted_at, :updated_at]}
+    @derive {Jason.Encoder, only: [:id, :leaderId, :leader, :members, :inserted_at, :updated_at]}
     timestamps(type: :utc_datetime)
   end
 
-  @required_fields ~w(leader_id leader members)a
+  @required_fields ~w(leaderId leader members)a
   @optional_fields ~w()a
 
   @doc false
