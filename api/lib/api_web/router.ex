@@ -48,6 +48,7 @@ defmodule ApiWeb.Router do
       get("/teams", TeamController, :index)
       get("/teams/:id", TeamController, :show)
       post("/teams", TeamController, :create)
+      delete("/teams/:id", TeamController, :delete)
     end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
