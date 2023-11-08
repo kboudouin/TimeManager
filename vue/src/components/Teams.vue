@@ -360,8 +360,9 @@ export default {
 
     const BOUTONVISIBILITY = ref(false);
 
+
     const toggleCreateForm = () => {
-      BOUTONVISIBILITY.value = true;
+      BOUTONVISIBILITY.value = !BOUTONVISIBILITY.value;
     };
 
     onMounted(() => {
