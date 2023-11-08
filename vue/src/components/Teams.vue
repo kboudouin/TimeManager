@@ -102,10 +102,10 @@
     <!-- Section "Créer une nouvelle équipe" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
-      <button
-  @click="toggleCreateForm"
-  class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
->CREATE TEAM</button>
+<button @click="BOUTON" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600">
+  CREATE TEAM
+</button>
+
 
       <!-- Formulaire de création d'équipe -->
       <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
@@ -210,12 +210,13 @@ import { useToast } from "vue-toast-notification";
 
 export default {
   data() {
-    return {
-      BOUTONVISIBILITY: false,
-      leaderIDselected: null,
-      nameusername: string,
-    };
-  },
+  return {
+    BOUTONVISIBILITY: false,
+    leaderIDselected: null,
+    nameusername: "", // Ajoutez cette ligne
+  };
+},
+
   methods: {
 
     test(){
@@ -239,13 +240,15 @@ export default {
 
   },
 
+  
+
     BOUTON(){
       console.log("avant clique"+ BOUTONVISIBILITY);
-      if (this.BOUTONVISIBILITY = true){
-        this.BOUTONVISIBILITY == false;
-      }else if(this.BOUTONVISIBILITY = false){
-        this.BOUTONVISIBILITY == true;
-      }
+      if (this.BOUTONVISIBILITY === true) {
+  this.BOUTONVISIBILITY = false;
+} else if (this.BOUTONVISIBILITY === false) {
+  this.BOUTONVISIBILITY = true;
+}
       console.log("apres clique"+ BOUTONVISIBILITY);
     },
   },
