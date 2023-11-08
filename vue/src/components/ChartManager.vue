@@ -33,7 +33,10 @@ const fetchData = async () => {
   loading.value = true;
 
   const route = useRoute();
-  let id = localStorage.getItem("userId");
+  let id = route.params.id;
+  if (id == null) {
+    let id = user.id;
+  }
   const token = localStorage.getItem("token");
   const resp = await axios.get(
     `https://epitechproject.com/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`,

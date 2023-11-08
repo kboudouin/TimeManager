@@ -4,6 +4,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import router from "../../router";
+import teamsModal from "./AdminTeams.vue";
 import addModal from "./adminAdd.vue";
 import deleteModal from "./adminDelete.vue";
 import modifyModal from "./adminModify.vue";
@@ -19,6 +20,7 @@ const userData = ref(null);
 const clocksData = ref(null);
 
 // Toogle refs
+const toggleTable = ref(true);
 const toggleAdd = ref(false);
 const toggleDelete = ref(false);
 const toggleModify = ref(false);
@@ -80,6 +82,11 @@ const fetchData = async () => {
     console.error(error);
   }
 };
+
+const toggleTableModal = async () => {
+  toggleTable.value = !toggleTable.value;
+};
+
 const toggleAddModal = async () => {
   toggleAdd.value = !toggleAdd.value;
   selectedUser.value = user;
@@ -108,7 +115,12 @@ const toggleWtModal = async (user) => {
 </script>
 
 <template>
-  <!-- Delete toggle modal component -->
+  <!-- Teams toggle modal component -->
+  <div v-if="!toggleTable">
+    <teamsModal @close="toggleTable" />
+  </div>
+
+  <!-- Add toggle modal component -->
   <div v-if="toggleAdd">
     <addModal @close="toggleAddModal" @fetchData="fetchData" />
   </div>
@@ -179,12 +191,35 @@ const toggleWtModal = async (user) => {
     </div>
   </div>
 
-  <button @click="toggleAddModal" class="btn btn-success fixed top-4 right-8">
+  <button
+    v-if="toggleTable"
+    @click="toggleAddModal"
+    class="btn btn-success fixed top-4 right-32"
+  >
     Create User
   </button>
 
+  <button
+    @click="toggleTableModal"
+    v-if="toggleTable"
+    class="btn btn-secondary fixed top-4 right-8"
+  >
+    Teams
+  </button>
+
+  <button
+    @click="toggleTableModal"
+    v-if="!toggleTable"
+    class="btn btn-secondary fixed top-4 right-8"
+  >
+    Users
+  </button>
+
   <!-- Admin users table -->
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg z-10 mt-12">
+  <div
+    v-if="toggleTable"
+    class="relative overflow-x-auto shadow-md sm:rounded-lg z-10 mt-12"
+  >
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -222,28 +257,40 @@ const toggleWtModal = async (user) => {
             <a
               @click="toggleWtModal(user)"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >View</a
+              ><span
+                class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
+                >View</span
+              ></a
             >
           </td>
           <td class="px-6 py-4">
             <a
               @click="toggleChartModal(user)"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >View
+              ><span
+                class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
+                >View</span
+              >
             </a>
           </td>
           <td class="px-6 py-4 text-right">
             <a
               @click="toggleModifyModal(user)"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >Edit</a
+              ><span
+                class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+                >Edit</span
+              ></a
             >
           </td>
           <td class="px-6 py-4 text-right">
             <a
               @click="toggleDeleteModal(user)"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >Delete</a
+              ><span
+                class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
+                >Delete</span
+              ></a
             >
           </td>
         </tr>

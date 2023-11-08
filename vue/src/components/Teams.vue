@@ -103,20 +103,21 @@
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
 
-      <button @click="BOUTON" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600">
-  CREATE TEAM
-</button>
-
-
+      <button
+        @click="BOUTON"
+        class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600"
+      >
+        CREATE TEAM
+      </button>
 
       <!-- Formulaire de création d'équipe -->
       <div v-if="BOUTONVISIBILITY" class="bg-white p-4 rounded-lg shadow">
         <form>
           <div class="mb-4">
             <label for="teamName" class="block text-black font-semibold"
-              >Leader {{ userUsername }}</label>
+              >Leader {{ userUsername }}</label
+            >
           </div>
-
 
           <div class="mb-4">
             <label for="teamMembers" class="block text-black font-semibold"
@@ -124,23 +125,21 @@
             >
 
             <select
-  v-model="newTeam.members"
-  id="teamMembers"
-  multiple
-  class="w-full rounded border p-2 appearance-none"
->
-
-  <option
-    v-for="member in availableMembers"
-    :key="member.id"
-    :value="member.id"
-    @click="addSelectedMember(member.id)"
-  >
-
-  
-    ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
-  </option>
-</select>
+              v-model="newTeam.members"
+              id="teamMembers"
+              multiple
+              class="w-full rounded border p-2 appearance-none"
+            >
+              <option
+                v-for="member in availableMembers"
+                :key="member.id"
+                :value="member.id"
+                @click="addSelectedMember(member.id)"
+              >
+                ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL :
+                {{ member.email }}
+              </option>
+            </select>
           </div>
           <!-- Liste des membres sélectionnés -->
           <div class="mb-4">
@@ -152,8 +151,8 @@
                 v-for="memberId in newTeam.members"
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
-              >test
-    
+                >test
+
                 {{
                   availableMembers.find((member) => member.id === memberId).name
                 }}
@@ -185,7 +184,8 @@
             >
             <textarea class="w-full rounded border p-2"></textarea>
           </div>
-          <button @click="addTeam"
+          <button
+            @click="addTeam"
             type="submit"
             class="bg-blue-500 text-white py-2 px-4 rounded hover-bg-blue-600"
           >
@@ -206,26 +206,26 @@ import { useToast } from "vue-toast-notification";
 export default {
   data() {
     return {
-    username: "",
-    BOUTONVISIBILITY: false,
-    leaderIDselected: null,
-    userUsername: null,
-    id: null,
-    EMAIL: null,
-    selectedMembers: [], 
-    LIST:[],
-  };
-},
-created() {
+      username: "",
+      BOUTONVISIBILITY: false,
+      leaderIDselected: null,
+      userUsername: null,
+      id: null,
+      EMAIL: null,
+      selectedMembers: [],
+      LIST: [],
+    };
+  },
+  created() {
     // Récupérez la valeur depuis le localStorage
     this.userUsername = localStorage.getItem("userUsername");
     this.id = localStorage.getItem("userId");
     this.EMAIL = localStorage.getItem("userEmail");
   },
   methods: {
-    addSelectedMember (memberId){
+    addSelectedMember(memberId) {
       this.addToMyList(memberId);
-      console.log("ajout membre : "+memberId);
+      console.log("ajout membre : " + memberId);
 
       /*if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
@@ -234,46 +234,43 @@ created() {
       }*/
     },
 
-    removeMember(memberId){
+    removeMember(memberId) {
       const index = newTeam.members.indexOf(memberId);
       if (index !== -1) {
         newTeam.members.splice(index, 1);
       }
     },
 
-
-
     addToMyList(item) {
-    this.myList.push(item);
-  },
+      this.myList.push(item);
+    },
 
-    test(){
+    test() {
       console.log("test reussi");
     },
 
     addSelectedMember(memberId) {
-    const member = this.availableMembers.find((m) => m.id === memberId);
-    if (member) {
-      this.selectedMembers.push(member.username);
-      nameusername = member.username;
-      console.log("le membre selectionner est"+ member.username);
-    }
-  },
+      const member = this.availableMembers.find((m) => m.id === memberId);
+      if (member) {
+        this.selectedMembers.push(member.username);
+        nameusername = member.username;
+        console.log("le membre selectionner est" + member.username);
+      }
+    },
 
-    BOUTON(){
+    BOUTON() {
       if (this.BOUTONVISIBILITY === true) {
-      this.BOUTONVISIBILITY = false;
-} else if (this.BOUTONVISIBILITY === false) {
-  this.BOUTONVISIBILITY = true;
-}
+        this.BOUTONVISIBILITY = false;
+      } else if (this.BOUTONVISIBILITY === false) {
+        this.BOUTONVISIBILITY = true;
+      }
     },
   },
-  
+
   setup() {
     const teams = [
       // Ajoutez d'autres équipes ici
     ];
-
 
     const newTeam = ref({
       name: "",
@@ -281,22 +278,20 @@ created() {
       members: [],
     });
 
-    const availableMembers = ref([
-    ]);
+    const availableMembers = ref([]);
     const groupedTeams = ref([]);
     const selectedMembers = ref([]);
 
     const creatingTeam = ref(false);
 
-const showCreateTeamForm = () => {
-  creatingTeam.value = true;
-  newTeam.value = { name: "", description: "", members: [] };
-};
+    const showCreateTeamForm = () => {
+      creatingTeam.value = true;
+      newTeam.value = { name: "", description: "", members: [] };
+    };
 
-const toggleCreateTeamForm = () => {
-  creatingTeam.value = !creatingTeam.value;
-};
-
+    const toggleCreateTeamForm = () => {
+      creatingTeam.value = !creatingTeam.value;
+    };
 
     const addTeam = async () => {
       try {
