@@ -4,6 +4,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import router from "../../router";
+import addModal from "./adminAdd.vue";
 import deleteModal from "./adminDelete.vue";
 import modifyModal from "./adminModify.vue";
 import chartModal from "../ChartManager.vue";
@@ -18,6 +19,7 @@ const userData = ref(null);
 const clocksData = ref(null);
 
 // Toogle refs
+const toggleAdd = ref(false);
 const toggleDelete = ref(false);
 const toggleModify = ref(false);
 const toggleChart = ref(false);
@@ -78,6 +80,10 @@ const fetchData = async () => {
     console.error(error);
   }
 };
+const toggleAddModal = async () => {
+  toggleAdd.value = !toggleAdd.value;
+  selectedUser.value = user;
+};
 
 const toggleDeleteModal = async (user) => {
   toggleDelete.value = !toggleDelete.value;
@@ -102,6 +108,11 @@ const toggleWtModal = async (user) => {
 </script>
 
 <template>
+  <!-- Delete toggle modal component -->
+  <div v-if="toggleAdd">
+    <addModal @close="toggleAddModal" @fetchData="fetchData" />
+  </div>
+
   <!-- Delete toggle modal component -->
   <div v-if="toggleDelete">
     <deleteModal
@@ -168,8 +179,12 @@ const toggleWtModal = async (user) => {
     </div>
   </div>
 
+  <button @click="toggleAddModal" class="btn btn-success fixed top-4 right-8">
+    Create User
+  </button>
+
   <!-- Admin users table -->
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg z-10">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg z-10 mt-12">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"

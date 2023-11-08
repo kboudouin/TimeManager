@@ -33,7 +33,7 @@ const deleteUser = async () => {
   <div
     id="popup-modal"
     tabindex="-1"
-    class="fixed top-0 left-0 flex justify-center w-full h-full z-50 p-4 overflow-x-hidden overflow-y-auto"
+    class="fixed top-0 left-0 flex justify-center w-full h-full z-50 p-4 overflow-x-hidden overflow-y-auto mt-12"
   >
     <div class="relative w-full max-w-md max-h-full">
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
