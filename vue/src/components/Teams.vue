@@ -114,7 +114,7 @@
         <form @submit.prevent="addTeam">
           <div class="mb-4">
             <label for="teamName" class="block text-black font-semibold"
-              >Leader {{leaderIDselected}}</label
+              >Leader</label
             >
             <select
   v-model="newTeam.members"
@@ -123,8 +123,14 @@
   class="w-full rounded border p-2 appearance-none"
 >
 
-  <option  >
-  ID : USERNAME : EMAIL : 
+<option
+    v-for="member in availableMembers"
+    :key="member.id"
+    :value="member.id"
+    @click="addSelectedMember(member.id)"
+  >
+
+  EMAIL : {{ member.email }}
   </option>
 </select>
           </div>
@@ -146,6 +152,8 @@
     :value="member.id"
     @click="addSelectedMember(member.id)"
   >
+
+  
     ID : {{ member.id }} USERNAME : {{ member.username }} EMAIL : {{ member.email }}
   </option>
 </select>
