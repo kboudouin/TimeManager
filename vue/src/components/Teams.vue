@@ -103,9 +103,10 @@
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
 
-<button @click="BOUTON" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600">
+      <button @click="toggleCreateTeamForm" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600">
   CREATE TEAM
 </button>
+
 
 
       <!-- Formulaire de création d'équipe -->
@@ -261,7 +262,7 @@ export default {
       // Ajoutez d'autres équipes ici
     ];
 
-    const creatingTeam = ref(false);
+
     const newTeam = ref({
       name: "",
       
@@ -295,14 +296,17 @@ export default {
       }
     };
 
-    const showCreateTeamForm = () => {
-      creatingTeam.value = true;
-      newTeam.value = { name: "", description: "", members: [] };
-    };
+    const creatingTeam = ref(false);
 
-    const toggleCreateTeamForm = () => {
-      this.showCreateTeamForm = !this.showCreateTeamForm;
-    };
+const showCreateTeamForm = () => {
+  creatingTeam.value = true;
+  newTeam.value = { name: "", description: "", members: [] };
+};
+
+const toggleCreateTeamForm = () => {
+  creatingTeam.value = !creatingTeam.value;
+};
+
 
     const addTeam = async () => {
       try {
