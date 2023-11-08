@@ -269,12 +269,6 @@ export default {
 
   methods: {
 
-    removeLeader(leaderId) {
-    if (leaderId === this.leaderIDselected) {
-      this.leaderIDselected = null;  // Réinitialisez leaderIDselected
-    }
-  },
-
     test(){
       console.log("test reussi");
     },
@@ -336,9 +330,7 @@ export default {
     const addSelectedLeader =(leaderId) => {
       console.log("ajout leader ID : "+ leaderId);
       };
-      
 
-      
     const addSelectedMember = (memberId) => {
       if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
