@@ -102,7 +102,7 @@
     <!-- Section "Créer une nouvelle équipe" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
-<button @click="showCreateTeamForm" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600">
+<button @click="BOUTON" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600">
   CREATE TEAM
 </button>
 
@@ -251,9 +251,9 @@ export default {
 
     BOUTON(){
       console.log("avant clique"+ BOUTONVISIBILITY);
-      if (this.BOUTONVISIBILITY === true) {
+      if (this.BOUTONVISIBILITY == true) {
   this.BOUTONVISIBILITY = false;
-} else if (this.BOUTONVISIBILITY === false) {
+} else if (this.BOUTONVISIBILITY == false) {
   this.BOUTONVISIBILITY = true;
 }
       console.log("apres clique"+ BOUTONVISIBILITY);
