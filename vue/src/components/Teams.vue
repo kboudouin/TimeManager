@@ -18,7 +18,7 @@
               :key="team.id"
               class="bg-white p-4 rounded-lg shadow"
             >
-              <h3 class="text-lg font-semibold">{{ team.name }}</h3>
+              <h3 class="text-lg font-semibold">{{ team.leader }}</h3>
               <p class="text-gray-500">{{ team.description }}</p>
               <button
                 @click="editTeam(team.id)"
@@ -102,7 +102,6 @@
     <!-- Section "Créer une nouvelle équipe" -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Créer une nouvelle équipe</h2>
-
       <button @click="BOUTON" class="bg-green-500 text-black py-2 px-4 rounded hover:bg-grey-600">
   CREATE TEAM
 </button>
@@ -119,10 +118,7 @@
 
 
           <div class="mb-4">
-            <label for="teamMembers" class="block text-black font-semibold"
-              >Members</label
-            >
-
+            <label for="teamMembers" class="block text-black font-semibold">Members</label>
             <select
   v-model="newTeam.members"
   id="teamMembers"
@@ -241,9 +237,9 @@ created() {
   },
 
     BOUTON(){
-      if (this.BOUTONVISIBILITY === true) {
+      if (this.BOUTONVISIBILITY) {
       this.BOUTONVISIBILITY = false;
-} else if (this.BOUTONVISIBILITY === false) {
+} else if (!this.BOUTONVISIBILITY) {
   this.BOUTONVISIBILITY = true;
 }
     },
