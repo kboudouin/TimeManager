@@ -245,14 +245,13 @@ export default {
   
 
     BOUTON(){
-
       if (this.BOUTONVISIBILITY === true) {
-  this.BOUTONVISIBILITY = false;
+      this.BOUTONVISIBILITY = false;
 } else if (this.BOUTONVISIBILITY === false) {
   this.BOUTONVISIBILITY = true;
 }
     },
-  
+  },
   
   setup() {
     const teams = [
