@@ -153,7 +153,7 @@
                 :key="memberId"
                 class="bg-gray-200 text-gray-600 px-2 py-1 m-1 rounded-lg flex items-center"
               >test
-              {{ member.userUsername }}
+    
                 {{
                   availableMembers.find((member) => member.id === memberId).name
                 }}
@@ -213,6 +213,7 @@ export default {
     id: null,
     EMAIL: null,
     selectedMembers: [], 
+    LIST:[],
   };
 },
 created() {
@@ -222,6 +223,9 @@ created() {
     this.EMAIL = localStorage.getItem("userEmail");
   },
   methods: {
+    addToMyList(item) {
+    this.myList.push(item);
+  },
 
     test(){
       console.log("test reussi");
@@ -263,11 +267,14 @@ created() {
     const selectedMembers = ref([]);
 
     const addSelectedMember = (memberId) => {
-      if (!newTeam.members.includes(memberId)) {
+      this.addToMyList(memberId);
+      console.log("ajout membre : "+memberId);
+
+      /*if (!newTeam.members.includes(memberId)) {
         newTeam.members.push(memberId);
         console.log(memberId);
         console.log(newTeam);
-      }
+      }*/
     };
 
     const removeMember = (memberId) => {
