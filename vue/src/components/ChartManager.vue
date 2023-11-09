@@ -19,6 +19,7 @@ const chartOptions = ref();
 const totalWorkedHours = ref(0);
 const totalWorkedDays = ref(0);
 const loading = ref(true);
+
 const route = useRoute();
 let id = route.params.id;
 
@@ -31,12 +32,13 @@ if (
 
 const fetchData = async () => {
   loading.value = true;
-
-  const route = useRoute();
-  let id = route.params.id;
-  if (id == "null") {
-    let id = user.id;
+  //get id from prop or url
+  // const route = useRoute();
+  // let id = route.params.id;
+  if (id == null && user) {
+    id = user.id;
   }
+
   const token = localStorage.getItem("token");
   const resp = await axios.get(
     `https://epitechproject.com/api/workingtimes/${id}?start=${dateFilter.value.start}T00:00:00Z&end=${dateFilter.value.end}T00:00:00Z`,
@@ -46,6 +48,8 @@ const fetchData = async () => {
       },
     }
   );
+
+  console.log(resp.data.workingtimes);
 
   // Initialize containers for daily, weekly, Pie Chart and Cumulative data
   const workByDay = {};
@@ -57,10 +61,10 @@ const fetchData = async () => {
   //redirect to /error if user is not allowed to get data
   if (resp.data.error) {
     router.replace("/error");
+    return;
   }
 
   if (resp.data && resp.data.workingtimes) {
-    console.log(resp.data.workingtimes);
     totalWorkedHours.value = 0;
     totalWorkedDays.value = 0;
     // Process the fetched data
