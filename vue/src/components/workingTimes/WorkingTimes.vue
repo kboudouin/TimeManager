@@ -10,20 +10,35 @@ const createEvent = () => {
   <section class="workingTimes rounded-xl">
     <div class="workingTimes-header">
       <!-- BUTTON TO ADD A NEW WORKING TIME -->
-      <button @click="createEvent">Ajouter un temps de travail</button>
+      <button style="background: blue" @click="createEvent">
+        Ajouter un temps de travail
+      </button>
     </div>
-    <div class="workingTimes-list p-6">
-      <!-- LIST OF WORKING TIMES -->
-      <WorkingTimeVue
-        v-for="item in store.workingTimes"
-        :key="Math.random() + item.user"
-        :data="item" />
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg z-10 mt-12">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Debut</th>
+            <th scope="col" class="px-6 py-3">Fin</th>
+            <th scope="col" class="px-6 py-3">Modifier</th>
+            <th scope="col" class="px-6 py-3">Supprimer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- LIST OF WORKING TIMES -->
+          <WorkingTimeVue
+            v-for="item in store.workingTimes"
+            :key="Math.random() + item.user"
+            :data="item" />
+        </tbody>
+      </table>
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-.workingTimes {
+._workingTimes {
   width: 100%;
   height: 100dvh;
   background: #2b2b2b;
