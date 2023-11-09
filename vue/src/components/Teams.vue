@@ -110,9 +110,6 @@ import { useToast } from "vue-toast-notification";
 export default {
   data() {
     return {
-      username: "",
-      BOUTONVISIBILITY: false,
-      leaderIDselected: null,
       userUsername: null,
       id: null,
       EMAIL: null,
@@ -127,30 +124,7 @@ export default {
     this.EMAIL = localStorage.getItem("userEmail");
   },
   methods: {
-    addToMyList(item) {
-      this.myList.push(item);
-    },
-
-    test() {
-      console.log("test reussi");
-    },
-
-    addSelectedMember(memberId) {
-      const member = this.availableMembers.find((m) => m.id === memberId);
-      if (member) {
-        this.selectedMembers.push(member.username);
-        nameusername = member.username;
-        console.log("le membre selectionner est" + member.username);
-      }
-    },
-
-    BOUTON() {
-      if (this.BOUTONVISIBILITY) {
-        this.BOUTONVISIBILITY = false;
-      } else if (!this.BOUTONVISIBILITY) {
-        this.BOUTONVISIBILITY = true;
-      }
-    },
+  
   },
 
   setup() {
@@ -158,122 +132,12 @@ export default {
       // Ajoutez d'autres équipes ici
     ];
 
-    const newTeam = ref({
-      name: "",
-      description: "",
-      members: [],
-    });
-
-    const availableMembers = ref([]);
-    const groupedTeams = ref([]);
-    const selectedMembers = ref([]);
-
-    const addSelectedMember = (memberId) => {
-      const member = this.availableMembers.find((m) => m.id === memberId);
-      if (member) {
-        this.selectedMembers.push(member.username);
-        nameusername = member.username;
-        console.log("le membre sélectionné est " + member.username);
-
-        // Définir la variable memberName
-        memberName = member.name;
-      }
-    };
-
-    const removeMember = (memberId) => {
-      const index = newTeam.members.indexOf(memberId);
-      if (index !== -1) {
-        newTeam.members.splice(index, 1);
-      }
-    };
-
-    const creatingTeam = ref(false);
-
-    const showCreateTeamForm = () => {
-      creatingTeam.value = true;
-      newTeam.value = { name: "", description: "", members: [] };
-    };
-
-    const toggleCreateTeamForm = () => {
-      creatingTeam.value = !creatingTeam.value;
-    };
-
-    const addTeam = async () => {
-      try {
-        const response = await axios.post(
-          "https://epitechproject.com/api/teams",
-          newTeam.value
-        );
-
-        if (response.status === 201) {
-          useToast().success("Équipe ajoutée avec succès.");
-          creatingTeam.value = false;
-
-          // Ajoutez l'équipe nouvellement créée à la liste des équipes
-          teams.push({
-            leaderId: this.id,
-            leader: this.userUsername,
-            members: newTeam.value.members,
-          });
-
-          // Mise à jour de groupedTeams
-          console.log("reussi");
-          groupedTeams.value = groupTeams(teams);
-        } else {
-          useToast().error("Erreur lors de l'ajout de l'équipe.");
-        }
-      } catch (error) {
-        console.error("Erreur lors de l'ajout de l'équipe", error);
-        useToast().error("Erreur lors de l'ajout de l'équipe.");
-      }
-    };
-
-    const API = () => {
-      const token = localStorage.getItem("token");
-      console.log("Récupération de la liste des membres en cours...");
-      axios
-        .get("https://epitechproject.com/api/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          console.log("Membres trouvés");
-          console.log(response.data);
-
-          if (response.data.users) {
-            availableMembers.value = response.data.users;
-          }
-        })
-        .catch((error) => {
-          console.error("Requête API échouée :", error);
-        });
-    };
-
-    const BOUTONVISIBILITY = ref(false);
-
-    const toggleCreateForm = () => {
-      BOUTONVISIBILITY.value = true;
-    };
-
     onMounted(() => {
-      API();
+
     });
 
     return {
-      BOUTONVISIBILITY,
-      teams,
-      creatingTeam,
-      newTeam,
-      groupedTeams,
-      showCreateTeamForm,
-      addTeam,
-      availableMembers,
-      selectedMembers,
-      addSelectedMember,
-      toggleCreateForm,
-      toggleCreateTeamForm,
-      removeMember,
+   
     };
   },
 };
