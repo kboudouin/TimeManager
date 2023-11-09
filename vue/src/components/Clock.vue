@@ -52,7 +52,9 @@ const fetchData = async () => {
     }
 
     loading.value = false;
-  } catch (error) {}
+  } catch (error) {
+    loading.value = false;
+  }
 };
 
 // Function to start the time by looking at last time in data
