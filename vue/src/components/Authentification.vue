@@ -182,6 +182,13 @@ export default {
       const email = this.email;
       const pass = this.password;
 
+      if (email == "" || pass == "") {
+        const $toast = useToast();
+        $toast.error("Email or Password can't be empty!");
+        this.loading = false;
+        return;
+      }
+
       try {
         const response = await axios.post(
           `https://epitechproject.com/api/login?email=${email}&password=${pass}`,
@@ -206,6 +213,11 @@ export default {
           $toast.success("Logged in!");
 
           this.loading = false;
+        } else {
+          const $toast = useToast();
+          $toast.error("Email or Password is incorrect! Please try again!");
+          this.loading = false;
+          return;
         }
       } catch (error) {
         console.error("API request failed:", error);
@@ -219,6 +231,13 @@ export default {
       const username = this.username;
       const email = this.email;
       const password = this.password;
+
+      if (username == "" || email == "" || password == "") {
+        const $toast = useToast();
+        $toast.error("All fields need to be filled!");
+        this.loading = false;
+        return;
+      }
       axios
         .post(
           `https://epitechproject.com/api/users?email=${email}&username=${username}&password=${password}&role=employee`

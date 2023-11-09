@@ -15,12 +15,16 @@ defmodule Api.User do
 
   @required_fields ~w(username email role)a
   @optional_fields ~w()a
+  @password_regex ~r/(?=.*\d)(?=.*[A-Z]).{8,}/
 
   @doc false
   def changeset(user, attrs) do
     user
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> validate_format(:password, @password_regex, message: "Password must be at least 8 characters long, include one uppercase letter and one number")
+    |> unique_constraint(:username, message: "This username has already been taken")
+    |> unique_constraint(:email, message: "This email has already been taken")
     |> put_pass_hash(attrs["password"])
   end
 
