@@ -240,7 +240,7 @@ export default {
       }
       axios
         .post(
-          `http://localhost:4000/api/users?email=${email}&username=${username}&password=${password}&role=employee`
+          `https://epitechproject.com/api/users?email=${email}&username=${username}&password=${password}&role=employee`
         )
         .then((response) => {
           if (response.data.errors.email) {
