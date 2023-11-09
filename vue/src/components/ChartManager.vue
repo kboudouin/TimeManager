@@ -34,7 +34,7 @@ const fetchData = async () => {
 
   const route = useRoute();
   let id = route.params.id;
-  if (id == null) {
+  if (id == "null") {
     let id = user.id;
   }
   const token = localStorage.getItem("token");
