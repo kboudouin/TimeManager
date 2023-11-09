@@ -5,6 +5,12 @@ import { useToast } from "vue-toast-notification";
 import VueCookies from "vue-cookies";
 import { useRoute } from "vue-router";
 import router from "../router";
+
+const showDelModal = ref(false);
+
+const deleteToggle = async () => {
+  showDelModal.value = !showDelModal.value;
+};
 </script>
 
 <template>
@@ -48,34 +54,78 @@ import router from "../router";
           </button>
         </div>
         <div class="stat mt-4">
-          <form @submit="(event) => event.preventDefault()">
-            <h1 class="text-xl">Delete your account ?</h1>
-            <div class="form-control">
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Username</span>
-                </label>
-                <input
-                  type=""
-                  placeholder="Enter username"
-                  class="input input-bordered"
-                  required
-                />
+          <h1 class="text-xl">Delete your account ?</h1>
+          <div class="form-control mt-6">
+            <button @click="deleteToggle" class="btn btn-error">DELETE</button>
+          </div>
+          <div
+            v-if="showDelModal"
+            tabindex="-1"
+            class="fixed top-0 left-0 flex justify-center w-full h-full z-50 p-4 overflow-x-hidden overflow-y-auto mt-12"
+          >
+            <div class="relative w-full max-w-md max-h-full">
+              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button
+                  type="button"
+                  class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-hide="popup-modal"
+                >
+                  <svg
+                    class="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-6 text-center">
+                  <svg
+                    class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                  <h3
+                    class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+                  >
+                    Are you sure you want to delete your account ?
+                  </h3>
+                  <button
+                    @click="Deleteacc"
+                    type="button"
+                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                  >
+                    Yes, I'm sure
+                  </button>
+                  <button
+                    @click="deleteToggle"
+                    type="button"
+                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                  >
+                    No, cancel
+                  </button>
+                </div>
               </div>
-              <label class="label">
-                <span class="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="Enter email"
-                class="input input-bordered"
-                required
-              />
             </div>
-            <div class="form-control mt-6">
-              <button @click="Deleteacc" class="btn btn-error">DELETE</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -139,7 +189,6 @@ export default {
         });
     },
 
-    //
     Deleteacc() {
       axios
         .delete(
@@ -158,7 +207,6 @@ export default {
           localStorage.removeItem("userUsername");
           localStorage.removeItem("userId");
           this.isUserConnected = false;
-          console.log("logging out");
           window.location.replace("/");
           // this.$router.replace("/");
         })
@@ -170,13 +218,12 @@ export default {
     },
 
     updatemail() {
+      if (this.$refs.emailInput.value == "") {
+        const $toast = useToast();
+        $toast.error("Email can't be empty!");
+        return;
+      }
       this.newmail = this.$refs.emailInput.value;
-      console.log(
-        "UPDATE MAIL FROM " +
-          localStorage.getItem("userId") +
-          " TO " +
-          this.newmail
-      );
       const userId = localStorage.getItem("userId");
       axios
         .put(
@@ -202,6 +249,11 @@ export default {
     },
 
     updateusername() {
+      if (this.$refs.usernameInput.value == "") {
+        const $toast = useToast();
+        $toast.error("Username can't be empty!");
+        return;
+      }
       this.newusername = this.$refs.usernameInput.value;
       console.log(
         "UPDATE USERNAME FROM " +
