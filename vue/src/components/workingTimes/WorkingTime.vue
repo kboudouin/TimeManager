@@ -35,21 +35,41 @@ const deleteModal = (data) => {
 </script>
 
 <template>
-  <div class="workingTime">
-    <div class="workingTime-1 p-6">
-      <p>{{ data.id }}</p>
-      <p>{{ heure(data.start) }}</p>
-      <p>{{ heure(data.end) }}</p>
-    </div>
-    <div class="workingTime-2">
-      <button @click="editModal(data)">Modifier</button>
-      <button @click="deleteModal(data)">Supprimer</button>
-    </div>
-  </div>
+  <tr
+    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <td class="px-6 py-4">
+      <span
+        class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
+        >{{ heure(data.start) }}</span
+      >
+    </td>
+    <td class="px-6 py-4">
+      <span
+        class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
+        >{{ heure(data.end) }}</span
+      >
+    </td>
+    <td class="px-6 py-4">
+      <button
+        style="background: #008cff; color: white; border: 0"
+        @click="editModal(data)"
+        class="btn btn-xs btn-error">
+        Modifier
+      </button>
+    </td>
+    <td class="px-6 py-4">
+      <button
+        style="background: #f52525; color: white; border: 0"
+        @click="deleteModal(data)"
+        class="btn btn-xs btn-error">
+        Supprimer
+      </button>
+    </td>
+  </tr>
 </template>
 
 <style scoped lang="scss">
-.workingTime {
+._workingTime {
   background: #2b2b2b;
   border-radius: 5px;
   // border: 1px solid black;
