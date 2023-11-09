@@ -32,9 +32,6 @@ if (
 
 const fetchData = async () => {
   loading.value = true;
-  //get id from prop or url
-  // const route = useRoute();
-  // let id = route.params.id;
   if (id == null && user) {
     id = user.id;
   }
