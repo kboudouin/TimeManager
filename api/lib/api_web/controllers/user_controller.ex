@@ -23,14 +23,26 @@ defmodule ApiWeb.UserController do
     end
   end
 
-def create(conn, user_params) do
-  with {:ok, %User{} = user} <- Users.create_user(user_params) do
-    user = Map.delete(user, :password_hash)
-    conn |> json(%{user: user})
-  else
-    _ -> json(conn, %{error: "Failed to create user"})
+  def create(conn, user_params) do
+    case Users.create_user(user_params) do
+      {:ok, %User{} = user} ->
+        user = Map.delete(user, :password_hash)
+        json(conn, %{user: user})
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        errors = Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+          Enum.reduce(opts, msg, fn {key, value}, acc ->
+            String.replace(acc, "%{#{key}}", to_string(value))
+          end)
+        end)
+        conn
+        |> json(%{errors: errors})
+
+      {:error, message} ->
+        conn
+        |> json(%{error: message})
+    end
   end
-end
 
 
   def show(conn, %{"id" => id}) do

@@ -240,16 +240,27 @@ export default {
       }
       axios
         .post(
-          `https://epitechproject.com/api/users?email=${email}&username=${username}&password=${password}&role=employee`
+          `http://localhost:4000/api/users?email=${email}&username=${username}&password=${password}&role=employee`
         )
         .then((response) => {
+          if (response.data.errors.email) {
+            const $toast = useToast();
+            $toast.error(response.data.errors.email);
+            return;
+          }
+          if (response.data.errors.username) {
+            const $toast = useToast();
+            $toast.error(response.data.errors.username);
+            return;
+          }
           const $toast = useToast();
           $toast.success("Account created! Please login!");
           this.SignInDiv = true;
           this.showCreateAccount = false;
         })
         .catch((error) => {
-          console.error("API request failed: USER FAILED TO BE ADDED", error);
+          const $toast = useToast();
+          $toast.error("An error has occured! Please try again!");
         });
     },
   },

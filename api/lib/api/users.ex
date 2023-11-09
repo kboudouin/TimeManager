@@ -19,11 +19,14 @@ defmodule Api.Users do
     Repo.all(query)
   end
 
-  def create_user(attrs \\ %{}) do
-      %User{}
-      |> User.changeset(attrs)
-      |> Repo.insert()
+def create_user(attrs \\ %{}) do
+    changeset = User.changeset(%User{}, attrs)
+    if changeset.valid? do
+      Repo.insert(changeset)
+    else
+      {:error, changeset}
     end
+  end
 
   def get_user!(id), do: Repo.get!(User, id)
 
