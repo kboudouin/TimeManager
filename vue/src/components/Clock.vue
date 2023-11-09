@@ -11,19 +11,24 @@ const sTime = ref(null);
 const eTime = ref(null);
 const timer = ref("00:00:00");
 const loading = ref(false);
+const onClock = ref(true);
 
 const onVacation = ref(false);
 const onSickLeave = ref(false);
 
 const route = useRoute();
-const id = route.params.id;
-
-if (
-  localStorage.getItem("userId") !== id &&
-  localStorage.getItem("role") !== "admin"
-) {
-  router.replace("/error");
+let id = route.params.id;
+if (id == undefined) {
+  onClock.value = false;
+  id = localStorage.getItem("userId");
 }
+
+// if (
+//   localStorage.getItem("userId") !== id &&
+//   localStorage.getItem("role") !== "admin"
+// ) {
+//   router.replace("/error");
+// }
 
 let interval;
 
@@ -79,7 +84,6 @@ const clock = async () => {
   status.value = true;
   sTime.value = new Date().toISOString();
   startTimer(new Date(sTime.value));
-
   try {
     const token = localStorage.getItem("token");
     await axios.post(
@@ -101,11 +105,13 @@ const clock = async () => {
 // Function to start refrsh clock + Create workingtime
 const refresh = async () => {
   const $toast = useToast();
+  $toast.success("WorkingTime Successfully Created!");
+
   status.value = false;
+
   eTime.value = new Date().toISOString();
   clearInterval(interval);
   timer.value = "00:00:00";
-  $toast.success("WorkingTime Successfully Created!");
   const token = localStorage.getItem("token");
   const clockRequest = axios.post(
     `https://epitechproject.com/api/clocks/${id}?status=false`,
@@ -166,14 +172,16 @@ const logSickLeaveStatus = () => {
 
 <template>
   <div>
-    <h1
-      class="mb-4 font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
-    >
-      <span
-        class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
-        >The Clock</span
+    <div v-if="onClock">
+      <h1
+        class="mb-4 font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
       >
-    </h1>
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+          >The Clock</span
+        >
+      </h1>
+    </div>
     <div class="w-full p-5 bg-base-200 rounded-lg">
       <div class="flex flex-col items-center pb-10">
         <div class="w-full shadow bg-base-100 rounded-lg p-6 mb-10">
@@ -185,7 +193,7 @@ const logSickLeaveStatus = () => {
           </div>
           <h5
             v-if="!onVacation && !onSickLeave"
-            class="text-4xl sm:text-6xl md:text-8xl font-bold"
+            class="text-3xl sm:text-6xl md:text-7xl font-bold"
           >
             <div v-if="!loading">{{ timer }}</div>
             <div v-if="loading" class="flex flex-col items-center">
@@ -217,7 +225,11 @@ const logSickLeaveStatus = () => {
         </div>
 
         <div v-if="!loading" class="flex justify-start">
-          <div id="app" class="w-full shadow bg-base-100 rounded-xl p-6 mb-10">
+          <div
+            v-if="onClock"
+            id="app"
+            class="w-full shadow bg-base-100 rounded-xl p-6 mb-10"
+          >
             <div>
               <input
                 type="checkbox"

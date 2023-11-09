@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Dashboard from "./components/Dashboard.vue";
 import ChartManager from "./components/ChartManager.vue";
 import Admin from "./components/admin/Admin.vue";
 import Clock from "./components/Clock.vue";
@@ -12,7 +13,8 @@ const routes = [
   { path: "/", name: "landing", component: Landing },
   { path: "/error", name: "error", component: error },
   { path: "/Admin", name: "Admin", component: Admin },
-  { path: "/Dashboard/:id", name: "chartManager", component: ChartManager },
+  { path: "/ChartManager/:id", name: "chartManager", component: ChartManager },
+  { path: "/Dashboard", name: "Dashboard", component: Dashboard },
   { path: "/Clock/:id", name: "clock", component: Clock },
   { path: "/Profile/:id", name: "profile", component: Profile },
   { path: "/working-times/:id", name: "workingtime", component: wtRender },

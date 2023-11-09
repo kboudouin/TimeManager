@@ -86,7 +86,23 @@ onMounted(checkAdmin);
             <li>
               <a
                 @click="Dashboard"
-                href="#"
+                style="cursor: pointer"
+                class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+              >
+                <span
+                  class="inline-flex scale-125 justify-center items-center ml-4"
+                >
+                  🖥️
+                </span>
+                <span class="ml-2 text-sm tracking-wide truncate"
+                  >Dashboard</span
+                >
+              </a>
+            </li>
+            <li>
+              <a
+                @click="Charts"
+                style="cursor: pointer"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
@@ -94,16 +110,13 @@ onMounted(checkAdmin);
                 >
                   📊
                 </span>
-                <span
-                  @click="Dashboard"
-                  class="ml-2 text-sm tracking-wide truncate"
-                  >Dashboard</span
-                >
+                <span class="ml-2 text-sm tracking-wide truncate">Charts</span>
               </a>
             </li>
             <li v-if="isAdmin">
               <a
                 @click="Admin"
+                style="cursor: pointer"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
@@ -111,10 +124,7 @@ onMounted(checkAdmin);
                 >
                   🛠
                 </span>
-                <span
-                  @click="Dashboard"
-                  class="ml-2 text-sm tracking-wide truncate"
-                >
+                <span class="ml-2 text-sm tracking-wide truncate">
                   Admin Dashboard
                 </span>
               </a>
@@ -122,7 +132,7 @@ onMounted(checkAdmin);
             <li>
               <a
                 @click="Clock"
-                href="#"
+                style="cursor: pointer"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
@@ -130,12 +140,7 @@ onMounted(checkAdmin);
                 >
                   ⏱️
                 </span>
-                <span
-                  @click="Clock"
-                  class="ml-2 text-sm tracking-wide truncate"
-                >
-                  My Clock</span
-                >
+                <span class="ml-2 text-sm tracking-wide truncate"> Clock</span>
               </a>
             </li>
             <li>
@@ -150,7 +155,7 @@ onMounted(checkAdmin);
                   🕝
                 </span>
                 <span class="ml-2 text-sm tracking-wide truncate"
-                  >My Workingtimes</span
+                  >Workingtimes</span
                 >
               </a>
             </li>
@@ -162,6 +167,7 @@ onMounted(checkAdmin);
             <li>
               <a
                 @click="Profile"
+                style="cursor: pointer"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
@@ -175,6 +181,7 @@ onMounted(checkAdmin);
             <li>
               <a
                 @click="Teams"
+                style="cursor: pointer"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
@@ -188,6 +195,7 @@ onMounted(checkAdmin);
             <li>
               <a
                 @click="Logout"
+                style="cursor: pointer"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span
@@ -226,8 +234,8 @@ export default {
       router.replace("/");
       this.$emit("userConnected");
     },
-    Dashboard() {
-      router.push("/dashboard/" + localStorage.getItem("userId"));
+    Charts() {
+      router.push("/ChartManager/" + localStorage.getItem("userId"));
     },
     Clock() {
       router.push("/clock/" + localStorage.getItem("userId"));
@@ -243,6 +251,9 @@ export default {
     },
     Teams() {
       router.push("/Teams/" + localStorage.getItem("userId"));
+    },
+    Dashboard() {
+      router.push("/Dashboard");
     },
   },
 };

@@ -207,7 +207,7 @@ export default {
           localStorage.setItem("token", response.data.token);
 
           // Proceed with navigation and user feedback
-          router.push("/dashboard/" + response.data.user.id);
+          router.push("/Dashboard");
           this.$emit("userConnected");
           const $toast = useToast();
           $toast.success("Logged in!");
