@@ -20,6 +20,7 @@
               <h2>Leader: {{ team.leader }}</h2>
               <h2>Membres: {{ team.members }}</h2>
             </template>
+            <div class="divider lg:divider-horizontal"></div>
           </div>
           <div v-if="index !== 1" class="divider lg:divider-horizontal"></div>
         </div>
@@ -37,15 +38,6 @@ export default {
       EMAIL: null,
       selectedMembers: [],
       LIST: [],
-      items: [
-        { text: 'test testte 1' },
-        { text: 'test testte 2' },
-        { text: 'test testte 3' },
-        { text: 'test testte 4' },
-        { text: 'test testte 5' },
-        { text: 'test testte 6' },
-        { text: 'test testte 7' },
-      ],
       teams: [
         { id: 1, leader: 'John Doe', members: 'membres' },
         { id: 2, leader: 'Jane Doe', members: 'membres' },
