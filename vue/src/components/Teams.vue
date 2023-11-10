@@ -1,4 +1,5 @@
 <template>
+  <h1> TEAM</h1>
   <div class="container mx-auto py-4">
     <h1 class="text-3xl font-semibold mb-4">Gestion des équipes</h1>
 
