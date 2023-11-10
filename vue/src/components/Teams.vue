@@ -28,25 +28,25 @@
             </div>
   </div> 
   <div class="carousel-item">
-    <img src="https://etudestech.com/wp-content/uploads/2022/12/entreprise-informatique-scaled.jpeg" alt="Burger" />
+
     <div class="bg-white p-4 rounded">
               <p>Your content here</p>
             </div>
   </div> 
   <div class="carousel-item">
-    <img src="https://etudestech.com/wp-content/uploads/2022/12/entreprise-informatique-scaled.jpeg" alt="Burger" />
+
     <div class="bg-white p-4 rounded">
               <p>Your content here</p>
             </div>
   </div> 
   <div class="carousel-item">
-    <img src="https://etudestech.com/wp-content/uploads/2022/12/entreprise-informatique-scaled.jpeg" alt="Burger" />
+
     <div class="bg-white p-4 rounded">
               <p>Your content here</p>
             </div>
   </div> 
   <div class="carousel-item">
-    <img src="https://etudestech.com/wp-content/uploads/2022/12/entreprise-informatique-scaled.jpeg" alt="Burger" />
+
     <div class="bg-white p-4 rounded">
               <p>Your content here</p>
             </div>
