@@ -6,22 +6,16 @@
     <!-- Section "Mes équipes" -->
     <h2 class="text-xl font-semibold mb-4">Mes équipes</h2>
 
-    <!-- Use the carousel component -->
-    <Carousel :autoplay="true" :autoplaySpeed="3000">
-      <div v-for="(item, index) in items" :key="index" class="carousel-item">
-        <p>{{ item.text }}</p>
-      </div>
-    </Carousel>
+
   </div>
 </template>
 
 <script>
-import Carousel from 'vue-slick-carousel';
-import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+
 
 export default {
   components: {
-    Carousel,
+ 
   },
   data() {
     return {
@@ -39,6 +33,7 @@ export default {
         { text: 'test testte 6' },
         { text: 'test testte 7' },
       ],
+
     };
   },
   created() {
@@ -51,5 +46,5 @@ export default {
 </script>
 
 <style>
-/* Add any custom styles for your carousel here */
+
 </style>
