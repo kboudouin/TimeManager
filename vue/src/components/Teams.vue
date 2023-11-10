@@ -12,8 +12,8 @@
           :id="'slide' + (index + 1)"
           class="carousel-item relative w-full"
         >
-          <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <li
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div
               v-for="team in group"
               :key="team.id"
               class="bg-white p-4 rounded-lg shadow"
@@ -26,8 +26,8 @@
               >
                 Modifier
               </button>
-            </li>
-          </ul>
+            </div>
+          </div>
           <div
             class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
           >
@@ -51,23 +51,19 @@
     </section>
 
     <!-- Section "Toutes les équipes" -->
-
     <section class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Toutes les équipes</h2>
+
       <div class="carousel w-full">
         <div
-          v-for="(group, index) in groupedTeams"
+          v-for="(team, index) in allTeams"
           :key="index"
           :id="'slide' + (index + 1)"
           class="carousel-item relative w-full"
         >
-          <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <li
-              v-for="team in group"
-              :key="team.id"
-              class="bg-white p-4 rounded-lg shadow"
-            >
-              <h3 class="text-lg font-semibold">{{ team.name }}</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold">{{ team.leader }}</h3>
               <p class="text-gray-500">{{ team.description }}</p>
               <button
                 @click="editTeam(team.id)"
@@ -75,21 +71,23 @@
               >
                 Modifier
               </button>
-            </li>
-          </ul>
+            </div>
+            <!-- Add two more grid items for the other team members -->
+            <!-- Repeat the structure for the other team members -->
+          </div>
           <div
             class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
           >
             <a
               :href="
-                '#slide' + (index === 0 ? groupedTeams.length - 1 : index - 1)
+                '#slide' + (index === 0 ? allTeams.length - 1 : index - 1)
               "
               class="btn btn-circle"
               >❮</a
             >
             <a
               :href="
-                '#slide' + (index === groupedTeams.length - 1 ? 0 : index + 1)
+                '#slide' + (index === allTeams.length - 1 ? 0 : index + 1)
               "
               class="btn btn-circle"
               >❯</a
