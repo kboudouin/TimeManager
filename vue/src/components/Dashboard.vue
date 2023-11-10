@@ -50,7 +50,7 @@ const fetchData = async () => {
         {
           label: "Daily Working Hours",
           data: Object.values(workByDay),
-          backgroundColor: "#ed574c",
+          backgroundColor: "#ADD8E6",
         },
       ],
     };
@@ -92,13 +92,11 @@ const getDayString = (dateString) => {
     </div>
   </div>
   <div v-if="!loading">
-    <div className="flex justify-between ml-12" style="margin-bottom: -50px">
+    <div className="flex justify-between" style="margin-bottom: -40px">
       <h1 className="text-4xl font-bold ">Welcome back {{ username }} 👋</h1>
     </div>
 
-    <div
-      class="scale-95 grid md:grid-cols-2 sm:grid-cols-1 gap-6 grid-rows-3 p-12"
-    >
+    <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-6 grid-rows-3 p-12">
       <!-- Clock -->
       <div class="bg-base-200 rounded-lg transition-shadow hover:shadow-xl">
         <Clock style="max-height: 320px; overflow-y: auto"></Clock>
@@ -110,13 +108,13 @@ const getDayString = (dateString) => {
         style="max-height: 320px; overflow-y: auto"
       >
         <h1 className="text-4xl font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-3xl font-bold ">This is dashboard 🖥️</h1>
-        <h1 className="text-2xl font-bold ">This is dashboard 🖥️</h1>
-        <h1 className="text-xl font-bold ">This is dashboard 🖥️</h1>
-        <h1 className="text-lg font-bold ">This is dashboard 🖥️</h1>
-        <h1 className="text-base font-bold ">This is dashboard 🖥️</h1>
-        <h1 className="text-sm font-bold ">This is dashboard 🖥️</h1>
-        <h1 className="text-xs font-bold ">This is dashboard 🖥️</h1>
+        <h1 className="text-3xl font-extrabold ">This is dashboard 🖥️</h1>
+        <h1 className="text-2xl font-extrabold ">This is dashboard 🖥️</h1>
+        <h1 className="text-xl font-extrabold ">This is dashboard 🖥️</h1>
+        <h1 className="text-lg font-extrabold ">This is dashboard 🖥️</h1>
+        <h1 className="text-base font-extrabold ">This is dashboard 🖥️</h1>
+        <h1 className="text-sm font-extrabold ">This is dashboard 🖥️</h1>
+        <h1 className="text-xs font-extrabold ">This is dashboard 🖥️</h1>
       </div>
 
       <!-- Daily Chart -->
