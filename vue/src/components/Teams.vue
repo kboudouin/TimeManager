@@ -73,8 +73,48 @@
         >
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div class="bg-white p-4 rounded-lg shadow">
-              <h3 class="text-lg font-semibold">{{ team.leader }}</h3>
-              <p class="text-gray-500">{{ team.description }}</p>
+              <h3 class="text-lg font-semibold"> TESTETEST{{ team.leader }}</h3>
+              <p class="text-gray-500">DOHFOGHFGHFGIQGHI{{ team.description }}</p>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold"> TESTETEST{{ team.leader }}</h3>
+              <p class="text-gray-500">DOHFOGHFGHFGIQGHI{{ team.description }}</p>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold"> TESTETEST{{ team.leader }}</h3>
+              <p class="text-gray-500">DOHFOGHFGHFGIQGHI{{ team.description }}</p>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold"> TESTETEST{{ team.leader }}</h3>
+              <p class="text-gray-500">DOHFOGHFGHFGIQGHI{{ team.description }}</p>
+              <button
+                @click="editTeam(team.id)"
+                class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Modifier
+              </button>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold"> TESTETEST{{ team.leader }}</h3>
+              <p class="text-gray-500">DOHFOGHFGHFGIQGHI{{ team.description }}</p>
               <button
                 @click="editTeam(team.id)"
                 class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
