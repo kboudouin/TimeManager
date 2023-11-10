@@ -71,6 +71,9 @@
           :id="'slide' + (index + 1)"
           class="carousel-item relative w-full"
         >
+
+        <div> ceci est un paragraphe</div>
+
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div class="bg-white p-4 rounded-lg shadow">
               <h3 class="text-lg font-semibold"> TESTETEST{{ team.leader }}</h3>
