@@ -7,73 +7,24 @@
     <h2 class="text-xl font-semibold mb-4">Mes équipes</h2>
 
     <div class="carousel rounded-box">
-  <div class="carousel-item">
-    <div class="flex flex-col w-full lg:flex-row">
-  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"> 
-    <h1>Equipe ID</h1>
-    <h2>Leader : John Doe</h2>
-    <h2>Membres : membres</h2>
-    </div> 
-  <div class="divider lg:divider-horizontal"></div> 
-  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><h1>Equipe ID</h1>
-    <h2>Leader : John Doe</h2>
-    <h2>Membres : membres</h2>
-    </div> 
-  <div class="divider lg:divider-horizontal"></div> 
-  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center"><h1>Equipe ID</h1>
-    <h2>Leader : John Doe</h2>
-    <h2>Membres : membres</h2>
-    </div> 
-</div>
-
-  </div> 
-  <div class="carousel-item">
-    <div class="bg-white p-4 rounded">
-              <p>Your content here</p>
-            </div>
-  </div> 
-  <div class="carousel-item">
-    <div class="bg-white rounded">
-              <p class="black">Your content here</p>
-            </div>
-  </div> 
-  <div class="carousel-item">
-
-    <div class="bg-white rounded">
-      <p class="black">Your content here</p>
-            </div>
-  </div> 
-  <div class="carousel-item">
-
-    <div class="bg-white rounded">
-      <p class="black">Your content here</p>
-            </div>
-  </div> 
-  <div class="carousel-item">
-
-    <div class="bg-white rounded">
-      <p class="black">Your content here</p>
-            </div>
-  </div> 
-  <div class="carousel-item">
-
-    <div class="bg-white p-4 rounded">
-              <p>Your content here</p>
-            </div>
-  </div>
-</div>
-
-
+      <div class="carousel-item" v-for="team in teams" :key="team.id">
+        <div class="flex flex-col w-full lg:flex-row">
+          <div v-for="index in 3" :key="index" class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+            <template v-if="team.members">
+              <h1>Equipe ID: {{ team.id }}</h1>
+              <h2>Leader: {{ team.leader }}</h2>
+              <h2>Membres: {{ team.members }}</h2>
+            </template>
+          </div>
+          <div v-if="index !== 3" class="divider lg:divider-horizontal"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-
-
 export default {
-  components: {
- 
-  },
   data() {
     return {
       userUsername: null,
@@ -90,7 +41,11 @@ export default {
         { text: 'test testte 6' },
         { text: 'test testte 7' },
       ],
-
+      teams: [
+        { id: 1, leader: 'John Doe', members: 'membres' },
+        { id: 2, leader: 'Jane Doe', members: 'membres' },
+        // Add more teams as needed
+      ],
     };
   },
   created() {
@@ -103,5 +58,4 @@ export default {
 </script>
 
 <style>
-
 </style>
