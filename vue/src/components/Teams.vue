@@ -127,16 +127,31 @@ export default {
 
   setup() {
     const teams = [
-      // Ajoutez d'autres équipes ici
-    ];
+    {
+      leader: "John Doe",
+      description: "Team A - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      members: [
+        { name: "Alice", surname: "Doe", description: "Lorem ipsum dolor sit amet." },
+        { name: "Bob", surname: "Doe", description: "Consectetur adipiscing elit." },
+        // Add more members as needed
+      ],
+    },
+    {
+      leader: "Jane Smith",
+      description: "Team B - Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+      members: [
+        { name: "Charlie", surname: "Smith", description: "Duis aute irure dolor in reprehenderit." },
+        { name: "David", surname: "Smith", description: "Excepteur sint occaecat cupidatat non proident." },
 
-    onMounted(() => {
+      ],
+    },
+//team
+  ];
 
-    });
 
-    return {
-   
-    };
-  },
+  return {
+    teams,
+  };
+},
 };
 </script>
