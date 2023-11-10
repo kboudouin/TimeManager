@@ -21,26 +21,26 @@
             </div>
   </div> 
   <div class="carousel-item">
-    <div class="bg-white p-4 rounded">
-              <p>Your content here</p>
+    <div class="bg-white rounded">
+              <p class="black">Your content here</p>
             </div>
   </div> 
   <div class="carousel-item">
 
-    <div class="bg-white p-4 rounded">
-              <p>Your content here</p>
+    <div class="bg-white rounded">
+      <p class="black">Your content here</p>
             </div>
   </div> 
   <div class="carousel-item">
 
-    <div class="bg-white p-4 rounded">
-              <p>Your content here</p>
+    <div class="bg-white rounded">
+      <p class="black">Your content here</p>
             </div>
   </div> 
   <div class="carousel-item">
 
-    <div class="bg-white p-4 rounded">
-              <p>Your content here</p>
+    <div class="bg-white rounded">
+      <p class="black">Your content here</p>
             </div>
   </div> 
   <div class="carousel-item">
