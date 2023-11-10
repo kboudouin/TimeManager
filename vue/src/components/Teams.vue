@@ -4,7 +4,7 @@
     <h1 class="text-3xl font-semibold mb-4">Team Management</h1>
 
     <!-- Section "Mes équipes" -->
-    <h2 class="text-xl font-semibold mb-4">My teams</h2>
+    <h2 class="text-xl font-semibold mb-4">My teams (snap to see more)</h2>
 
     <div class="carousel rounded-box">
       <div class="carousel-item" v-for="team in teams" :key="team.id">
@@ -16,7 +16,7 @@
               <h2>Membres: {{ team.members }}</h2>
             </template>
           </div>
-          <div v-if="index !== 3" class="divider lg:divider-horizontal"></div>
+          <div v-if="index !== 1" class="divider lg:divider-horizontal"></div>
         </div>
       </div>
     </div>
