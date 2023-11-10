@@ -8,25 +8,59 @@
 
     <div class="carousel rounded-box">
   <div class="carousel-item">
-    <img src="https://www.nasdaq.com/sites/acquia.prod/files/image/29525db076bcc42505a356e55dbe94f38b28530b_getty-stock-market-data.jpg?247513527" alt="Burger" />
+    <div class="flex flex-col w-full lg:flex-row">
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
+  <div class="divider lg:divider-horizontal">OR</div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
+</div>
+
   </div> 
   <div class="carousel-item">
-    <img src="/images/stock/photo-1565098772267-60af42b81ef2.jpg" alt="Burger" />
+    <div class="flex flex-col w-full lg:flex-row">
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
+  <div class="divider lg:divider-horizontal">OR</div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
+</div>
+
+  </div> 
+
+  <div class="carousel-item">
+    <div class="flex flex-col w-full lg:flex-row">
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
+  <div class="divider lg:divider-horizontal">OR</div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
+</div>
+
   </div> 
   <div class="carousel-item">
-    <img src="/images/stock/photo-1572635148818-ef6fd45eb394.jpg" alt="Burger" />
+    <div class="flex flex-col w-full lg:flex-row">
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
+  <div class="divider lg:divider-horizontal">OR</div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
+</div>
+
   </div> 
   <div class="carousel-item">
-    <img src="/images/stock/photo-1494253109108-2e30c049369b.jpg" alt="Burger" />
+    <div class="flex flex-col w-full lg:flex-row">
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
+  <div class="divider lg:divider-horizontal">OR</div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
+</div>
+
   </div> 
   <div class="carousel-item">
-    <img src="/images/stock/photo-1550258987-190a2d41a8ba.jpg" alt="Burger" />
+    <div class="flex flex-col w-full lg:flex-row">
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
+  <div class="divider lg:divider-horizontal">OR</div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
+</div>
   </div> 
   <div class="carousel-item">
-    <img src="/images/stock/photo-1559181567-c3190ca9959b.jpg" alt="Burger" />
-  </div> 
-  <div class="carousel-item">
-    <img src="/images/stock/photo-1601004890684-d8cbf643f5f2.jpg" alt="Burger" />
+    <div class="flex flex-col w-full lg:flex-row">
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
+  <div class="divider lg:divider-horizontal">OR</div> 
+  <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
+</div>
   </div>
 </div>
 
