@@ -6,6 +6,7 @@ import { useRoute } from "vue-router";
 import router from "../router";
 import axios from "axios";
 import Clock from "./Clock.vue";
+import teamWidget from "./teamWidget.vue";
 import wtRender from "./workingTimes/wtRender.vue";
 import "chart.js/auto";
 
@@ -102,19 +103,12 @@ const getDayString = (dateString) => {
         <Clock style="max-height: 320px; overflow-y: auto"></Clock>
       </div>
 
-      <!-- Dashboard -->
+      <!-- Teams-->
       <div
         class="bg-base-200 rounded-lg transition-shadow hover:shadow-xl p-4"
         style="max-height: 320px; overflow-y: auto"
       >
-        <h1 className="text-4xl font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-3xl font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-2xl font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-xl font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-lg font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-base font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-sm font-extrabold ">This is dashboard 🖥️</h1>
-        <h1 className="text-xs font-extrabold ">This is dashboard 🖥️</h1>
+        <teamWidget></teamWidget>
       </div>
 
       <!-- Daily Chart -->
