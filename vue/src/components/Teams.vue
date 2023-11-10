@@ -1,15 +1,15 @@
 <template>
   <div>
     <h1>TEAM</h1>
-    <h1 class="text-3xl font-semibold mb-4">Gestion des équipes</h1>
+    <h1 class="text-3xl font-semibold mb-4">Team Management</h1>
 
     <!-- Section "Mes équipes" -->
-    <h2 class="text-xl font-semibold mb-4">Mes équipes</h2>
+    <h2 class="text-xl font-semibold mb-4">My teams</h2>
 
     <div class="carousel rounded-box">
       <div class="carousel-item" v-for="team in teams" :key="team.id">
         <div class="flex flex-col w-full lg:flex-row">
-          <div v-for="index in 3" :key="index" class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+          <div v-for="index in 3" :key="index" class="grid flex-grow h-80 card bg-base-300 rounded-box place-items-center">
             <template v-if="team.members">
               <h1>Equipe ID: {{ team.id }}</h1>
               <h2>Leader: {{ team.leader }}</h2>
