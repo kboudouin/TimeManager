@@ -10,14 +10,15 @@ const createEvent = () => {
   <section class="workingTimes rounded-xl">
     <div class="workingTimes-header">
       <!-- BUTTON TO ADD A NEW WORKING TIME -->
-      <button style="background: blue" @click="createEvent">
+      <button class="btn bg-base-300 border hover:scale-105" @click="createEvent">
         Ajouter un temps de travail
       </button>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg z-10 mt-12">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
           <tr>
             <th scope="col" class="px-6 py-3">Debut</th>
             <th scope="col" class="px-6 py-3">Fin</th>
@@ -30,7 +31,8 @@ const createEvent = () => {
           <WorkingTimeVue
             v-for="item in store.workingTimes"
             :key="Math.random() + item.user"
-            :data="item" />
+            :data="item"
+          />
         </tbody>
       </table>
     </div>
