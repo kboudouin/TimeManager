@@ -46,14 +46,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
-import { ref, watch, onMounted } from "vue";
-import addTeamModal from "./adminTeamAdd.vue";
-import { useToast } from "vue-toast-notification";
-import axios from "axios";
-
->>>>>>> parent of d679915 (test)
 export default {
   data() {
     return {
@@ -63,9 +55,9 @@ export default {
       selectedMembers: [],
       LIST: [],
       teams: [
-        { id: 1, leader: 'John Doe', members: 'membres1' },
-        { id: 2, leader: 'Jane Doe', members: 'membres2' },
-        { id: 3, leader: 'Doe Doe', members: 'membres3' },
+        { id: 1, leader: "John Doe", members: "membres1" },
+        { id: 2, leader: "Jane Doe", members: "membres2" },
+        { id: 3, leader: "Doe Doe", members: "membres3" },
         // Add more teams as needed
       ],
     };
@@ -114,17 +106,25 @@ export default {
   },
   created() {
     // Récupérez la valeur depuis le localStorage
-    this.userUsername = localStorage.getItem('userUsername');
-    this.id = localStorage.getItem('userId');
-    this.EMAIL = localStorage.getItem('userEmail');
+    this.userUsername = localStorage.getItem("userUsername");
+    this.id = localStorage.getItem("userId");
+    this.EMAIL = localStorage.getItem("userEmail");
   },
   methods: {
     getDividers(team) {
       // You can modify this function to select dividers based on your logic.
       return [
         { id: team.id, leader: team.leader, members: team.members },
-        { id: team.id + 1, leader: team.leader + '1', members: team.members + '1' },
-        { id: team.id + 2, leader: team.leader + '2', members: team.members + '2' },
+        {
+          id: team.id + 1,
+          leader: team.leader + "1",
+          members: team.members + "1",
+        },
+        {
+          id: team.id + 2,
+          leader: team.leader + "2",
+          members: team.members + "2",
+        },
       ];
     },
   },
