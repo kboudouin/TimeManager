@@ -20,16 +20,65 @@
               <h2>Leader: {{ team.leader }}</h2>
               <h2>Membres: {{ team.members }}</h2>
             </template>
-            
           </div>
           <div v-if="index !== 1" class="divider lg:divider-horizontal"></div>
         </div>
       </div>
     </div>
+    
+    <button @click="toggleAddModal" class="btn btn-success fixed top-4 right-32">
+      Create Team
+    </button>
+
+    <div v-if="toggleAdd">
+      <addTeamModal @close="toggleAddModal" @fetchData="fetchData" />
+    </div>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg z-10 mt-12">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Manager</th>
+            <th scope="col" class="px-6 py-3">Members</th>
+            <th scope="col" class="px-6 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            v-for="team in teams">
+            <td class="px-6 py-4">
+              <span
+                class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
+                >{{ team.leader }}</span
+              >
+            </td>
+            <td class="px-6 py-4">
+              <span
+                class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
+                v-for="member in team.members"
+                >{{ member }}</span
+              >
+            </td>
+            <td class="px-6 py-4">
+              <button @click="deleteTeam(team.id)" class="btn btn-xs btn-error">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
+import { ref, watch, onMounted } from "vue";
+import addTeamModal from "./adminTeamAdd.vue";
+import { useToast } from "vue-toast-notification";
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -38,18 +87,63 @@ export default {
       EMAIL: null,
       selectedMembers: [],
       LIST: [],
+      toggleAdd: false,
       teams: [
-        { id: 1, leader: 'John Doe', members: 'membres' },
-        { id: 2, leader: 'Jane Doe', members: 'membres' },
+        { id: 1, leader: 'John Doe', members: ['member1', 'member2'] },
+        { id: 2, leader: 'Jane Doe', members: ['member3', 'member4'] },
         // Add more teams as needed
       ],
     };
   },
+  methods: {
+    fetchData: async function () {
+      try {
+        const token = localStorage.getItem("token");
+        const resp = await axios.get(`https://epitechproject.com/api/teams`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (resp.data.teams) {
+          this.teams = resp.data.teams;
+        }
+      } catch (error) {
+        const $toast = useToast();
+        $toast.error("Error fetching all teams!");
+        console.error(error);
+      }
+    },
+    deleteTeam: async function (id) {
+      try {
+        const token = localStorage.getItem("token");
+        const resp = await axios.delete(
+          `https://epitechproject.com/api/teams/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const $toast = useToast();
+        $toast.success("Team Deleted!");
+        this.fetchData();
+      } catch (error) {
+        const $toast = useToast();
+        $toast.error("Error deleting team!");
+        console.error(error);
+      }
+    },
+    toggleAddModal: function () {
+      this.toggleAdd = !this.toggleAdd;
+    },
+  },
   created() {
-    // Récupérez la valeur depuis le localStorage
     this.userUsername = localStorage.getItem('userUsername');
     this.id = localStorage.getItem('userId');
     this.EMAIL = localStorage.getItem('userEmail');
+  },
+  mounted() {
+    this.fetchData();
   },
 };
 </script>
