@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { ref, watch, onMounted } from "vue";
+import { ref } from "vue";
 import addTeamModal from "./adminTeamAdd.vue";
 import { useToast } from "vue-toast-notification";
 import axios from "axios";
@@ -96,7 +96,7 @@ export default {
     };
   },
   methods: {
-    fetchData: async function () {
+    async fetchData() {
       try {
         const token = localStorage.getItem("token");
         const resp = await axios.get(`https://epitechproject.com/api/teams`, {
@@ -113,17 +113,14 @@ export default {
         console.error(error);
       }
     },
-    deleteTeam: async function (id) {
+    async deleteTeam(id) {
       try {
         const token = localStorage.getItem("token");
-        const resp = await axios.delete(
-          `https://epitechproject.com/api/teams/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        await axios.delete(`https://epitechproject.com/api/teams/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const $toast = useToast();
         $toast.success("Team Deleted!");
         this.fetchData();
@@ -133,7 +130,7 @@ export default {
         console.error(error);
       }
     },
-    toggleAddModal: function () {
+    toggleAddModal() {
       this.toggleAdd = !this.toggleAdd;
     },
   },
