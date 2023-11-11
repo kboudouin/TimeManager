@@ -31,6 +31,14 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+=======
+import { ref, watch, onMounted } from "vue";
+import addTeamModal from "./adminTeamAdd.vue";
+import { useToast } from "vue-toast-notification";
+import axios from "axios";
+
+>>>>>>> parent of d679915 (test)
 export default {
   data() {
     return {
@@ -47,6 +55,51 @@ export default {
       ],
     };
   },
+<<<<<<< HEAD
+=======
+  methods: {
+    fetchData: async function () {
+      try {
+        const token = localStorage.getItem("token");
+        const resp = await axios.get(`https://epitechproject.com/api/teams`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (resp.data.teams) {
+          this.teams = resp.data.teams;
+        }
+      } catch (error) {
+        const $toast = useToast();
+        $toast.error("Error fetching all teams!");
+        console.error(error);
+      }
+    },
+    deleteTeam: async function (id) {
+      try {
+        const token = localStorage.getItem("token");
+        const resp = await axios.delete(
+          `https://epitechproject.com/api/teams/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const $toast = useToast();
+        $toast.success("Team Deleted!");
+        this.fetchData();
+      } catch (error) {
+        const $toast = useToast();
+        $toast.error("Error deleting team!");
+        console.error(error);
+      }
+    },
+    toggleAddModal: function () {
+      this.toggleAdd = !this.toggleAdd;
+    },
+  },
+>>>>>>> parent of d679915 (test)
   created() {
     // Récupérez la valeur depuis le localStorage
     this.userUsername = localStorage.getItem('userUsername');
