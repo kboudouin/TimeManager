@@ -10,10 +10,25 @@
       <div class="carousel-item" v-for="team in teams" :key="team.id">
         <div class="flex flex-col w-full lg:flex-row">
           <template v-for="(divider, index) in getDividers(team)" :key="index">
-            <div class="relative group grid flex-grow h-80 card bg-base-300 rounded-box place-items-center">
-              <div class="absolute top-2 left-2 cursor-pointer text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            <div
+              class="relative group grid flex-grow h-80 card bg-base-300 rounded-box place-items-center"
+            >
+              <div
+                class="absolute top-2 left-2 cursor-pointer text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
                 </svg>
               </div>
               <template v-if="divider.members">
@@ -55,8 +70,6 @@ export default {
       ],
     };
   },
-<<<<<<< HEAD
-=======
   methods: {
     fetchData: async function () {
       try {
@@ -99,7 +112,6 @@ export default {
       this.toggleAdd = !this.toggleAdd;
     },
   },
->>>>>>> parent of d679915 (test)
   created() {
     // Récupérez la valeur depuis le localStorage
     this.userUsername = localStorage.getItem('userUsername');
@@ -119,5 +131,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
