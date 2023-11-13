@@ -250,7 +250,7 @@ export default {
       router.push("/admin");
     },
     Teams() {
-      router.push("/Teams/" + localStorage.getItem("userId"));
+      router.push("/Teams");
     },
     Dashboard() {
       router.push("/Dashboard");

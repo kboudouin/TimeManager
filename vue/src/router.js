@@ -18,7 +18,7 @@ const routes = [
   { path: "/Clock/:id", name: "clock", component: Clock },
   { path: "/Profile/:id", name: "profile", component: Profile },
   { path: "/working-times/:id", name: "workingtime", component: wtRender },
-  { path: "/Teams/:id", name: "Teams", component: Teams },
+  { path: "/Teams", name: "Teams", component: Teams },
 ];
 
 const router = createRouter({

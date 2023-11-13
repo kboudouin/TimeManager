@@ -9,6 +9,7 @@ defmodule ApiWeb.WorkingtimeController do
 
   defp check_user_permission(%User{id: user_id, role: "admin"}, _requested_id, _action), do: :ok
   defp check_user_permission(%User{id: user_id, role: "employee"}, requested_id, _action) when user_id == requested_id, do: :ok
+  defp check_user_permission(%User{id: user_id, role: "manager"}, requested_id, _action) when user_id == requested_id, do: :ok
   defp check_user_permission(_, _, _), do: {:error, "Permission denied"}
 
   def index(conn, %{"userID" => user_id_string, "start" => start_dt, "end" => end_dt}) do

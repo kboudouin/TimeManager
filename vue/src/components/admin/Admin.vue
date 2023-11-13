@@ -5,7 +5,7 @@ import { useToast } from "vue-toast-notification";
 import axios from "axios";
 import router from "../../router";
 import teamsModal from "./AdminTeams.vue";
-
+import addModal from "./adminAdd.vue";
 import deleteModal from "./adminDelete.vue";
 import modifyModal from "./adminModify.vue";
 import chartModal from "../ChartManager.vue";
