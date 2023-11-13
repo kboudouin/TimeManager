@@ -13,16 +13,22 @@ defmodule ApiWeb.UserController do
   defp check_user_permission(_, _, _), do: {:error, "Permission denied"}
 
 
-  def index(conn, _params) do
-    current_user = Guardian.Plug.current_resource(conn)
+def index(conn, _params) do
+  current_user = Guardian.Plug.current_resource(conn)
 
-    case current_user.role do
-      "admin" ->
-        users = Users.list_users()
-        json(conn, %{users: users})
-      _ -> json(conn, %{error: "Permission denied"})
-    end
+  case current_user.role do
+    "admin" ->
+      users = Users.list_users()
+      json(conn, %{users: users})
+
+    "manager" ->
+      users = Users.list_users()
+      json(conn, %{users: users})
+
+    _ ->
+      json(conn, %{error: "Permission denied"})
   end
+end
 
   def create(conn, user_params) do
     case Users.create_user(user_params) do
