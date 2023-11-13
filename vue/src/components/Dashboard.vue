@@ -93,11 +93,11 @@ const getDayString = (dateString) => {
     </div>
   </div>
   <div v-if="!loading">
-    <div className="flex justify-between" style="margin-bottom: -40px">
-      <h1 className="text-4xl font-bold ">Welcome back {{ username }} 👋</h1>
+    <div className="flex justify-between">
+      <h1 className="text-4xl font-bold mb-6 ">Welcome back {{ username }} 👋</h1>
     </div>
 
-    <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-6 grid-rows-3 p-12">
+    <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-4">
       <!-- Clock -->
       <div class="bg-base-200 rounded-lg transition-shadow hover:shadow-xl">
         <Clock style="max-height: 320px; overflow-y: auto"></Clock>
