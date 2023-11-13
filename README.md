@@ -4,23 +4,33 @@ Last Updated: October 31, 2023
 
 ## Table of Contents
 
-# TIME MANAGER - Documentation
+1. [Introduction](#introduction)
+    - [Context](#context)
+    - [TIME MANAGER Application Overview](#time-manager-application-overview)
+    - [Key Features of TIME MANAGER](#key-features-of-time-manager)
 
-1. [Introduction](#Introduction)
 2. [Getting Started](#getting-started)
-   - [Installation](#installation)
-   - [Configuration](#configuration)
-3. [Tutorial](#tutorial)
-   - [Step 1: Configuration](#step-1-configuration)
-   - [Step 2: Getting Started](#step-2-getting-started)
-   - [Step 3: Advanced Usage](#step-3-advanced-usage)
-4. [User Guide](#user-guide)
-   - [Features](#features)
-   - [Usage Examples](#usage-examples)
-   - [FAQ](#faq)
-5. [Contributing](#contributing)
-6. [License](#license)
+    - [Installation](#installation)
+    - [Configuration](#configuration)
+        - [User Registration Documentation](#user-registration-documentation)
 
+3. [Tutorial](#tutorial)
+    - [Home Page](#home-page)
+    - [Menu](#menu)
+    - [Dashboard](#dashboard)
+    - [Charts](#charts)
+    - [Clock](#clock)
+    - [Workingtimes](#workingtimes)
+    - [Profile](#profile)
+    - [Teams](#teams)
+    - [Admins](#admins)
+    - [Logout](#logout)
+
+4. [Usage Examples](#usage-examples)
+
+5. [FAQ](#faq)
+
+6. [Credits](#credits)
 
 ## Introduction
 
