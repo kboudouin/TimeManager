@@ -1,11 +1,9 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { defineProps } from "vue";
-import { Bar } from "vue-chartjs";
 import { useRoute } from "vue-router";
 import router from "../router";
 import axios from "axios";
-import "chart.js/auto";
 
 const loading = ref(true);
 const myteams = ref(null);
@@ -68,7 +66,9 @@ onMounted(fetchData);
   </div>
   <div v-if="!loading">
     <div class="">
-      <span class="text-xl mb-4">My Teams 👥</span>
+      <div class="mb-4">
+        <span class="text-xl">My Teams 👥</span>
+      </div>
       <h1 v-if="myteams.length === 0" className="text-4xl font-extrabold ">
         You have no teams 🚫
       </h1>
