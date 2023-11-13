@@ -36,8 +36,7 @@ const deleteModal = (data) => {
 
 <template>
   <tr
-    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-  >
+    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     <td class="px-6 py-4">
       <span
         class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
@@ -54,18 +53,16 @@ const deleteModal = (data) => {
       <button
         style="background: #008cff; color: white; border: 0"
         @click="editModal(data)"
-        class="btn btn-xs btn-error"
-      >
-        Modifier
+        class="btn btn-xs btn-error">
+        Edit
       </button>
     </td>
     <td class="px-6 py-4">
       <button
         style="background: #f52525; color: white; border: 0"
         @click="deleteModal(data)"
-        class="btn btn-xs btn-error"
-      >
-        Supprimer
+        class="btn btn-xs btn-error">
+        Delete
       </button>
     </td>
   </tr>
