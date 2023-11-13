@@ -70,7 +70,7 @@ onMounted(fetchData);
     <div class="">
       <span class="text-xl mb-4">My Teams 👥</span>
       <h1 v-if="myteams.length === 0" className="text-4xl font-extrabold ">
-        You have no teams yet 🚫
+        You have no teams 🚫
       </h1>
       <div
         v-for="myteam in myteams"
