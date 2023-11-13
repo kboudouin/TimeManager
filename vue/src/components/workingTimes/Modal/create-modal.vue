@@ -50,7 +50,7 @@ const createWorkingTime = async () => {
         </button>
         <div class="px-6 py-6 lg:px-8">
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-            Creer un temps de travail
+            Create a working time
           </h3>
           <div v-if="loading" class="flex flex-col items-center">
             <svg
@@ -76,7 +76,7 @@ const createWorkingTime = async () => {
               <label
                 for="start-time"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Début</label
+                >Start</label
               >
               <input
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -87,7 +87,7 @@ const createWorkingTime = async () => {
               <label
                 for="end-time"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Fin</label
+                >End</label
               >
               <input
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -100,7 +100,7 @@ const createWorkingTime = async () => {
               type="submit"
               class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               @click="createWorkingTime">
-              Ajouter ce temps de travail
+              Add new working time
             </button>
           </form>
         </div>

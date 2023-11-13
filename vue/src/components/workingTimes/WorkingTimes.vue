@@ -11,7 +11,7 @@ const createEvent = () => {
     <div class="workingTimes-header">
       <!-- BUTTON TO ADD A NEW WORKING TIME -->
       <button class="btn bg-base-300 border hover:scale-105" @click="createEvent">
-        Ajouter un temps de travail
+        Add a working time
       </button>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg z-10 mt-12">
@@ -20,10 +20,10 @@ const createEvent = () => {
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
-            <th scope="col" class="px-6 py-3">Debut</th>
-            <th scope="col" class="px-6 py-3">Fin</th>
-            <th scope="col" class="px-6 py-3">Modifier</th>
-            <th scope="col" class="px-6 py-3">Supprimer</th>
+            <th scope="col" class="px-6 py-3">Started</th>
+            <th scope="col" class="px-6 py-3">Ended</th>
+            <th scope="col" class="px-6 py-3">Edit</th>
+            <th scope="col" class="px-6 py-3">Delete</th>
           </tr>
         </thead>
         <tbody>

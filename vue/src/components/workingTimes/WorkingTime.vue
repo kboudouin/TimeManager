@@ -75,7 +75,6 @@ const deleteModal = (data) => {
 ._workingTime {
   background: #2b2b2b;
   border-radius: 5px;
-  // border: 1px solid black;
   box-shadow: 0px 0px 2px 0px rgba(133, 133, 133, 0.75);
   width: 100%;
   height: 100%;

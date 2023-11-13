@@ -47,7 +47,7 @@ const deleteEvent = async () => {
         </button>
         <div class="px-6 py-6 lg:px-8">
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-            Supprimer ce temps de travail
+            Delete this working time
           </h3>
           <div v-if="loading" class="flex flex-col items-center">
             <svg
@@ -66,14 +66,14 @@ const deleteEvent = async () => {
             <span class="sr-only">Loading...</span>
           </div>
           <p>
-            Etes vous sur de vouloir supprimer ce temps de travail ? une fois
-            supprimer il ne sera plus possible de le recuperer.
+            Are you sure you want to cancel this working time? it will no longer
+            be possible to reclaim it.
           </p>
           <button
             type="submit"
             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             @click="deleteEvent">
-            Supprimer
+            Delete working time
           </button>
         </div>
       </div>
