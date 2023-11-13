@@ -147,7 +147,9 @@ The 'Profile' feature enables employers to make changes to specific fields in th
 
 Teams allows users to view all the teams they are members of. Managers have the ability to oversee multiple teams, create new ones, and delete existing ones. Meanwhile, administrators have full control over teams from their Admin panels.
 
-![team page](./assets/img_readme/teampage.png)
+![createteam](./assets/img_readme/allteams.png)
+
+![createnewteam](./assets/img_readme/addnewteams.png)
 
 ### Admins
 
@@ -159,15 +161,10 @@ The administrator can also create new accounts directly from this control panel.
 
 ![admincreateuser](./assets/img_readme/admincreateuser.png)
 
-sfdfssdf
+An administrator also possesses the capability to manage teams by reviewing, modifying, and deleting them, as well as adding new users to teams—provided they have the necessary permissions. This ensures that administrators have comprehensive control over team dynamics, allowing them to make informed decisions and efficiently adapt team structures as needed.
 
-![createteam](./assets/img_readme/createteam.png)
-
-sffsdsf
-
-![createnewteam](./assets/img_readme/createnewteam.png)
-
-sefsfsfdf
+![createteam](./assets/img_readme/adminteam.png)
+![createnewteam](./assets/img_readme/admincreateteam.png)
 
 ### Logout
 
