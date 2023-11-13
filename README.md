@@ -86,7 +86,7 @@ If users encounter any issues during the registration process, such as email ver
 
 ## Tutorial
 
-In order to utilise the application, you need to initially log in. If you don't already possess an account, you must commence by setting up one. Following that, you will be directed to the home page, where you will encounter a dashboard.
+In order to utilise the application, you need to initially log in. If you don't already possess an account, you must commence by setting up one. Following that, you will be directed to the home page, where you will encounter this homepage.
 
 ![home page](./assets/img_readme/homepage.png)
 
@@ -94,17 +94,22 @@ This is what you should observe if you are using this app for the first time.
 
 ### Menu
 
-You can utilise this menu to navigate throught the application and to access its various sections.
+You can use this menu to navigate throught the application and to access its various sections.
 
 ![menu](./assets/img_readme/menu.png)
 
 
 ### Dashboard
 
-The Dashboard enables the user to review the history of all their shifts. They can select a date range to view the number of hours worked and calculate the total in both days and hours to ensure they have not exceeded their allotted working hours. Conversely, if the employee has worked more than 40 hours, their salary will be doubled based on the hourly rate. If the employee has worked during the night, their salary will increase by 1.5 times their hourly rate. Additionally, the hours worked can be accrued as compensatory time, meaning that employees are not paid for these hours but can use them later to take time off.
-
+The dashboard provides users with an overview of all their functionalities, enabling them to quickly and efficiently familiarise themselves with the system, ultimately saving them time.
 
 ![dashboard](./assets/img_readme/dashboard1.png)
+
+
+
+### Charts
+
+Charts enables the user to review the history of all their shifts. They can select a date range to view the number of hours worked and calculate the total in both days and hours to ensure they have not exceeded their allotted working hours. Conversely, if the employee has worked more than 40 hours, their salary will be doubled based on the hourly rate. If the employee has worked during the night, their salary will increase by 1.5 times their hourly rate. Additionally, the hours worked can be accrued as compensatory time, meaning that employees are not paid for these hours but can use them later to take time off.
 
 ![date dashboard](./assets/img_readme/date_dashboard.png)
 
