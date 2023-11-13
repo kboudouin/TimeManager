@@ -23,13 +23,6 @@ if (id == undefined) {
   id = localStorage.getItem("userId");
 }
 
-// if (
-//   localStorage.getItem("userId") !== id &&
-//   localStorage.getItem("role") !== "admin"
-// ) {
-//   router.replace("/error");
-// }
-
 let interval;
 
 // Function to get all data

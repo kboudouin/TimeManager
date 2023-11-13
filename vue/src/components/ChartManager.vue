@@ -23,13 +23,6 @@ const loading = ref(true);
 const route = useRoute();
 let id = route.params.id;
 
-// if (
-//   localStorage.getItem("userId") !== id &&
-//   localStorage.getItem("role") !== "admin"
-// ) {
-//   router.replace("/error");
-// }
-
 const fetchData = async () => {
   loading.value = true;
   if (id == null && user) {
