@@ -150,6 +150,18 @@ Teams allows users to view all the teams they are members of. Managers have the 
 ### Admins
 
 sffsfssf
+![admin dashboard](./assets/img_readme/admindashboard.png)
+
+![admincreateuser](./assets/img_readme/admincreateuser.png)
+
+![createteam](./assets/img_readme/createteam.png)
+
+
+![createnewteam](./assets/img_readme/createnewteam.png)
+
+createnewteam
+
+admindashboard
 
 ### Logout
 
