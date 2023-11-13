@@ -12,7 +12,7 @@ const myteams = ref(null);
 
 const fetchData = async () => {
   loading.value = true;
-  let id = localStorage.getItem("userId");
+  let userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const resp = await axios.get(`https://epitechproject.com/api/teams`, {
     headers: {
@@ -27,7 +27,13 @@ const fetchData = async () => {
 
   if (resp.data.teams) {
     myteams.value = resp.data.teams;
-    console.log(myteams);
+    // Filter teams where the current user is either the leader or a member
+    myteams.value = resp.data.teams.filter(
+      (team) =>
+        team.leaderId.toString() === userId ||
+        team.members.some((member) => member.userid === userId)
+    );
+    console.log(myteams.value);
   }
 
   loading.value = false;
@@ -61,28 +67,31 @@ onMounted(fetchData);
     </div>
   </div>
   <div v-if="!loading">
-    <!-- <h1 v-if="!myteams" className="text-4xl font-extrabold ">
-      You have no teams yet 🚫
-    </h1> -->
     <div class="">
       <span class="text-xl mb-4">My Teams 👥</span>
+      <h1 v-if="myteams.length === 0" className="text-4xl font-extrabold ">
+        You have no teams yet 🚫
+      </h1>
       <div
         v-for="myteam in myteams"
         class="bg-base-100 p-6 shadow-xl rounded-xl mb-4"
       >
-        <h2>
+        <div class="mb-5">
           <span
             class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
             >{{ myteam.leader }}</span
           >
-        </h2>
-        <h2>
+        </div>
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+        >
           <span
-            class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
             v-for="member in myteam.members"
-            >{{ member.user }}</span
+            class="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
           >
-        </h2>
+            {{ member.user }}
+          </span>
+        </div>
       </div>
     </div>
   </div>
