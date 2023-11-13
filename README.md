@@ -143,6 +143,13 @@ The 'Profile' feature enables employers to make changes to specific fields in th
 
 ![profil](./assets/img_readme/profil.png)
 
+### Teams
+
+Teams allows users to view all the teams they are members of. Managers have the ability to oversee multiple teams, create new ones, and delete existing ones. Meanwhile, administrators have full control over teams from their Admin panels.
+
+### Admins
+
+sffsfssf
 
 ### Logout
 
