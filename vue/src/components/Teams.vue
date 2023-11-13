@@ -14,6 +14,16 @@ const members = ref([]);
 const allUsers = ref([]);
 const managers = ref([]);
 const users = ref([]);
+const userAcces = ref(false);
+
+const checkUser = async () => {
+  if (localStorage.getItem("role") == "manager") {
+    userAcces.value = true;
+  }
+  if (localStorage.getItem("role") == "admin") {
+    userAcces.value = true;
+  }
+};
 
 const fetchData = async () => {
   loading.value = true;
@@ -61,7 +71,6 @@ const getAllUsers = async () => {
     users.value = allUsers.value.filter((user) => user.role === "employee");
     loading.value = false;
   } catch (error) {
-    useToast().error("Error fetching users");
     console.error(error);
   }
 };
@@ -71,17 +80,14 @@ const createTeam = async () => {
   try {
     const token = localStorage.getItem("token");
 
-    const selectedManager = managers.value.find(
-      (mgr) => mgr.id === manager.value
-    );
     const teamMembers = members.value.map((member) => ({
       userid: member.id.toString(),
       user: member.username,
     }));
 
     const teamData = {
-      leaderId: selectedManager.id,
-      leader: selectedManager.username,
+      leaderId: localStorage.getItem("userId"),
+      leader: localStorage.getItem("userUsername"),
       members: teamMembers,
     };
 
@@ -91,15 +97,14 @@ const createTeam = async () => {
       },
     });
 
-    emit("close");
-    emit("fetchData");
+    fetchData();
     useToast().success("Team created successfully");
   } catch (error) {
     useToast().error("Error creating team");
     console.error(error);
   }
 };
-
+checkUser();
 onMounted(fetchData);
 onMounted(getAllUsers);
 </script>
@@ -130,13 +135,15 @@ onMounted(getAllUsers);
   </div>
   <div v-if="!loading">
     <div class="">
-      <span class="text-xl mb-4">My Teams 👥</span>
+      <div class="mb-4">
+        <span class="text-xl">My Teams 👥</span>
+      </div>
       <h1 v-if="myteams.length === 0" className="text-4xl font-extrabold ">
         You have no teams 🚫
       </h1>
       <div
         v-for="myteam in myteams"
-        class="bg-base-100 p-6 shadow-xl rounded-xl mb-4"
+        class="bg-base-200 p-6 shadow-xl rounded-xl mb-4"
       >
         <div class="mb-5">
           <span
@@ -158,9 +165,10 @@ onMounted(getAllUsers);
     </div>
   </div>
   <div
+    v-if="userAcces"
     tabindex="-1"
     aria-hidden="true"
-    class="fixed top-0 left-0 flex justify-center z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    class="top-0 left-0 flex justify-center z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
   >
     <div class="relative w-full max-w-md max-h-full">
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -188,33 +196,6 @@ onMounted(getAllUsers);
             <span class="sr-only">Loading...</span>
           </div>
           <form v-if="!loading" class="space-y-6" @submit.prevent="createTeam">
-            <div>
-              <label
-                for="manager"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Choose Manager</label
-              >
-              <select
-                v-model="manager"
-                id="manager"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              >
-                <option
-                  placeholder="Select a manager"
-                  value="Select a manager"
-                  disabled
-                >
-                  Select a manager
-                </option>
-                <option
-                  v-for="manager in managers"
-                  :key="manager.id"
-                  :value="manager.id"
-                >
-                  {{ manager.username }}
-                </option>
-              </select>
-            </div>
             <div>
               <label
                 for="members"
