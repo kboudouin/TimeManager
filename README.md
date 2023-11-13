@@ -86,7 +86,7 @@ If users encounter any issues during the registration process, such as email ver
 
 ## Tutorial
 
-In order to utilise the application, you need to initially log in. If you don't already possess an account, you must commence by setting up one. Following that, you will be directed to the home page, where you will encounter a dashboard.
+In order to utilise the application, you need to initially log in. If you don't already possess an account, you must commence by setting up one. Following that, you will be directed to the home page, where you will encounter this homepage.
 
 ![home page](./assets/img_readme/homepage.png)
 
