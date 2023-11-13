@@ -79,8 +79,8 @@ onMounted(fetchData);
         <div class="mb-5">
           <span
             class="bg-yellow-100 text-yellow-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
-            >{{ myteam.leader }}</span
-          >
+            >{{ myteam.leader }}
+          </span>
         </div>
         <div
           class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
